@@ -7,9 +7,9 @@ namespace RuleBuilder.Rule {
 		public string NewPassword(RNGCryptoServiceProvider csp) {
 			string password = string.Empty;
 			foreach (Component component in this.Components) {
-				if (component.CharacterSet.Characters.Length > 0) {
+				if (component.CharacterSet.Length > 0) {
 					for (int count = 0; count < component.MinCount; count++) {
-						password += component.CharacterSet.RandomCharacter(csp).ToString();
+						password += Random.RandomItem<char>(csp, component.CharacterSet).ToString();
 					}
 				}
 			}
@@ -37,7 +37,7 @@ namespace RuleBuilder.Rule {
 			List<char> chars = new List<char>();
 			HashSet<char> used = new HashSet<char>();
 			foreach (Component component in this.Components) {
-				foreach (char c in component.CharacterSet.Characters) {
+				foreach (char c in component.CharacterSet) {
 					if (!used.Contains(c)) {
 						chars.Add(c);
 						used.Add(c);

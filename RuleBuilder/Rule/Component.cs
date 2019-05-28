@@ -3,11 +3,11 @@ using System.Windows.Forms;
 
 namespace RuleBuilder.Rule {
 	internal class Component {
-		public CharacterSet CharacterSet { get; set; }
-		public uint MinCount { get; set; } = 0;
-		public virtual void CreateNameCell(DataGridViewCell cell) {
-			cell.ReadOnly = true;
-			cell.Value = this.CharacterSet.Label;
+		public Component(char[] characterSet, int minCount) {
+			this.CharacterSet = characterSet;
+			this.MinCount = minCount;
 		}
+		public char[] CharacterSet { get; set; }
+		public int MinCount { get; set; } = 0;
 	}
 }

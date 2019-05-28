@@ -26,28 +26,23 @@
 			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.Label lblLength;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditRule));
-			System.Windows.Forms.Label lblAdd;
 			System.Windows.Forms.Label lblSample;
-			System.Windows.Forms.NumericUpDown udPasswordLength;
 			System.Windows.Forms.Button cmdRefresh;
-			System.Windows.Forms.Button cmdCustom;
+			this.udPasswordLength = new System.Windows.Forms.NumericUpDown();
 			this.dgvComponents = new System.Windows.Forms.DataGridView();
-			this.colCharacterSet = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.componentsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.cboAdd = new System.Windows.Forms.ComboBox();
+			this.Characters = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.txtExample = new System.Windows.Forms.TextBox();
-			this.MinRequired = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.ruleSource = new System.Windows.Forms.BindingSource(this.components);
+			this.mnuComponents = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.customToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.btnDeleteRow = new System.Windows.Forms.Button();
 			lblLength = new System.Windows.Forms.Label();
-			lblAdd = new System.Windows.Forms.Label();
 			lblSample = new System.Windows.Forms.Label();
-			udPasswordLength = new System.Windows.Forms.NumericUpDown();
 			cmdRefresh = new System.Windows.Forms.Button();
-			cmdCustom = new System.Windows.Forms.Button();
-			((System.ComponentModel.ISupportInitialize)(udPasswordLength)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.udPasswordLength)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dgvComponents)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.componentsBindingSource)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.ruleSource)).BeginInit();
+			this.mnuComponents.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// lblLength
@@ -55,77 +50,65 @@
 			resources.ApplyResources(lblLength, "lblLength");
 			lblLength.Name = "lblLength";
 			// 
-			// lblAdd
-			// 
-			resources.ApplyResources(lblAdd, "lblAdd");
-			lblAdd.Name = "lblAdd";
-			// 
 			// lblSample
 			// 
 			resources.ApplyResources(lblSample, "lblSample");
 			lblSample.Name = "lblSample";
-			// 
-			// udPasswordLength
-			// 
-			udPasswordLength.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.ruleSource, "Length", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			resources.ApplyResources(udPasswordLength, "udPasswordLength");
-			udPasswordLength.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			udPasswordLength.Name = "udPasswordLength";
-			udPasswordLength.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			udPasswordLength.ValueChanged += new System.EventHandler(this.OnLengthUpdate);
 			// 
 			// cmdRefresh
 			// 
 			resources.ApplyResources(cmdRefresh, "cmdRefresh");
 			cmdRefresh.Name = "cmdRefresh";
 			cmdRefresh.UseVisualStyleBackColor = true;
-			cmdRefresh.Click += new System.EventHandler(this.RefreshClick);
+			cmdRefresh.Click += new System.EventHandler(this.OnRefreshClick);
+			// 
+			// udPasswordLength
+			// 
+			resources.ApplyResources(this.udPasswordLength, "udPasswordLength");
+			this.udPasswordLength.Maximum = new decimal(new int[] {
+            99,
+            0,
+            0,
+            0});
+			this.udPasswordLength.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.udPasswordLength.Name = "udPasswordLength";
+			this.udPasswordLength.Value = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+			this.udPasswordLength.ValueChanged += new System.EventHandler(this.OnLengthUpdate);
 			// 
 			// dgvComponents
 			// 
 			this.dgvComponents.AllowUserToAddRows = false;
-			this.dgvComponents.AllowUserToDeleteRows = false;
 			this.dgvComponents.AllowUserToResizeRows = false;
 			resources.ApplyResources(this.dgvComponents, "dgvComponents");
-			this.dgvComponents.AutoGenerateColumns = false;
 			this.dgvComponents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgvComponents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colCharacterSet,
-            this.MinRequired});
-			this.dgvComponents.DataSource = this.componentsBindingSource;
+            this.Characters});
+			this.dgvComponents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+			this.dgvComponents.MultiSelect = false;
 			this.dgvComponents.Name = "dgvComponents";
 			this.dgvComponents.RowHeadersVisible = false;
-			this.dgvComponents.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.OnGridUpdate);
-			this.dgvComponents.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.HandleError);
-			this.dgvComponents.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.AddCharacterSet);
+			this.dgvComponents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+			this.dgvComponents.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.OnCellClick);
+			this.dgvComponents.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.OnCellValueChange);
+			this.dgvComponents.CurrentCellDirtyStateChanged += new System.EventHandler(this.OnDirtyStateChange);
+			this.dgvComponents.SelectionChanged += new System.EventHandler(this.OnSelectionChange);
+			this.dgvComponents.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.OnDeletingRow);
 			// 
-			// colCharacterSet
+			// Characters
 			// 
-			this.colCharacterSet.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			resources.ApplyResources(this.colCharacterSet, "colCharacterSet");
-			this.colCharacterSet.Name = "colCharacterSet";
-			this.colCharacterSet.ReadOnly = true;
-			// 
-			// componentsBindingSource
-			// 
-			this.componentsBindingSource.DataMember = "Components";
-			this.componentsBindingSource.DataSource = this.ruleSource;
-			// 
-			// cboAdd
-			// 
-			resources.ApplyResources(this.cboAdd, "cboAdd");
-			this.cboAdd.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cboAdd.FormattingEnabled = true;
-			this.cboAdd.Name = "cboAdd";
-			this.cboAdd.SelectedIndexChanged += new System.EventHandler(this.AddRow);
+			this.Characters.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			resources.ApplyResources(this.Characters, "Characters");
+			this.Characters.Name = "Characters";
+			this.Characters.ReadOnly = true;
+			this.Characters.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
 			// 
 			// txtExample
 			// 
@@ -134,57 +117,74 @@
 			this.txtExample.Name = "txtExample";
 			this.txtExample.ReadOnly = true;
 			// 
-			// MinRequired
+			// mnuComponents
 			// 
-			this.MinRequired.DataPropertyName = "MinCount";
-			resources.ApplyResources(this.MinRequired, "MinRequired");
-			this.MinRequired.Name = "MinRequired";
+			this.mnuComponents.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripSeparator1,
+            this.customToolStripMenuItem});
+			this.mnuComponents.Name = "mnuComponents";
+			this.mnuComponents.ShowImageMargin = false;
+			resources.ApplyResources(this.mnuComponents, "mnuComponents");
 			// 
-			// ruleSource
+			// toolStripSeparator1
 			// 
-			this.ruleSource.DataSource = typeof(RuleBuilder.Rule.PasswordRule);
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
 			// 
-			// cmdCustom
+			// customToolStripMenuItem
 			// 
-			resources.ApplyResources(cmdCustom, "cmdCustom");
-			cmdCustom.Name = "cmdCustom";
-			cmdCustom.UseVisualStyleBackColor = true;
-			cmdCustom.Click += new System.EventHandler(this.AddCustom);
+			this.customToolStripMenuItem.Name = "customToolStripMenuItem";
+			resources.ApplyResources(this.customToolStripMenuItem, "customToolStripMenuItem");
+			this.customToolStripMenuItem.Click += new System.EventHandler(this.AddCustom);
+			// 
+			// dataGridViewTextBoxColumn1
+			// 
+			this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			resources.ApplyResources(this.dataGridViewTextBoxColumn1, "dataGridViewTextBoxColumn1");
+			this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+			this.dataGridViewTextBoxColumn1.ReadOnly = true;
+			this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			// 
+			// btnDeleteRow
+			// 
+			resources.ApplyResources(this.btnDeleteRow, "btnDeleteRow");
+			this.btnDeleteRow.Name = "btnDeleteRow";
+			this.btnDeleteRow.UseVisualStyleBackColor = true;
+			this.btnDeleteRow.Click += new System.EventHandler(this.OnDeleteRowClick);
 			// 
 			// EditRule
 			// 
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(cmdCustom);
+			this.Controls.Add(this.btnDeleteRow);
 			this.Controls.Add(cmdRefresh);
 			this.Controls.Add(this.txtExample);
 			this.Controls.Add(lblSample);
-			this.Controls.Add(lblAdd);
-			this.Controls.Add(this.cboAdd);
 			this.Controls.Add(this.dgvComponents);
-			this.Controls.Add(udPasswordLength);
+			this.Controls.Add(this.udPasswordLength);
 			this.Controls.Add(lblLength);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "EditRule";
 			this.ShowIcon = false;
 			this.ShowInTaskbar = false;
-			((System.ComponentModel.ISupportInitialize)(udPasswordLength)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.udPasswordLength)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dgvComponents)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.componentsBindingSource)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.ruleSource)).EndInit();
+			this.mnuComponents.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
 		}
 
 		#endregion
-		private System.Windows.Forms.BindingSource ruleSource;
-		private System.Windows.Forms.BindingSource componentsBindingSource;
 		private System.Windows.Forms.DataGridView dgvComponents;
-		private System.Windows.Forms.ComboBox cboAdd;
 		private System.Windows.Forms.TextBox txtExample;
-		private System.Windows.Forms.DataGridViewTextBoxColumn colCharacterSet;
-		private System.Windows.Forms.DataGridViewTextBoxColumn MinRequired;
+		private System.Windows.Forms.ContextMenuStrip mnuComponents;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+		private System.Windows.Forms.ToolStripMenuItem customToolStripMenuItem;
+		private System.Windows.Forms.NumericUpDown udPasswordLength;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Characters;
+		private System.Windows.Forms.Button btnDeleteRow;
 	}
 }

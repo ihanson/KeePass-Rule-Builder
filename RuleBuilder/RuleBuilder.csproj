@@ -59,6 +59,14 @@
     <Compile Include="Forms\EditRule.Designer.cs">
       <DependentUpon>EditRule.cs</DependentUpon>
     </Compile>
+    <Compile Include="NumberColumn\NumberCell.cs" />
+    <Compile Include="NumberColumn\NumberCellControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NumberColumn\NumberCellControl.Designer.cs">
+      <DependentUpon>NumberCellControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NumberColumn\NumberColumn.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -67,10 +75,10 @@
     <Compile Include="RuleBuilderExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rule\Component.cs" />
-    <Compile Include="Rule\CustomComponent.cs" />
+    <Compile Include="Rule\NamedCharacterSet.cs" />
     <Compile Include="Rule\IPasswordGenerator.cs" />
     <Compile Include="Rule\PasswordRule.cs" />
-    <Compile Include="Rule\CharacterSet.cs" />
+    <Compile Include="Rule\ICharacterSet.cs" />
     <Compile Include="Rule\Random.cs" />
   </ItemGroup>
   <ItemGroup>

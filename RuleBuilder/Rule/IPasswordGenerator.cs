@@ -1,7 +1,5 @@
-﻿using System.Security.Cryptography;
-
-namespace RuleBuilder.Rule {
+﻿namespace RuleBuilder.Rule {
 	internal interface IPasswordGenerator {
-		string NewPassword(RNGCryptoServiceProvider csp);
+		string NewPassword();
 	}
 }

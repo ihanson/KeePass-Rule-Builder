@@ -1,50 +1,50 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Security.Cryptography;
 
 namespace RuleBuilder.Rule {
 	internal class PasswordRule : IPasswordGenerator {
-		public string NewPassword(RNGCryptoServiceProvider csp) {
-			string password = string.Empty;
+		public string NewPassword() {
+			List<char> password = new List<char>();
 			foreach (Component component in this.Components) {
-				if (component.CharacterSet.Length > 0) {
+				HashSet<char> chars = new HashSet<char>(component.CharacterSet.Characters);
+				foreach (char c in this.Exclude) {
+					_ = chars.Remove(c);
+				}
+				if (chars.Count > 0) {
 					for (int count = 0; count < component.MinCount; count++) {
-						password += Random.RandomItem<char>(csp, component.CharacterSet).ToString();
+						password.Add(Random.RandomItem(chars));
 					}
 				}
 			}
-			password = this.FillToLength(csp, password);
-			char[] chars = password.ToCharArray();
-			Random.Shuffle(csp, chars);
-			return new string(chars);
+			this.FillToLength(password);
+			Random.Shuffle(password);
+			return string.Join(string.Empty, password);
 		}
-		private string FillToLength(RNGCryptoServiceProvider csp, string password) {
-			if (password.Length >= this.Length) {
-				return password;
+		private void FillToLength(List<char> password) {
+			if (password.Count >= this.Length) {
+				return;
 			}
-			char[] allCharacters = this.AllCharacters();
-			if (allCharacters.Length > 0) {
-				while (password.Length < this.Length) {
-					password += Random.RandomItem(csp, allCharacters);
+			HashSet<char> allCharacters = this.AllCharacters();
+			if (allCharacters.Count > 0) {
+				while (password.Count < this.Length) {
+					password.Add(Random.RandomItem(allCharacters));
 				}
 			}
-			return password;
+			return;
 		}
-
-		public uint Length { get; set; } = 32;
+		public int Length { get; set; } = 0;
+		public HashSet<char> Exclude { get; set; } = new HashSet<char>();
 		public BindingList<Component> Components { get; set; } = new BindingList<Component>();
-		private char[] AllCharacters() {
-			List<char> chars = new List<char>();
-			HashSet<char> used = new HashSet<char>();
+		private HashSet<char> AllCharacters() {
+			HashSet<char> chars = new HashSet<char>();
 			foreach (Component component in this.Components) {
-				foreach (char c in component.CharacterSet) {
-					if (!used.Contains(c)) {
-						chars.Add(c);
-						used.Add(c);
-					}
-				}
+				chars.UnionWith(component.CharacterSet.Characters);
 			}
-			return chars.ToArray();
+			foreach (char c in this.Exclude) {
+				_ = chars.Remove(c);
+			}
+			return chars;
 		}
 	}
 }

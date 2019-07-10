@@ -130,7 +130,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="lblLength.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 14</value>
+    <value>2, 7</value>
   </data>
   <data name="lblLength.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -151,48 +151,9 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lblLength.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>pnlRule</value>
   </data>
   <data name="&gt;&gt;lblLength.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <metadata name="lblSample.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>False</value>
-  </metadata>
-  <data name="lblSample.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left, Right</value>
-  </data>
-  <data name="lblSample.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="lblSample.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="lblSample.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 216</value>
-  </data>
-  <data name="lblSample.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 0, 2, 0</value>
-  </data>
-  <data name="lblSample.Size" type="System.Drawing.Size, System.Drawing">
-    <value>50, 13</value>
-  </data>
-  <data name="lblSample.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="lblSample.Text" xml:space="preserve">
-    <value>Example:</value>
-  </data>
-  <data name="&gt;&gt;lblSample.Name" xml:space="preserve">
-    <value>lblSample</value>
-  </data>
-  <data name="&gt;&gt;lblSample.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblSample.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;lblSample.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
   <metadata name="cmdRefresh.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -218,7 +179,7 @@
     <value>NoControl</value>
   </data>
   <data name="cmdRefresh.Location" type="System.Drawing.Point, System.Drawing">
-    <value>428, 210</value>
+    <value>417, 226</value>
   </data>
   <data name="cmdRefresh.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -239,10 +200,151 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;cmdRefresh.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <metadata name="lblSample.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="lblSample.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="lblSample.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblSample.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblSample.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 232</value>
+  </data>
+  <data name="lblSample.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="lblSample.Size" type="System.Drawing.Size, System.Drawing">
+    <value>50, 13</value>
+  </data>
+  <data name="lblSample.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="lblSample.Text" xml:space="preserve">
+    <value>Example:</value>
+  </data>
+  <data name="&gt;&gt;lblSample.Name" xml:space="preserve">
+    <value>lblSample</value>
+  </data>
+  <data name="&gt;&gt;lblSample.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblSample.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblSample.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <metadata name="label1.GenerateMember" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
+  <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 164</value>
+  </data>
+  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 2, 0</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 13</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Exclude:</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>pnlRule</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btnDeleteRow.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="btnDeleteRow.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="btnDeleteRow.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="btnDeleteRow.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnDeleteRow.Location" type="System.Drawing.Point, System.Drawing">
+    <value>312, 2</value>
+  </data>
+  <data name="btnDeleteRow.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="btnDeleteRow.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>20, 0, 20, 0</value>
+  </data>
+  <data name="btnDeleteRow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 23</value>
+  </data>
+  <data name="btnDeleteRow.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
+  <data name="btnDeleteRow.Text" xml:space="preserve">
+    <value>Delete Row</value>
+  </data>
+  <data name="&gt;&gt;btnDeleteRow.Name" xml:space="preserve">
+    <value>btnDeleteRow</value>
+  </data>
+  <data name="&gt;&gt;btnDeleteRow.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnDeleteRow.Parent" xml:space="preserve">
+    <value>pnlRule</value>
+  </data>
+  <data name="&gt;&gt;btnDeleteRow.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 6</value>
+  </data>
+  <data name="customToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 22</value>
+  </data>
+  <data name="customToolStripMenuItem.Text" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <metadata name="mnuComponents.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="mnuComponents.Size" type="System.Drawing.Size, System.Drawing">
+    <value>92, 32</value>
+  </data>
+  <data name="&gt;&gt;mnuComponents.Name" xml:space="preserve">
+    <value>mnuComponents</value>
+  </data>
+  <data name="&gt;&gt;mnuComponents.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="udPasswordLength.Location" type="System.Drawing.Point, System.Drawing">
-    <value>62, 12</value>
+    <value>49, 5</value>
   </data>
   <data name="udPasswordLength.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -260,10 +362,10 @@
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;udPasswordLength.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>pnlRule</value>
   </data>
   <data name="&gt;&gt;udPasswordLength.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>5</value>
   </data>
   <data name="dgvComponents.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -275,13 +377,13 @@
     <value>Characters</value>
   </data>
   <data name="dgvComponents.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 38</value>
+    <value>2, 29</value>
   </data>
   <data name="dgvComponents.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="dgvComponents.Size" type="System.Drawing.Size, System.Drawing">
-    <value>439, 167</value>
+    <value>423, 126</value>
   </data>
   <data name="dgvComponents.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -293,10 +395,94 @@
     <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dgvComponents.Parent" xml:space="preserve">
-    <value>$this</value>
+    <value>pnlRule</value>
   </data>
   <data name="&gt;&gt;dgvComponents.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="pnlRule.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="txtExclude.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="txtExclude.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Consolas, 9.75pt</value>
+  </data>
+  <data name="txtExclude.Location" type="System.Drawing.Point, System.Drawing">
+    <value>52, 160</value>
+  </data>
+  <data name="txtExclude.Size" type="System.Drawing.Size, System.Drawing">
+    <value>372, 23</value>
+  </data>
+  <data name="txtExclude.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
+  </data>
+  <data name="&gt;&gt;txtExclude.Name" xml:space="preserve">
+    <value>txtExclude</value>
+  </data>
+  <data name="&gt;&gt;txtExclude.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtExclude.Parent" xml:space="preserve">
+    <value>pnlRule</value>
+  </data>
+  <data name="&gt;&gt;txtExclude.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="pnlRule.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 35</value>
+  </data>
+  <data name="pnlRule.Size" type="System.Drawing.Size, System.Drawing">
+    <value>427, 186</value>
+  </data>
+  <data name="pnlRule.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;pnlRule.Name" xml:space="preserve">
+    <value>pnlRule</value>
+  </data>
+  <data name="&gt;&gt;pnlRule.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlRule.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pnlRule.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="rdoRule.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rdoRule.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="rdoRule.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="rdoRule.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 17</value>
+  </data>
+  <data name="rdoRule.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="rdoRule.Text" xml:space="preserve">
+    <value>Rule</value>
+  </data>
+  <data name="rdoRule.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;rdoRule.Name" xml:space="preserve">
+    <value>rdoRule</value>
+  </data>
+  <data name="&gt;&gt;rdoRule.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rdoRule.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;rdoRule.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
   <data name="txtExample.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -305,13 +491,13 @@
     <value>Consolas, 9.75pt</value>
   </data>
   <data name="txtExample.Location" type="System.Drawing.Point, System.Drawing">
-    <value>68, 215</value>
+    <value>66, 231</value>
   </data>
   <data name="txtExample.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="txtExample.Size" type="System.Drawing.Size, System.Drawing">
-    <value>354, 16</value>
+    <value>342, 16</value>
   </data>
   <data name="txtExample.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -326,88 +512,175 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;txtExample.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <metadata name="mnuComponents.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 6</value>
-  </data>
-  <data name="customToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 22</value>
-  </data>
-  <data name="customToolStripMenuItem.Text" xml:space="preserve">
-    <value>Custom</value>
-  </data>
-  <data name="mnuComponents.Size" type="System.Drawing.Size, System.Drawing">
-    <value>92, 32</value>
-  </data>
-  <data name="&gt;&gt;mnuComponents.Name" xml:space="preserve">
-    <value>mnuComponents</value>
-  </data>
-  <data name="&gt;&gt;mnuComponents.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>4</value>
   </data>
   <data name="dataGridViewTextBoxColumn1.HeaderText" xml:space="preserve">
     <value>Characters</value>
   </data>
-  <data name="btnDeleteRow.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
+  <data name="pnlProfile.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="btnDeleteRow.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="lbProfiles.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="btnDeleteRow.Location" type="System.Drawing.Point, System.Drawing">
-    <value>356, 9</value>
+  <data name="lbProfiles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
-  <data name="btnDeleteRow.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
+  <data name="lbProfiles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>427, 183</value>
   </data>
-  <data name="btnDeleteRow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>94, 24</value>
+  <data name="lbProfiles.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
-  <data name="btnDeleteRow.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;lbProfiles.Name" xml:space="preserve">
+    <value>lbProfiles</value>
   </data>
-  <data name="btnDeleteRow.Text" xml:space="preserve">
-    <value>Delete Row</value>
+  <data name="&gt;&gt;lbProfiles.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnDeleteRow.Name" xml:space="preserve">
-    <value>btnDeleteRow</value>
+  <data name="&gt;&gt;lbProfiles.Parent" xml:space="preserve">
+    <value>pnlProfile</value>
   </data>
-  <data name="&gt;&gt;btnDeleteRow.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;lbProfiles.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;btnDeleteRow.Parent" xml:space="preserve">
+  <data name="pnlProfile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 38</value>
+  </data>
+  <data name="pnlProfile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>427, 183</value>
+  </data>
+  <data name="pnlProfile.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;pnlProfile.Name" xml:space="preserve">
+    <value>pnlProfile</value>
+  </data>
+  <data name="&gt;&gt;pnlProfile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlProfile.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;btnDeleteRow.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;pnlProfile.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="rdoProfile.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rdoProfile.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="rdoProfile.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="rdoProfile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>66, 12</value>
+  </data>
+  <data name="rdoProfile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 17</value>
+  </data>
+  <data name="rdoProfile.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
+  </data>
+  <data name="rdoProfile.Text" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="rdoProfile.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;rdoProfile.Name" xml:space="preserve">
+    <value>rdoProfile</value>
+  </data>
+  <data name="&gt;&gt;rdoProfile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rdoProfile.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;rdoProfile.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="btnSave.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="btnSave.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnSave.Location" type="System.Drawing.Point, System.Drawing">
+    <value>248, 255</value>
+  </data>
+  <data name="btnSave.Size" type="System.Drawing.Size, System.Drawing">
+    <value>93, 23</value>
+  </data>
+  <data name="btnSave.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="btnSave.Text" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="&gt;&gt;btnSave.Name" xml:space="preserve">
+    <value>btnSave</value>
+  </data>
+  <data name="&gt;&gt;btnSave.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnSave.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btnSave.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btnDiscard.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="btnDiscard.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnDiscard.Location" type="System.Drawing.Point, System.Drawing">
+    <value>347, 255</value>
+  </data>
+  <data name="btnDiscard.Size" type="System.Drawing.Size, System.Drawing">
+    <value>93, 23</value>
+  </data>
+  <data name="btnDiscard.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="btnDiscard.Text" xml:space="preserve">
+    <value>Discard</value>
+  </data>
+  <data name="&gt;&gt;btnDiscard.Name" xml:space="preserve">
+    <value>btnDiscard</value>
+  </data>
+  <data name="&gt;&gt;btnDiscard.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnDiscard.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btnDiscard.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>50</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>463, 246</value>
+    <value>451, 290</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>420, 169</value>
+    <value>420, 250</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Password Rule</value>
-  </data>
-  <data name="&gt;&gt;Characters.Name" xml:space="preserve">
-    <value>Characters</value>
-  </data>
-  <data name="&gt;&gt;Characters.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
     <value>toolStripSeparator1</value>
@@ -420,6 +693,12 @@
   </data>
   <data name="&gt;&gt;customToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Characters.Name" xml:space="preserve">
+    <value>Characters</value>
+  </data>
+  <data name="&gt;&gt;Characters.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dataGridViewTextBoxColumn1.Name" xml:space="preserve">
     <value>dataGridViewTextBoxColumn1</value>

@@ -30,7 +30,7 @@
 			this.txtOldPassword = new System.Windows.Forms.TextBox();
 			this.txtNewPassword = new System.Windows.Forms.TextBox();
 			this.lblNewPassword = new System.Windows.Forms.Label();
-			this.button1 = new System.Windows.Forms.Button();
+			this.btnEditRule = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// btnDiscard
@@ -43,6 +43,7 @@
 			// btnSave
 			// 
 			resources.ApplyResources(this.btnSave, "btnSave");
+			this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.btnSave.Name = "btnSave";
 			this.btnSave.UseVisualStyleBackColor = true;
 			this.btnSave.Click += new System.EventHandler(this.SaveNewPassword);
@@ -68,12 +69,12 @@
 			resources.ApplyResources(this.lblNewPassword, "lblNewPassword");
 			this.lblNewPassword.Name = "lblNewPassword";
 			// 
-			// button1
+			// btnEditRule
 			// 
-			resources.ApplyResources(this.button1, "button1");
-			this.button1.Name = "button1";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.Button1_Click);
+			resources.ApplyResources(this.btnEditRule, "btnEditRule");
+			this.btnEditRule.Name = "btnEditRule";
+			this.btnEditRule.UseVisualStyleBackColor = true;
+			this.btnEditRule.Click += new System.EventHandler(this.EditRule);
 			// 
 			// ChangePassword
 			// 
@@ -81,7 +82,7 @@
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnDiscard;
-			this.Controls.Add(this.button1);
+			this.Controls.Add(this.btnEditRule);
 			this.Controls.Add(this.txtNewPassword);
 			this.Controls.Add(this.lblNewPassword);
 			this.Controls.Add(this.txtOldPassword);
@@ -105,6 +106,6 @@
 		private System.Windows.Forms.TextBox txtOldPassword;
 		private System.Windows.Forms.TextBox txtNewPassword;
 		private System.Windows.Forms.Label lblNewPassword;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button btnEditRule;
 	}
 }

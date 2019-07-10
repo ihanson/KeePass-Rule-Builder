@@ -10,12 +10,13 @@ namespace RuleBuilder.Forms {
 			this.txtNewPassword.Text = oldPassword;
 		}
 		private void SaveNewPassword(object sender, System.EventArgs e) {
-			this.Password = txtNewPassword.Text;
-			this.Close();
+			this.Password = this.txtNewPassword.Text;
 		}
 		public string Password { get; set; }
-		private void Button1_Click(object sender, System.EventArgs e) {
-			new EditRule().ShowDialog();
+		private Rule.IPasswordGenerator Generator { get; set; }
+		private void EditRule(object sender, System.EventArgs e) {
+			this.Generator = Forms.EditRule.ShowRuleDialog(this.Generator);
+			this.txtNewPassword.Text = this.Generator.NewPassword();
 		}
 	}
 }

@@ -77,8 +77,8 @@
     <Compile Include="Rule\Component.cs" />
     <Compile Include="Rule\NamedCharacterSet.cs" />
     <Compile Include="Rule\IPasswordGenerator.cs" />
+    <Compile Include="Rule\PasswordProfile.cs" />
     <Compile Include="Rule\PasswordRule.cs" />
-    <Compile Include="Rule\ICharacterSet.cs" />
     <Compile Include="Rule\Random.cs" />
   </ItemGroup>
   <ItemGroup>

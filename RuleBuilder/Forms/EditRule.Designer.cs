@@ -26,23 +26,35 @@
 			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.Label lblLength;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditRule));
-			System.Windows.Forms.Label lblSample;
 			System.Windows.Forms.Button cmdRefresh;
+			System.Windows.Forms.Label lblSample;
+			System.Windows.Forms.Label label1;
+			this.btnDeleteRow = new System.Windows.Forms.Button();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.customToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.mnuComponents = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.udPasswordLength = new System.Windows.Forms.NumericUpDown();
 			this.dgvComponents = new System.Windows.Forms.DataGridView();
 			this.Characters = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.pnlRule = new System.Windows.Forms.Panel();
+			this.txtExclude = new System.Windows.Forms.TextBox();
+			this.rdoRule = new System.Windows.Forms.RadioButton();
 			this.txtExample = new System.Windows.Forms.TextBox();
-			this.mnuComponents = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.customToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.btnDeleteRow = new System.Windows.Forms.Button();
+			this.pnlProfile = new System.Windows.Forms.Panel();
+			this.lbProfiles = new System.Windows.Forms.ListBox();
+			this.rdoProfile = new System.Windows.Forms.RadioButton();
+			this.btnSave = new System.Windows.Forms.Button();
+			this.btnDiscard = new System.Windows.Forms.Button();
 			lblLength = new System.Windows.Forms.Label();
-			lblSample = new System.Windows.Forms.Label();
 			cmdRefresh = new System.Windows.Forms.Button();
+			lblSample = new System.Windows.Forms.Label();
+			label1 = new System.Windows.Forms.Label();
+			this.mnuComponents.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.udPasswordLength)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dgvComponents)).BeginInit();
-			this.mnuComponents.SuspendLayout();
+			this.pnlRule.SuspendLayout();
+			this.pnlProfile.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// lblLength
@@ -50,17 +62,49 @@
 			resources.ApplyResources(lblLength, "lblLength");
 			lblLength.Name = "lblLength";
 			// 
-			// lblSample
-			// 
-			resources.ApplyResources(lblSample, "lblSample");
-			lblSample.Name = "lblSample";
-			// 
 			// cmdRefresh
 			// 
 			resources.ApplyResources(cmdRefresh, "cmdRefresh");
 			cmdRefresh.Name = "cmdRefresh";
 			cmdRefresh.UseVisualStyleBackColor = true;
 			cmdRefresh.Click += new System.EventHandler(this.OnRefreshClick);
+			// 
+			// lblSample
+			// 
+			resources.ApplyResources(lblSample, "lblSample");
+			lblSample.Name = "lblSample";
+			// 
+			// label1
+			// 
+			resources.ApplyResources(label1, "label1");
+			label1.Name = "label1";
+			// 
+			// btnDeleteRow
+			// 
+			resources.ApplyResources(this.btnDeleteRow, "btnDeleteRow");
+			this.btnDeleteRow.Name = "btnDeleteRow";
+			this.btnDeleteRow.UseVisualStyleBackColor = true;
+			this.btnDeleteRow.Click += new System.EventHandler(this.OnDeleteRowClick);
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+			// 
+			// customToolStripMenuItem
+			// 
+			this.customToolStripMenuItem.Name = "customToolStripMenuItem";
+			resources.ApplyResources(this.customToolStripMenuItem, "customToolStripMenuItem");
+			this.customToolStripMenuItem.Click += new System.EventHandler(this.AddCustom);
+			// 
+			// mnuComponents
+			// 
+			this.mnuComponents.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripSeparator1,
+            this.customToolStripMenuItem});
+			this.mnuComponents.Name = "mnuComponents";
+			this.mnuComponents.ShowImageMargin = false;
+			resources.ApplyResources(this.mnuComponents, "mnuComponents");
 			// 
 			// udPasswordLength
 			// 
@@ -110,32 +154,38 @@
 			this.Characters.ReadOnly = true;
 			this.Characters.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
 			// 
+			// pnlRule
+			// 
+			resources.ApplyResources(this.pnlRule, "pnlRule");
+			this.pnlRule.Controls.Add(this.txtExclude);
+			this.pnlRule.Controls.Add(label1);
+			this.pnlRule.Controls.Add(this.dgvComponents);
+			this.pnlRule.Controls.Add(this.btnDeleteRow);
+			this.pnlRule.Controls.Add(lblLength);
+			this.pnlRule.Controls.Add(this.udPasswordLength);
+			this.pnlRule.Name = "pnlRule";
+			// 
+			// txtExclude
+			// 
+			resources.ApplyResources(this.txtExclude, "txtExclude");
+			this.txtExclude.Name = "txtExclude";
+			this.txtExclude.TextChanged += new System.EventHandler(this.OnExcludeUpdate);
+			// 
+			// rdoRule
+			// 
+			resources.ApplyResources(this.rdoRule, "rdoRule");
+			this.rdoRule.Checked = true;
+			this.rdoRule.Name = "rdoRule";
+			this.rdoRule.TabStop = true;
+			this.rdoRule.UseVisualStyleBackColor = true;
+			this.rdoRule.CheckedChanged += new System.EventHandler(this.RuleTypeSelected);
+			// 
 			// txtExample
 			// 
 			resources.ApplyResources(this.txtExample, "txtExample");
 			this.txtExample.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.txtExample.Name = "txtExample";
 			this.txtExample.ReadOnly = true;
-			// 
-			// mnuComponents
-			// 
-			this.mnuComponents.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripSeparator1,
-            this.customToolStripMenuItem});
-			this.mnuComponents.Name = "mnuComponents";
-			this.mnuComponents.ShowImageMargin = false;
-			resources.ApplyResources(this.mnuComponents, "mnuComponents");
-			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
-			// 
-			// customToolStripMenuItem
-			// 
-			this.customToolStripMenuItem.Name = "customToolStripMenuItem";
-			resources.ApplyResources(this.customToolStripMenuItem, "customToolStripMenuItem");
-			this.customToolStripMenuItem.Click += new System.EventHandler(this.AddCustom);
 			// 
 			// dataGridViewTextBoxColumn1
 			// 
@@ -145,46 +195,88 @@
 			this.dataGridViewTextBoxColumn1.ReadOnly = true;
 			this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
 			// 
-			// btnDeleteRow
+			// pnlProfile
 			// 
-			resources.ApplyResources(this.btnDeleteRow, "btnDeleteRow");
-			this.btnDeleteRow.Name = "btnDeleteRow";
-			this.btnDeleteRow.UseVisualStyleBackColor = true;
-			this.btnDeleteRow.Click += new System.EventHandler(this.OnDeleteRowClick);
+			resources.ApplyResources(this.pnlProfile, "pnlProfile");
+			this.pnlProfile.Controls.Add(this.lbProfiles);
+			this.pnlProfile.Name = "pnlProfile";
+			// 
+			// lbProfiles
+			// 
+			resources.ApplyResources(this.lbProfiles, "lbProfiles");
+			this.lbProfiles.FormattingEnabled = true;
+			this.lbProfiles.Name = "lbProfiles";
+			this.lbProfiles.SelectedIndexChanged += new System.EventHandler(this.OnRefreshClick);
+			// 
+			// rdoProfile
+			// 
+			resources.ApplyResources(this.rdoProfile, "rdoProfile");
+			this.rdoProfile.Name = "rdoProfile";
+			this.rdoProfile.UseVisualStyleBackColor = true;
+			this.rdoProfile.CheckedChanged += new System.EventHandler(this.RuleTypeSelected);
+			// 
+			// btnSave
+			// 
+			resources.ApplyResources(this.btnSave, "btnSave");
+			this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.btnSave.Name = "btnSave";
+			this.btnSave.UseVisualStyleBackColor = true;
+			this.btnSave.Click += new System.EventHandler(this.Save);
+			// 
+			// btnDiscard
+			// 
+			resources.ApplyResources(this.btnDiscard, "btnDiscard");
+			this.btnDiscard.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnDiscard.Name = "btnDiscard";
+			this.btnDiscard.UseVisualStyleBackColor = true;
 			// 
 			// EditRule
 			// 
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.btnDeleteRow);
+			this.Controls.Add(this.btnSave);
+			this.Controls.Add(this.btnDiscard);
 			this.Controls.Add(cmdRefresh);
 			this.Controls.Add(this.txtExample);
 			this.Controls.Add(lblSample);
-			this.Controls.Add(this.dgvComponents);
-			this.Controls.Add(this.udPasswordLength);
-			this.Controls.Add(lblLength);
+			this.Controls.Add(this.rdoProfile);
+			this.Controls.Add(this.rdoRule);
+			this.Controls.Add(this.pnlRule);
+			this.Controls.Add(this.pnlProfile);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "EditRule";
 			this.ShowIcon = false;
 			this.ShowInTaskbar = false;
+			this.mnuComponents.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.udPasswordLength)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dgvComponents)).EndInit();
-			this.mnuComponents.ResumeLayout(false);
+			this.pnlRule.ResumeLayout(false);
+			this.pnlRule.PerformLayout();
+			this.pnlProfile.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
 		}
 
 		#endregion
-		private System.Windows.Forms.DataGridView dgvComponents;
-		private System.Windows.Forms.TextBox txtExample;
-		private System.Windows.Forms.ContextMenuStrip mnuComponents;
+
+		private System.Windows.Forms.Button btnDeleteRow;
+		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripMenuItem customToolStripMenuItem;
+		private System.Windows.Forms.ContextMenuStrip mnuComponents;
 		private System.Windows.Forms.NumericUpDown udPasswordLength;
-		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Characters;
-		private System.Windows.Forms.Button btnDeleteRow;
+		private System.Windows.Forms.DataGridView dgvComponents;
+		private System.Windows.Forms.Panel pnlRule;
+		private System.Windows.Forms.RadioButton rdoRule;
+		private System.Windows.Forms.TextBox txtExample;
+		private System.Windows.Forms.Panel pnlProfile;
+		private System.Windows.Forms.ListBox lbProfiles;
+		private System.Windows.Forms.RadioButton rdoProfile;
+		private System.Windows.Forms.Button btnSave;
+		private System.Windows.Forms.Button btnDiscard;
+		private System.Windows.Forms.TextBox txtExclude;
 	}
 }

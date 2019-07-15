@@ -1,13 +1,10 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace RuleBuilder.Rule {
+﻿namespace RuleBuilder.Rule {
 	internal class Component {
-		public Component(NamedCharacterSet characterSet, int minCount) {
-			this.CharacterSet = characterSet;
+		public Component(CharacterClass characterClass, int minCount) {
+			this.CharacterClass = characterClass;
 			this.MinCount = minCount;
 		}
-		public NamedCharacterSet CharacterSet { get; set; }
+		public CharacterClass CharacterClass { get; set; }
 		public int MinCount { get; set; } = 0;
 	}
 }

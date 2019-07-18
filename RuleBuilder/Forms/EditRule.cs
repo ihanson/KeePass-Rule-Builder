@@ -1,5 +1,6 @@
 ﻿using KeePass.Resources;
 using KeePass.Util;
+using KeePassLib;
 using KeePassLib.Cryptography.PasswordGenerator;
 using KeePassLib.Security;
 using System;
@@ -9,18 +10,22 @@ using System.Windows.Forms;
 
 namespace RuleBuilder.Forms {
 	internal partial class EditRule : Form {
-		public static Rule.IPasswordGenerator ShowRuleDialog(Rule.IPasswordGenerator generator) {
-			EditRule dialog = new EditRule(generator);
-			_ = dialog.ShowDialog();
-			return dialog.SelectedGenerator;
+		public static bool ShowRuleDialog(ref Rule.IPasswordGenerator generator, PwEntry entry) {
+			EditRule form = new EditRule(generator, entry);
+			_ = form.ShowDialog();
+			generator = form.SelectedGenerator;
+			return form.SavedChanges;
 		}
 		private Rule.PasswordRule PasswordRule { get; set; }
 		private List<Rule.PasswordProfile> Profiles { get; } = PwGeneratorUtil.GetAllProfiles(false).ConvertAll((PwProfile profile) => new Rule.PasswordProfile(profile));
 		private Rule.IPasswordGenerator SelectedGenerator { get; set; }
+		private PwEntry Entry { get; }
 		private bool Loaded { get; set; }
-		private EditRule(Rule.IPasswordGenerator generator) {
+		private bool SavedChanges { get; set; }
+		private EditRule(Rule.IPasswordGenerator generator, PwEntry entry) {
 			this.InitializeComponent();
 			this.SelectedGenerator = generator;
+			this.Entry = entry;
 			this.MinColIndex = this.dgvComponents.Columns.Add(new NumberColumn.NumberColumn() {
 				HeaderText = "Minimum",
 				SortMode = DataGridViewColumnSortMode.NotSortable
@@ -218,6 +223,7 @@ namespace RuleBuilder.Forms {
 
 		private void Save(object sender, EventArgs e) {
 			this.SelectedGenerator = this.Generator();
+			this.SavedChanges = true;
 		}
 	}
 }

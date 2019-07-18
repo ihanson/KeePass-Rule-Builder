@@ -179,13 +179,13 @@
     <value>NoControl</value>
   </data>
   <data name="cmdRefresh.Location" type="System.Drawing.Point, System.Drawing">
-    <value>417, 226</value>
+    <value>416, 226</value>
   </data>
   <data name="cmdRefresh.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="cmdRefresh.Size" type="System.Drawing.Size, System.Drawing">
-    <value>23, 24</value>
+    <value>23, 23</value>
   </data>
   <data name="cmdRefresh.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -215,7 +215,7 @@
     <value>NoControl</value>
   </data>
   <data name="lblSample.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 232</value>
+    <value>12, 231</value>
   </data>
   <data name="lblSample.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 0, 2, 0</value>
@@ -367,11 +367,14 @@
   <data name="&gt;&gt;udPasswordLength.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="dgvComponents.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
   <metadata name="Characters.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="dgvComponents.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
+  <data name="Characters.HeaderText" xml:space="preserve">
+    <value>Characters</value>
   </data>
   <data name="dgvComponents.Location" type="System.Drawing.Point, System.Drawing">
     <value>2, 29</value>
@@ -396,12 +399,6 @@
   </data>
   <data name="&gt;&gt;dgvComponents.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <metadata name="Characters.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="Characters.HeaderText" xml:space="preserve">
-    <value>Characters</value>
   </data>
   <data name="pnlRule.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -494,7 +491,7 @@
     <value>Consolas, 9.75pt</value>
   </data>
   <data name="txtExample.Location" type="System.Drawing.Point, System.Drawing">
-    <value>66, 231</value>
+    <value>70, 229</value>
   </data>
   <data name="txtExample.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -522,6 +519,18 @@
   </data>
   <data name="pnlProfile.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="lbProfiles.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="lbProfiles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="lbProfiles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>427, 183</value>
+  </data>
+  <data name="lbProfiles.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;lbProfiles.Name" xml:space="preserve">
     <value>lbProfiles</value>
@@ -555,30 +564,6 @@
   </data>
   <data name="&gt;&gt;pnlProfile.ZOrder" xml:space="preserve">
     <value>9</value>
-  </data>
-  <data name="lbProfiles.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="lbProfiles.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="lbProfiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>427, 183</value>
-  </data>
-  <data name="lbProfiles.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;lbProfiles.Name" xml:space="preserve">
-    <value>lbProfiles</value>
-  </data>
-  <data name="&gt;&gt;lbProfiles.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lbProfiles.Parent" xml:space="preserve">
-    <value>pnlProfile</value>
-  </data>
-  <data name="&gt;&gt;lbProfiles.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <data name="rdoProfile.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>

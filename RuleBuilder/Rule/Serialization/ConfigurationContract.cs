@@ -1,4 +1,7 @@
-﻿using System.Runtime.Serialization;
+﻿using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.Text;
 
 namespace RuleBuilder.Rule.Serialization {
 	[DataContract]

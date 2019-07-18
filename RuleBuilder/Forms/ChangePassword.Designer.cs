@@ -23,7 +23,10 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+			System.Windows.Forms.Button cmdRefresh;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangePassword));
+			System.Windows.Forms.Label lblAutoTypeOld;
+			System.Windows.Forms.Label lblAutoTypeNew;
 			this.btnDiscard = new System.Windows.Forms.Button();
 			this.btnSave = new System.Windows.Forms.Button();
 			this.lblOldPassword = new System.Windows.Forms.Label();
@@ -31,7 +34,27 @@
 			this.txtNewPassword = new System.Windows.Forms.TextBox();
 			this.lblNewPassword = new System.Windows.Forms.Label();
 			this.btnEditRule = new System.Windows.Forms.Button();
+			cmdRefresh = new System.Windows.Forms.Button();
+			lblAutoTypeOld = new System.Windows.Forms.Label();
+			lblAutoTypeNew = new System.Windows.Forms.Label();
 			this.SuspendLayout();
+			// 
+			// cmdRefresh
+			// 
+			resources.ApplyResources(cmdRefresh, "cmdRefresh");
+			cmdRefresh.Name = "cmdRefresh";
+			cmdRefresh.UseVisualStyleBackColor = true;
+			cmdRefresh.Click += new System.EventHandler(this.Refresh);
+			// 
+			// lblAutoTypeOld
+			// 
+			resources.ApplyResources(lblAutoTypeOld, "lblAutoTypeOld");
+			lblAutoTypeOld.Name = "lblAutoTypeOld";
+			// 
+			// lblAutoTypeNew
+			// 
+			resources.ApplyResources(lblAutoTypeNew, "lblAutoTypeNew");
+			lblAutoTypeNew.Name = "lblAutoTypeNew";
 			// 
 			// btnDiscard
 			// 
@@ -82,6 +105,9 @@
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnDiscard;
+			this.Controls.Add(lblAutoTypeNew);
+			this.Controls.Add(lblAutoTypeOld);
+			this.Controls.Add(cmdRefresh);
 			this.Controls.Add(this.btnEditRule);
 			this.Controls.Add(this.txtNewPassword);
 			this.Controls.Add(this.lblNewPassword);
@@ -93,6 +119,7 @@
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "ChangePassword";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnFormClosed);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

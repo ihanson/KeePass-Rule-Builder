@@ -61,6 +61,7 @@
     <Compile Include="Forms\EditRule.Designer.cs">
       <DependentUpon>EditRule.cs</DependentUpon>
     </Compile>
+    <Compile Include="HotKey.cs" />
     <Compile Include="NumberColumn\NumberCell.cs" />
     <Compile Include="NumberColumn\NumberCellControl.cs">
       <SubType>Component</SubType>
@@ -85,6 +86,7 @@
     <Compile Include="Rule\PasswordProfile.cs" />
     <Compile Include="Rule\PasswordRule.cs" />
     <Compile Include="Rule\Random.cs" />
+    <Compile Include="Rule\Serialization\Entry.cs" />
     <Compile Include="Rule\Serialization\ProfileContract.cs" />
     <Compile Include="Rule\Serialization\RuleContract.cs" />
   </ItemGroup>

@@ -44,17 +44,19 @@ namespace RuleBuilder.Rule {
 			chars.Sort();
 			return string.Join(string.Empty, chars);
 		}
-		public static HashSet<string> SplitString(string str) {
+		public static HashSet<string> SplitString(params string[] strings) {
 			HashSet<string> result = new HashSet<string>();
-			TextElementEnumerator enumerator = StringInfo.GetTextElementEnumerator(str);
-			while (enumerator.MoveNext()) {
-				result.Add((string)enumerator.Current);
+			foreach (string str in strings) {
+				TextElementEnumerator enumerator = StringInfo.GetTextElementEnumerator(str);
+				while (enumerator.MoveNext()) {
+					result.Add((string)enumerator.Current);
+				}
 			}
 			return result;
 		}
 
-		public static readonly CharacterClass AllCharacters = new CharacterClass("All characters", SplitString(strUpperLetters + strLowerLetters + strDigits + strPunctuation), CharacterClassEnum.AllCharacters);
-		public static readonly CharacterClass Letters = new CharacterClass("Letters (A–Z, a–z)", SplitString(strUpperLetters + strLowerLetters), CharacterClassEnum.Letters);
+		public static readonly CharacterClass AllCharacters = new CharacterClass("All characters", SplitString(strUpperLetters, strLowerLetters, strDigits, strPunctuation), CharacterClassEnum.AllCharacters);
+		public static readonly CharacterClass Letters = new CharacterClass("Letters (A–Z, a–z)", SplitString(strUpperLetters, strLowerLetters), CharacterClassEnum.Letters);
 		public static readonly CharacterClass Digits = new CharacterClass("Digits (0–9)", SplitString(strDigits), CharacterClassEnum.Digits);
 		public static readonly CharacterClass Punctuation = new CharacterClass("Punctuation", SplitString(strPunctuation), CharacterClassEnum.Punctuation);
 		public static readonly CharacterClass UppercaseLetters = new CharacterClass("Uppercase letters (A–Z)", SplitString(strUpperLetters), CharacterClassEnum.UppercaseLetters);

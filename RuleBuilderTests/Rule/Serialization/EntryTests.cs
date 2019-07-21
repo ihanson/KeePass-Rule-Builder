@@ -1,47 +1,49 @@
-﻿using KeePass.Resources;
+﻿using System.Collections.Generic;
+using KeePass.Resources;
 using KeePassLib;
 using KeePassLib.Security;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 
 namespace RuleBuilder.Rule.Serialization.Tests {
-	[TestClass()]
+	[TestClass]
 	public class EntryTests {
-		[TestMethod()]
+		private const string PasswordRuleKey = "Password Rule";
+		private static readonly string ProfileName = $"{KPRes.RandomMacAddress} ({KPRes.BuiltIn})";
+		[TestMethod]
 		public void DecodeDefaultGeneratorTest() {
 			PasswordProfile profile = (PasswordProfile)GeneratorFromJSON(null);
 			Assert.IsTrue(profile.IsDefaultProfile);
 		}
-		[TestMethod()]
+		[TestMethod]
 		public void DecodeInvalidJSONTest() {
 			PasswordProfile profile = (PasswordProfile)GeneratorFromJSON(null);
 			Assert.IsTrue(profile.IsDefaultProfile);
 		}
-		[TestMethod()]
+		[TestMethod]
 		public void DecodeDefaultProfileTest() {
 			PasswordProfile profile = (PasswordProfile)GeneratorFromJSON("{Profile:{IsDefault:true}");
 			Assert.IsTrue(profile.IsDefaultProfile);
 		}
-		[TestMethod()]
+		[TestMethod]
 		public void EncodeDefaultProfileTest() {
 			PasswordProfile profile = (PasswordProfile)EncodeDecodeGenerator(PasswordProfile.DefaultProfile);
 			Assert.IsTrue(profile.IsDefaultProfile);
 		}
-		[TestMethod()]
+		[TestMethod]
 		public void DecodeNamedProfileTest() {
 			PasswordProfile profile = (PasswordProfile)GeneratorFromJSON($"{{\"Profile\":{{\"Name\":{EncodeJSONString(ProfileName)}}}}}");
 			Assert.IsFalse(profile.IsDefaultProfile);
 			Assert.AreEqual(ProfileName, profile.Name);
 			Assert.AreEqual(ProfileName, profile.Profile.Name);
 		}
-		[TestMethod()]
+		[TestMethod]
 		public void EncodeNamedProfileTest() {
 			PasswordProfile profile = (PasswordProfile)EncodeDecodeGenerator(new PasswordProfile(PasswordProfile.NamedProfile(ProfileName).Profile));
 			Assert.IsFalse(profile.IsDefaultProfile);
 			Assert.AreEqual(ProfileName, profile.Name);
 			Assert.AreEqual(ProfileName, profile.Profile.Name);
 		}
-		[TestMethod()]
+		[TestMethod]
 		public void DecodeRuleTest() {
 			PasswordRule rule = (PasswordRule)GeneratorFromJSON("{\"Rule\":{\"Length\":32,\"Components\":[{\"CharacterSet\":{\"CharacterClass\":2},\"MinCount\":5},{\"CharacterSet\":{\"Characters\":\"xyz\"}}],\"Exclude\":\"abc\"}}");
 			Assert.AreEqual(32, rule.Length);
@@ -53,7 +55,7 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 			Assert.AreEqual(0, rule.Components[1].MinCount);
 			Assert.AreEqual("abc", rule.Exclude);
 		}
-		[TestMethod()]
+		[TestMethod]
 		public void EncodeRuleTest() {
 			PasswordRule rule = (PasswordRule)EncodeDecodeGenerator(new PasswordRule() {
 				Length = 32,
@@ -72,7 +74,6 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 			Assert.AreEqual(0, rule.Components[1].MinCount);
 			Assert.AreEqual("abc", rule.Exclude);
 		}
-		private static readonly string ProfileName = $"{KPRes.RandomMacAddress} ({KPRes.BuiltIn})";
 		private static string EncodeJSONString(string str) => $"\"{str.Replace("\\", "\\\\").Replace("\"", "\\\"")}\"";
 		private static IPasswordGenerator GeneratorFromJSON(string json) {
 			PwEntry entry = new PwEntry(true, true);
@@ -86,6 +87,5 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 			Entry.SetEntryGenerator(entry, generator);
 			return Entry.EntryGenerator(entry);
 		}
-		private const string PasswordRuleKey = "Password Rule";
 	}
 }

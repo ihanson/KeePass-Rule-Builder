@@ -9,10 +9,10 @@ namespace RuleBuilder.Rule.Serialization {
 				this.Characters = namedSet.Characters;
 			}
 		}
-		public CharacterClass Object() => this.CharacterClass == CharacterClassEnum.Custom ? new CharacterClass(this.Characters) : Rule.CharacterClass.EnumeratedCharacterClass(this.CharacterClass);
 		[DataMember(EmitDefaultValue = false)]
 		public string Characters { get; private set; }
 		[DataMember]
 		public CharacterClassEnum CharacterClass { get; private set; }
+		public CharacterClass Object() => this.CharacterClass == CharacterClassEnum.Custom ? new CharacterClass(this.Characters) : Rule.CharacterClass.EnumeratedCharacterClass(this.CharacterClass);
 	}
 }

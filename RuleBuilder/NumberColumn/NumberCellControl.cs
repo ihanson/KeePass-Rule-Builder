@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace RuleBuilder.NumberColumn {
@@ -24,9 +23,9 @@ namespace RuleBuilder.NumberColumn {
 		public bool EditingControlValueChanged { get; set; }
 		public new int Value {
 			get => (int)base.Value;
-			set => base.Value = (decimal)value;
+			set => base.Value = value;
 		}
-		public Cursor EditingPanelCursor => base.Cursor;
+		public Cursor EditingPanelCursor => this.Cursor;
 		public bool RepositionEditingControlOnValueChange => false;
 		public void ApplyCellStyleToEditingControl(DataGridViewCellStyle dataGridViewCellStyle) {
 			this.Font = dataGridViewCellStyle.Font;

@@ -3,17 +3,36 @@ using System.Collections.Generic;
 using System.Globalization;
 
 namespace RuleBuilder.Rule {
+	public enum CharacterClassEnum {
+		Custom = 0,
+		AllCharacters = 1,
+		Letters = 2,
+		Digits = 3,
+		Punctuation = 4,
+		UppercaseLetters = 5,
+		LowercaseLetters = 6
+	}
 	public class CharacterClass {
-		private CharacterClass(string name, HashSet<string> chars, CharacterClassEnum enumeration) {
-			this.Name = name;
-			this.CharacterSet = chars;
-			this.Enumeration = enumeration;
-		}
+		public static readonly CharacterClass AllCharacters = new CharacterClass("All characters", SplitString(UppercaseLettersChars, LowercaseLettersChars, DigitsChars, PunctuationChars), CharacterClassEnum.AllCharacters);
+		public static readonly CharacterClass Letters = new CharacterClass("Letters (A–Z, a–z)", SplitString(UppercaseLettersChars, LowercaseLettersChars), CharacterClassEnum.Letters);
+		public static readonly CharacterClass Digits = new CharacterClass("Digits (0–9)", SplitString(DigitsChars), CharacterClassEnum.Digits);
+		public static readonly CharacterClass Punctuation = new CharacterClass("Punctuation", SplitString(PunctuationChars), CharacterClassEnum.Punctuation);
+		public static readonly CharacterClass UppercaseLetters = new CharacterClass("Uppercase letters (A–Z)", SplitString(UppercaseLettersChars), CharacterClassEnum.UppercaseLetters);
+		public static readonly CharacterClass LowercaseLetters = new CharacterClass("Lowercase letters (a–z)", SplitString(LowercaseLettersChars), CharacterClassEnum.LowercaseLetters);
+		private const string UppercaseLettersChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		private const string LowercaseLettersChars = "abcdefghijklmnopqrstuvwxyz";
+		private const string DigitsChars = "0123456789";
+		private const string PunctuationChars = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~ ";
 		public CharacterClass() : this(string.Empty) { }
 		public CharacterClass(string characters) {
 			this.Name = string.Empty;
 			this.Characters = characters;
 			this.Enumeration = CharacterClassEnum.Custom;
+		}
+		private CharacterClass(string name, HashSet<string> chars, CharacterClassEnum enumeration) {
+			this.Name = name;
+			this.CharacterSet = chars;
+			this.Enumeration = enumeration;
 		}
 		public string Name { get; }
 		public HashSet<string> CharacterSet { get; private set; } = new HashSet<string>();
@@ -55,25 +74,5 @@ namespace RuleBuilder.Rule {
 			}
 			return result;
 		}
-
-		public static readonly CharacterClass AllCharacters = new CharacterClass("All characters", SplitString(strUpperLetters, strLowerLetters, strDigits, strPunctuation), CharacterClassEnum.AllCharacters);
-		public static readonly CharacterClass Letters = new CharacterClass("Letters (A–Z, a–z)", SplitString(strUpperLetters, strLowerLetters), CharacterClassEnum.Letters);
-		public static readonly CharacterClass Digits = new CharacterClass("Digits (0–9)", SplitString(strDigits), CharacterClassEnum.Digits);
-		public static readonly CharacterClass Punctuation = new CharacterClass("Punctuation", SplitString(strPunctuation), CharacterClassEnum.Punctuation);
-		public static readonly CharacterClass UppercaseLetters = new CharacterClass("Uppercase letters (A–Z)", SplitString(strUpperLetters), CharacterClassEnum.UppercaseLetters);
-		public static readonly CharacterClass LowercaseLetters = new CharacterClass("Lowercase letters (a–z)", SplitString(strLowerLetters), CharacterClassEnum.LowercaseLetters);
-		private const string strUpperLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		private const string strLowerLetters = "abcdefghijklmnopqrstuvwxyz";
-		private const string strDigits = "0123456789";
-		private const string strPunctuation = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~ ";
-	}
-	public enum CharacterClassEnum {
-		Custom = 0,
-		AllCharacters = 1,
-		Letters = 2,
-		Digits = 3,
-		Punctuation = 4,
-		UppercaseLetters = 5,
-		LowercaseLetters = 6
 	}
 }

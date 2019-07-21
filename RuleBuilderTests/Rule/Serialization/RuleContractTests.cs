@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RuleBuilder.Rule.Serialization.Tests {
-	[TestClass()]
+	[TestClass]
 	public class RuleContractTests {
-		[TestMethod()]
+		[TestMethod]
 		public void RuleContractTest() {
 			RuleContract rule = new RuleContract(new PasswordRule() {
 				Length = 32,
@@ -18,7 +18,7 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 			Assert.AreEqual(1, rule.Components.Count);
 			Assert.AreEqual("x", rule.Exclude);
 		}
-		[TestMethod()]
+		[TestMethod]
 		public void RuleContractObjectTest() {
 			PasswordRule rule = new RuleContract(new PasswordRule() {
 				Length = 32,
@@ -31,7 +31,7 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 			Assert.AreEqual(1, rule.Components.Count);
 			Assert.AreEqual("x", rule.Exclude);
 		}
-		[TestMethod()]
+		[TestMethod]
 		public void NegativeLengthTest() {
 			_ = Assert.ThrowsException<SerializationException>(() => {
 				_ = new RuleContract(new PasswordRule() {

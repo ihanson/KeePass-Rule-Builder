@@ -1,25 +1,25 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RuleBuilder.Rule.Tests {
-	[TestClass()]
+	[TestClass]
 	public class CharacterClassTests {
-		[TestMethod()]
+		[TestMethod]
 		public void DefaultCharacterClassTest() {
 			CharacterClass charClass = new CharacterClass();
 			Assert.AreEqual(string.Empty, charClass.Characters);
 			Assert.AreEqual(CharacterClassEnum.Custom, charClass.Enumeration);
 		}
 
-		[TestMethod()]
+		[TestMethod]
 		public void CustomCharacterClassTest() {
 			CharacterClass charClass = new CharacterClass("abc");
 			Assert.AreEqual("abc", charClass.Characters);
 			Assert.AreEqual(CharacterClassEnum.Custom, charClass.Enumeration);
 		}
 
-		[TestMethod()]
+		[TestMethod]
 		public void EnumeratedCharacterClassTest() {
 			Assert.AreSame(CharacterClass.AllCharacters, CharacterClass.EnumeratedCharacterClass(CharacterClassEnum.AllCharacters));
 			Assert.AreSame(CharacterClass.Letters, CharacterClass.EnumeratedCharacterClass(CharacterClassEnum.Letters));
@@ -32,14 +32,10 @@ namespace RuleBuilder.Rule.Tests {
 			});
 		}
 
-		[TestMethod()]
-		public void SortedStringTest() {
-			Assert.AreEqual("123abc", CharacterClass.SortedString(new List<string>() { "a", "c", "3", "2", "b", "1" }));
-		}
+		[TestMethod]
+		public void SortedStringTest() => Assert.AreEqual("123abc", CharacterClass.SortedString(new List<string>() { "a", "c", "3", "2", "b", "1" }));
 
-		[TestMethod()]
-		public void SplitStringTest() {
-			Assert.IsTrue(new HashSet<string> { "a", "b", "c", "🧸", "🐱", "\x200d", "👤" }.SetEquals(CharacterClass.SplitString("abc🧸", "🐱‍👤")));
-		}
+		[TestMethod]
+		public void SplitStringTest() => Assert.IsTrue(new HashSet<string> { "a", "b", "c", "🧸", "🐱", "\x200d", "👤" }.SetEquals(CharacterClass.SplitString("abc🧸", "🐱‍👤")));
 	}
 }

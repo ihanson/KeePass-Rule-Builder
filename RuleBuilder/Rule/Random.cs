@@ -1,6 +1,6 @@
-﻿using KeePassLib.Cryptography;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using KeePassLib.Cryptography;
 
 namespace RuleBuilder.Rule {
 	public static class Random {
@@ -20,13 +20,13 @@ namespace RuleBuilder.Rule {
 			if (range <= 0) {
 				throw new ArgumentOutOfRangeException(nameof(range));
 			}
-			uint uRange = (uint)range;
-			uint max = uint.MaxValue - ((uint.MaxValue - uRange + 1) % uRange);
+			uint uiRange = (uint)range;
+			uint max = uint.MaxValue - ((uint.MaxValue - uiRange + 1) % uiRange);
 			uint number;
 			do {
 				number = BitConverter.ToUInt32(CryptoRandom.Instance.GetRandomBytes(sizeof(uint)), 0);
 			} while (number > max);
-			return (int)(number % uRange);
+			return (int)(number % uiRange);
 		}
 	}
 }

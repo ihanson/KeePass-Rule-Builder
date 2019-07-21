@@ -1,25 +1,14 @@
-﻿using KeePass.Resources;
-using KeePass.Util;
-using KeePassLib;
-using KeePassLib.Cryptography.PasswordGenerator;
-using KeePassLib.Security;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using KeePass.Util;
+using KeePassLib.Cryptography.PasswordGenerator;
+using KeePassLib.Security;
 
 namespace RuleBuilder.Forms {
 	internal partial class EditRule : Form {
-		public static bool ShowRuleDialog(ref Rule.IPasswordGenerator generator) {
-			EditRule form = new EditRule(generator);
-			_ = form.ShowDialog();
-			generator = form.SelectedGenerator;
-			return form.DialogResult == DialogResult.Yes;
-		}
-		private Rule.PasswordRule PasswordRule { get; set; }
-		private List<Rule.PasswordProfile> Profiles { get; } = PwGeneratorUtil.GetAllProfiles(false).ConvertAll((PwProfile profile) => new Rule.PasswordProfile(profile));
-		private Rule.IPasswordGenerator SelectedGenerator { get; set; }
-		private bool Loaded { get; set; }
+		private const string CharCol = "Characters";
 		private EditRule(Rule.IPasswordGenerator generator) {
 			this.InitializeComponent();
 			this.SelectedGenerator = generator;
@@ -28,13 +17,13 @@ namespace RuleBuilder.Forms {
 				SortMode = DataGridViewColumnSortMode.NotSortable
 			});
 			this.CharColIndex = this.dgvComponents.Columns[CharCol].Index;
-			this.addButton = new DataGridViewButtonCell() {
+			this.AddButton = new DataGridViewButtonCell() {
 				Value = "Add Character Set",
 				ContextMenuStrip = this.mnuComponents
 			};
 			this.BuildMenu();
 			int rowIndex = this.dgvComponents.Rows.Add();
-			this.dgvComponents[this.CharColIndex, rowIndex] = this.addButton;
+			this.dgvComponents[this.CharColIndex, rowIndex] = this.AddButton;
 			this.dgvComponents[this.MinColIndex, rowIndex].ReadOnly = true;
 			this.udPasswordLength.Select(this.udPasswordLength.Text.Length, 0);
 			this.Profiles.Insert(0, Rule.PasswordProfile.DefaultProfile);
@@ -44,6 +33,27 @@ namespace RuleBuilder.Forms {
 			this.ShowPanel();
 			this.Loaded = true;
 			this.ShowExample();
+		}
+		private static Rule.CharacterClass[] CharacterClasses => new Rule.CharacterClass[] {
+			Rule.CharacterClass.AllCharacters,
+			Rule.CharacterClass.Letters,
+			Rule.CharacterClass.Digits,
+			Rule.CharacterClass.Punctuation,
+			Rule.CharacterClass.UppercaseLetters,
+			Rule.CharacterClass.LowercaseLetters
+		};
+		private Rule.PasswordRule PasswordRule { get; set; }
+		private List<Rule.PasswordProfile> Profiles { get; } = PwGeneratorUtil.GetAllProfiles(false).ConvertAll((PwProfile profile) => new Rule.PasswordProfile(profile));
+		private Rule.IPasswordGenerator SelectedGenerator { get; set; }
+		private DataGridViewButtonCell AddButton { get; }
+		private bool Loaded { get; set; }
+		private int CharColIndex { get; }
+		private int MinColIndex { get; }
+		public static bool ShowRuleDialog(ref Rule.IPasswordGenerator generator) {
+			EditRule form = new EditRule(generator);
+			_ = form.ShowDialog();
+			generator = form.SelectedGenerator;
+			return form.DialogResult == DialogResult.Yes;
 		}
 		private void BuildMenu() {
 			for (int i = 0; i < CharacterClasses.Length; i++) {
@@ -148,15 +158,11 @@ namespace RuleBuilder.Forms {
 			}
 			DataGridView grid = sender as DataGridView;
 			DataGridViewCell cell = grid[e.ColumnIndex, e.RowIndex];
-			if (cell == this.addButton) {
+			if (cell == this.AddButton) {
 				Rectangle rect = grid.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
 				this.mnuComponents.Show(grid, new Point(rect.Left, rect.Bottom));
 			}
 		}
-		private readonly DataGridViewButtonCell addButton;
-		private readonly int CharColIndex;
-		private readonly int MinColIndex;
-		private const string CharCol = "Characters";
 		private void AddCustom(object sender, EventArgs e) => this.AddCustom();
 		private void OnCellValueChange(object sender, DataGridViewCellEventArgs e) {
 			if (e.RowIndex < 0) {
@@ -199,22 +205,12 @@ namespace RuleBuilder.Forms {
 			DataGridView grid = sender as DataGridView;
 			this.btnDeleteRow.Enabled = grid.SelectedRows.Count > 0 && grid.SelectedRows[0].Index < grid.RowCount - 1;
 		}
-		private static readonly Rule.CharacterClass[] CharacterClasses = new Rule.CharacterClass[] {
-			Rule.CharacterClass.AllCharacters,
-			Rule.CharacterClass.Letters,
-			Rule.CharacterClass.Digits,
-			Rule.CharacterClass.Punctuation,
-			Rule.CharacterClass.UppercaseLetters,
-			Rule.CharacterClass.LowercaseLetters
-		};
 
-		private void RuleTypeSelected(object sender, EventArgs e) {
-			this.ShowPanel();
-		}
+		private void RuleTypeSelected(object sender, EventArgs e) => this.ShowPanel();
 
 		private void ShowPanel() {
-			pnlRule.Visible = rdoRule.Checked;
-			pnlProfile.Visible = rdoProfile.Checked;
+			this.pnlRule.Visible = this.rdoRule.Checked;
+			this.pnlProfile.Visible = this.rdoProfile.Checked;
 			this.ShowExample();
 		}
 

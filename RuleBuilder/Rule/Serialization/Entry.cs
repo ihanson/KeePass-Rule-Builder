@@ -6,6 +6,7 @@ using KeePassLib.Security;
 
 namespace RuleBuilder.Rule.Serialization {
 	public static class Entry {
+		private const string PasswordRuleKey = "Password Rule";
 		public static IPasswordGenerator EntryGenerator(PwEntry entry) {
 			try {
 				ProtectedString generatorStr = entry.Strings.Get(PasswordRuleKey);
@@ -22,23 +23,20 @@ namespace RuleBuilder.Rule.Serialization {
 			}
 		}
 		private static string SerializedGenerator(IPasswordGenerator generator) {
-			using (MemoryStream stream = new MemoryStream())
-			using (StreamReader reader = new StreamReader(stream, Encoding.UTF8)) {
-				new DataContractJsonSerializer(typeof(ConfigurationContract)).WriteObject(stream, new ConfigurationContract(generator));
-				stream.Position = 0;
+			using (StreamReader reader = new StreamReader(new MemoryStream(), Encoding.UTF8)) {
+				new DataContractJsonSerializer(typeof(ConfigurationContract)).WriteObject(reader.BaseStream, new ConfigurationContract(generator));
+				reader.BaseStream.Position = 0;
 				return reader.ReadToEnd();
 			}
 		}
 		private static IPasswordGenerator DeserializedGenerator(string generatorStr) {
-			using (MemoryStream stream = new MemoryStream())
-			using (StreamWriter writer = new StreamWriter(stream, new UTF8Encoding(false)) {
+			using (StreamWriter writer = new StreamWriter(new MemoryStream(), new UTF8Encoding(false)) {
 				AutoFlush = true
 			}) {
 				writer.Write(generatorStr);
-				stream.Position = 0;
-				return ((ConfigurationContract)new DataContractJsonSerializer(typeof(ConfigurationContract)).ReadObject(stream)).Object();
+				writer.BaseStream.Position = 0;
+				return ((ConfigurationContract)new DataContractJsonSerializer(typeof(ConfigurationContract)).ReadObject(writer.BaseStream)).Object();
 			}
 		}
-		private const string PasswordRuleKey = "Password Rule";
 	}
 }

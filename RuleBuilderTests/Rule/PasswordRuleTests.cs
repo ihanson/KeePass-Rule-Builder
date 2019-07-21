@@ -1,16 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RuleBuilder.Rule.Tests {
-	[TestClass()]
+	[TestClass]
 	public class PasswordRuleTests {
-		[TestMethod()]
-		public void NoComponentsTest() {
+		[TestMethod]
+		public  void NoComponentsTest() {
 			Assert.AreEqual(16, new PasswordRule() {
 				Length = 16
 			}.NewPassword().Length);
 		}
-		[TestMethod()]
+		[TestMethod]
 		public void ComponentsTest() {
 			string password = new PasswordRule() {
 				Length = 32,
@@ -25,7 +25,7 @@ namespace RuleBuilder.Rule.Tests {
 			Assert.IsTrue(CharCount(password, 'c') + CharCount(password, 'd') >= 4);
 			Assert.AreEqual(32, password.Length);
 		}
-		[TestMethod()]
+		[TestMethod]
 		public void ExtraCharactersTest() {
 			string password = new PasswordRule() {
 				Length = 32,
@@ -38,7 +38,7 @@ namespace RuleBuilder.Rule.Tests {
 			Assert.AreEqual(18, CharCount(password, 'b') + CharCount(password, 'c'));
 			Assert.AreEqual(36, password.Length);
 		}
-		[TestMethod()]
+		[TestMethod]
 		public void ExcludeTest() {
 			string password = new PasswordRule() {
 				Length = 32,
@@ -51,6 +51,7 @@ namespace RuleBuilder.Rule.Tests {
 			Assert.AreEqual(0, CharCount(password, 'b'));
 			Assert.AreEqual(32, CharCount(password, 'c'));
 		}
+		[TestMethod]
 		public void ExcludeCharsTest() {
 			Assert.IsTrue(new HashSet<string> { "a", "b", "c" }.SetEquals(new PasswordRule() {
 				Exclude = "abca"

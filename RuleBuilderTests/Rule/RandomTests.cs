@@ -1,26 +1,26 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RuleBuilder.Rule.Tests {
-	[TestClass()]
+	[TestClass]
 	public class RandomTests {
-		[TestMethod()]
+		[TestMethod]
 		public void RandomItemTest() {
 			HashSet<int> numbers = new HashSet<int> { 1, 2, 3, 4, 5 };
 			Assert.IsTrue(numbers.Contains(Random.RandomItem(numbers)));
 		}
-		[TestMethod()]
+		[TestMethod]
 		public void RandomItemFailTest() {
 			_ = Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
 				_ = Random.RandomItem(new HashSet<int> { });
 			});
 		}
 
-		[TestMethod()]
+		[TestMethod]
 		public void ShuffleTest() {
 			List<int> numbers = new List<int>(100);
-			for(int i = 0; i < 100; i++) {
+			for (int i = 0; i < 100; i++) {
 				numbers.Add(i);
 			}
 			List<int> shuffled = new List<int>(numbers);

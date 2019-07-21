@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 
 namespace RuleBuilder.NumberColumn {
-	class NumberColumn : DataGridViewColumn {
+	internal class NumberColumn : DataGridViewColumn {
 		public NumberColumn() : base(new NumberCell()) { }
 		public override DataGridViewCell CellTemplate {
 			get => base.CellTemplate;

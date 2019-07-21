@@ -9,6 +9,12 @@ namespace RuleBuilder.Rule.Serialization {
 			this.Components = rule.Components.ConvertAll((Component component) => new ComponentContract(component));
 			this.Exclude = rule.Exclude;
 		}
+		[DataMember]
+		public int Length { get; private set; }
+		[DataMember]
+		public List<ComponentContract> Components { get; private set; }
+		[DataMember]
+		public string Exclude { get; private set; }
 		public PasswordRule Object() {
 			if (this.Length < 0) {
 				throw new SerializationException("Password length must not be negative.");
@@ -19,11 +25,5 @@ namespace RuleBuilder.Rule.Serialization {
 				Exclude = this.Exclude
 			};
 		}
-		[DataMember]
-		public int Length { get; private set; }
-		[DataMember]
-		public List<ComponentContract> Components { get; private set; }
-		[DataMember]
-		public string Exclude { get; private set; }
 	}
 }

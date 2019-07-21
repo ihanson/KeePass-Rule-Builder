@@ -10,10 +10,10 @@ namespace RuleBuilder.Rule.Serialization {
 				this.Profile = new ProfileContract((PasswordProfile)generator);
 			}
 		}
-		public IPasswordGenerator Object() => (IPasswordGenerator)this.Rule?.Object() ?? this.Profile.Object();
 		[DataMember(EmitDefaultValue = false)]
 		public RuleContract Rule { get; private set; }
 		[DataMember(EmitDefaultValue = false)]
 		public ProfileContract Profile { get; private set; }
+		public IPasswordGenerator Object() => (IPasswordGenerator)this.Rule?.Object() ?? this.Profile.Object();
 	}
 }

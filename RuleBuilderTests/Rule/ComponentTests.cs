@@ -1,9 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RuleBuilder.Rule.Tests {
-	[TestClass()]
+	[TestClass]
 	public class ComponentTests {
-		[TestMethod()]
+		[TestMethod]
 		public void ComponentTest() {
 			Component component = new Component(CharacterClass.Letters, 4);
 			Assert.AreEqual(CharacterClassEnum.Letters, component.CharacterClass.Enumeration);

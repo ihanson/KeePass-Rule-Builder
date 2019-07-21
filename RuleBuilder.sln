@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.28315.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleBuilder", "RuleBuilder\RuleBuilder.csproj", "{6991459B-221F-4CB1-AD70-9EB1B3088A08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleBuilderTests", "RuleBuilderTests\RuleBuilderTests.csproj", "{9A7EE14B-4E48-40A2-898E-1139329BFA03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{6991459B-221F-4CB1-AD70-9EB1B3088A08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6991459B-221F-4CB1-AD70-9EB1B3088A08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6991459B-221F-4CB1-AD70-9EB1B3088A08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A7EE14B-4E48-40A2-898E-1139329BFA03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A7EE14B-4E48-40A2-898E-1139329BFA03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A7EE14B-4E48-40A2-898E-1139329BFA03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A7EE14B-4E48-40A2-898E-1139329BFA03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

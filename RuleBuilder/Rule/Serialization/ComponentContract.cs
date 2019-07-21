@@ -2,7 +2,7 @@
 
 namespace RuleBuilder.Rule.Serialization {
 	[DataContract]
-	internal class ComponentContract {
+	public class ComponentContract {
 		public ComponentContract(Component component) {
 			this.MinCount = component.MinCount;
 			this.CharacterSet = new CharacterClassContract(component.CharacterClass);
@@ -13,7 +13,7 @@ namespace RuleBuilder.Rule.Serialization {
 			}
 			return new Component(this.CharacterSet.Object(), this.MinCount);
 		}
-		[DataMember]
+		[DataMember(EmitDefaultValue = false)]
 		public int MinCount { get; private set; }
 		[DataMember]
 		public CharacterClassContract CharacterSet { get; private set; }

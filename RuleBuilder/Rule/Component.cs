@@ -1,5 +1,5 @@
 ﻿namespace RuleBuilder.Rule {
-	internal class Component {
+	public class Component {
 		public Component(CharacterClass characterClass, int minCount) {
 			this.CharacterClass = characterClass;
 			this.MinCount = minCount;

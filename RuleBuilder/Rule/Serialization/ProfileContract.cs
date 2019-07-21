@@ -2,7 +2,7 @@
 
 namespace RuleBuilder.Rule.Serialization {
 	[DataContract]
-	internal class ProfileContract {
+	public class ProfileContract {
 		public ProfileContract(PasswordProfile profile) {
 			this.IsDefault = profile.IsDefaultProfile;
 			if (!this.IsDefault) {

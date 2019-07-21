@@ -1,13 +1,12 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using KeePassLib;
 using KeePassLib.Security;
 
 namespace RuleBuilder.Rule.Serialization {
-	internal static class Entry {
-		public static Rule.IPasswordGenerator EntryGenerator(PwEntry entry) {
+	public static class Entry {
+		public static IPasswordGenerator EntryGenerator(PwEntry entry) {
 			try {
 				ProtectedString generatorStr = entry.Strings.Get(PasswordRuleKey);
 				return generatorStr != null ? DeserializedGenerator(generatorStr.ReadString()) : PasswordProfile.DefaultProfile;

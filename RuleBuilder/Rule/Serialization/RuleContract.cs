@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace RuleBuilder.Rule.Serialization {
 	[DataContract]
-	internal class RuleContract {
+	public class RuleContract {
 		public RuleContract(PasswordRule rule) {
 			this.Length = rule.Length;
 			this.Components = rule.Components.ConvertAll((Component component) => new ComponentContract(component));

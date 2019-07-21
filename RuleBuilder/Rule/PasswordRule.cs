@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace RuleBuilder.Rule {
-	internal class PasswordRule : IPasswordGenerator {
+	public class PasswordRule : IPasswordGenerator {
 		public PasswordRule() { }
 		public string NewPassword() {
 			List<string> password = new List<string>();

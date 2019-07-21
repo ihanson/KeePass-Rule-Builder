@@ -1,5 +1,5 @@
 ﻿namespace RuleBuilder.Rule {
-	internal interface IPasswordGenerator {
+	public interface IPasswordGenerator {
 		string NewPassword();
 	}
 }

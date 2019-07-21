@@ -2,7 +2,7 @@
 
 namespace RuleBuilder.Rule.Serialization {
 	[DataContract]
-	internal class CharacterClassContract {
+	public class CharacterClassContract {
 		public CharacterClassContract(CharacterClass namedSet) {
 			this.CharacterClass = namedSet.Enumeration;
 			if (this.CharacterClass == CharacterClassEnum.Custom) {

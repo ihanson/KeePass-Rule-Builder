@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace RuleBuilder.Rule {
-	internal class CharacterClass {
+	public class CharacterClass {
 		private CharacterClass(string name, HashSet<string> chars, CharacterClassEnum enumeration) {
 			this.Name = name;
 			this.CharacterSet = chars;
@@ -36,7 +37,7 @@ namespace RuleBuilder.Rule {
 				case CharacterClassEnum.LowercaseLetters:
 					return LowercaseLetters;
 				default:
-					throw new System.ArgumentException("Invalid character set enumeration", nameof(enumeration));
+					throw new ArgumentException("Invalid character set enumeration", nameof(enumeration));
 			}
 		}
 		public static string SortedString(IEnumerable<string> charSet) {
@@ -66,7 +67,7 @@ namespace RuleBuilder.Rule {
 		private const string strDigits = "0123456789";
 		private const string strPunctuation = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~ ";
 	}
-	internal enum CharacterClassEnum {
+	public enum CharacterClassEnum {
 		Custom = 0,
 		AllCharacters = 1,
 		Letters = 2,

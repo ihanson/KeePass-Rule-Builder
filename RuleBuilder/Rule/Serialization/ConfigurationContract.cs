@@ -1,11 +1,8 @@
-﻿using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
-using System.Text;
+﻿using System.Runtime.Serialization;
 
 namespace RuleBuilder.Rule.Serialization {
 	[DataContract]
-	internal class ConfigurationContract {
+	public class ConfigurationContract {
 		public ConfigurationContract(IPasswordGenerator generator) {
 			if (generator is PasswordRule) {
 				this.Rule = new RuleContract((PasswordRule)generator);

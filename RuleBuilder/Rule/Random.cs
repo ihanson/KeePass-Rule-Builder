@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 
 namespace RuleBuilder.Rule {
-	internal static class Random {
-		public static T RandomItem<T>(HashSet<T> set) {
+	public static class Random {
+		public static T RandomItem<T>(IEnumerable<T> set) {
 			List<T> list = new List<T>(set);
 			return list[RandomNumber(list.Count)];
 		}
@@ -24,7 +24,7 @@ namespace RuleBuilder.Rule {
 			uint max = uint.MaxValue - ((uint.MaxValue - uRange + 1) % uRange);
 			uint number;
 			do {
-				number = System.BitConverter.ToUInt32(CryptoRandom.Instance.GetRandomBytes(sizeof(uint)), 0);
+				number = BitConverter.ToUInt32(CryptoRandom.Instance.GetRandomBytes(sizeof(uint)), 0);
 			} while (number > max);
 			return (int)(number % uRange);
 		}

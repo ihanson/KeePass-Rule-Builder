@@ -4,7 +4,7 @@ using KeePassLib.Cryptography.PasswordGenerator;
 using KeePassLib.Security;
 
 namespace RuleBuilder.Rule {
-	internal class PasswordProfile : IPasswordGenerator {
+	public class PasswordProfile : IPasswordGenerator {
 		public PasswordProfile(PwProfile profile) {
 			this.Profile = profile;
 		}
@@ -12,9 +12,6 @@ namespace RuleBuilder.Rule {
 			IsDefaultProfile = true
 		};
 		public static PasswordProfile NamedProfile(string key) {
-			if (key == null) {
-				return DefaultProfile;
-			}
 			foreach (PwProfile profile in PwGeneratorUtil.GetAllProfiles(false)) {
 				if (profile.Name == key) {
 					return new PasswordProfile(profile);

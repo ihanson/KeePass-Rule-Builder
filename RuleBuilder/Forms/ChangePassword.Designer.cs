@@ -25,51 +25,50 @@
 		private void InitializeComponent() {
 			System.Windows.Forms.Button cmdRefresh;
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangePassword));
-			System.Windows.Forms.Label lblAutoTypeOld;
-			System.Windows.Forms.Label lblAutoTypeNew;
-			this.btnDiscard = new System.Windows.Forms.Button();
-			this.btnSave = new System.Windows.Forms.Button();
+			this.lblAutoTypeOld = new System.Windows.Forms.Label();
+			this.lblAutoTypeNew = new System.Windows.Forms.Label();
+			this.btnCancel = new System.Windows.Forms.Button();
+			this.btnAccept = new System.Windows.Forms.Button();
 			this.lblOldPassword = new System.Windows.Forms.Label();
 			this.txtOldPassword = new System.Windows.Forms.TextBox();
 			this.txtNewPassword = new System.Windows.Forms.TextBox();
 			this.lblNewPassword = new System.Windows.Forms.Label();
 			this.btnEditRule = new System.Windows.Forms.Button();
 			cmdRefresh = new System.Windows.Forms.Button();
-			lblAutoTypeOld = new System.Windows.Forms.Label();
-			lblAutoTypeNew = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// cmdRefresh
 			// 
 			resources.ApplyResources(cmdRefresh, "cmdRefresh");
+			cmdRefresh.Image = global::RuleBuilder.Properties.Resources.Refresh;
 			cmdRefresh.Name = "cmdRefresh";
 			cmdRefresh.UseVisualStyleBackColor = true;
 			cmdRefresh.Click += new System.EventHandler(this.Refresh);
 			// 
 			// lblAutoTypeOld
 			// 
-			resources.ApplyResources(lblAutoTypeOld, "lblAutoTypeOld");
-			lblAutoTypeOld.Name = "lblAutoTypeOld";
+			resources.ApplyResources(this.lblAutoTypeOld, "lblAutoTypeOld");
+			this.lblAutoTypeOld.Name = "lblAutoTypeOld";
 			// 
 			// lblAutoTypeNew
 			// 
-			resources.ApplyResources(lblAutoTypeNew, "lblAutoTypeNew");
-			lblAutoTypeNew.Name = "lblAutoTypeNew";
+			resources.ApplyResources(this.lblAutoTypeNew, "lblAutoTypeNew");
+			this.lblAutoTypeNew.Name = "lblAutoTypeNew";
 			// 
-			// btnDiscard
+			// btnCancel
 			// 
-			resources.ApplyResources(this.btnDiscard, "btnDiscard");
-			this.btnDiscard.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnDiscard.Name = "btnDiscard";
-			this.btnDiscard.UseVisualStyleBackColor = true;
+			resources.ApplyResources(this.btnCancel, "btnCancel");
+			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnCancel.Name = "btnCancel";
+			this.btnCancel.UseVisualStyleBackColor = true;
 			// 
-			// btnSave
+			// btnAccept
 			// 
-			resources.ApplyResources(this.btnSave, "btnSave");
-			this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btnSave.Name = "btnSave";
-			this.btnSave.UseVisualStyleBackColor = true;
-			this.btnSave.Click += new System.EventHandler(this.SaveNewPassword);
+			resources.ApplyResources(this.btnAccept, "btnAccept");
+			this.btnAccept.DialogResult = System.Windows.Forms.DialogResult.OK;
+			this.btnAccept.Name = "btnAccept";
+			this.btnAccept.UseVisualStyleBackColor = true;
+			this.btnAccept.Click += new System.EventHandler(this.SaveNewPassword);
 			// 
 			// lblOldPassword
 			// 
@@ -101,20 +100,20 @@
 			// 
 			// ChangePassword
 			// 
-			this.AcceptButton = this.btnSave;
+			this.AcceptButton = this.btnAccept;
 			resources.ApplyResources(this, "$this");
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.CancelButton = this.btnDiscard;
-			this.Controls.Add(lblAutoTypeNew);
-			this.Controls.Add(lblAutoTypeOld);
+			this.CancelButton = this.btnCancel;
+			this.Controls.Add(this.lblAutoTypeNew);
+			this.Controls.Add(this.lblAutoTypeOld);
 			this.Controls.Add(cmdRefresh);
 			this.Controls.Add(this.btnEditRule);
 			this.Controls.Add(this.txtNewPassword);
 			this.Controls.Add(this.lblNewPassword);
 			this.Controls.Add(this.txtOldPassword);
 			this.Controls.Add(this.lblOldPassword);
-			this.Controls.Add(this.btnSave);
-			this.Controls.Add(this.btnDiscard);
+			this.Controls.Add(this.btnAccept);
+			this.Controls.Add(this.btnCancel);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
@@ -127,12 +126,14 @@
 
 		#endregion
 
-		private System.Windows.Forms.Button btnDiscard;
-		private System.Windows.Forms.Button btnSave;
+		private System.Windows.Forms.Button btnCancel;
+		private System.Windows.Forms.Button btnAccept;
 		private System.Windows.Forms.Label lblOldPassword;
 		private System.Windows.Forms.TextBox txtOldPassword;
 		private System.Windows.Forms.TextBox txtNewPassword;
 		private System.Windows.Forms.Label lblNewPassword;
 		private System.Windows.Forms.Button btnEditRule;
+		private System.Windows.Forms.Label lblAutoTypeOld;
+		private System.Windows.Forms.Label lblAutoTypeNew;
 	}
 }

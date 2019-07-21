@@ -165,16 +165,6 @@
   <data name="cmdRefresh.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="cmdRefresh.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAQdJREFUOE+V0jFLQlEYxvE7pKOWiKNgQyAuDk5i38AtaMkxcDOaAw2/gSg6W1u4
-        NjUK4ZyIgqPtIULRkPV/jp64xj2aD/zA973vy7lyrrclGTQQMdU/E0MFj/jGK86wM+d4g5b8JkjBGS0u
-        oeEXNPGBGsI4QAtpbESvOocW29BgAiewuYWeP5vKlyvowRBaDEocC2gup4ZND2remMqdB2hOh/3mCWpe
-        mMqdDjRXN9U6XahZNZU7fWiubKp1SlBzhqgaAclDt/GFYzVsQpjiHQU1iK7nevXTLOpj0QH3avxNFnbx
-        FGN8YgB7/yMcwpki9GoatlTf4Qg7Y0/WF3aJJPaK/z8HxPN+AGmSP73Uk4QrAAAAAElFTkSuQmCC
-</value>
-  </data>
   <data name="cmdRefresh.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -308,7 +298,7 @@
     <value>2</value>
   </data>
   <data name="btnDeleteRow.Text" xml:space="preserve">
-    <value>Delete Row</value>
+    <value>&amp;Delete Row</value>
   </data>
   <data name="&gt;&gt;btnDeleteRow.Name" xml:space="preserve">
     <value>btnDeleteRow</value>
@@ -467,7 +457,7 @@
     <value>0</value>
   </data>
   <data name="rdoRule.Text" xml:space="preserve">
-    <value>Rule</value>
+    <value>&amp;Rule</value>
   </data>
   <data name="rdoRule.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -584,7 +574,7 @@
     <value>1</value>
   </data>
   <data name="rdoProfile.Text" xml:space="preserve">
-    <value>Profile</value>
+    <value>&amp;Profile</value>
   </data>
   <data name="rdoProfile.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleCenter</value>
@@ -601,64 +591,64 @@
   <data name="&gt;&gt;rdoProfile.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="btnSave.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="btnAccept.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="btnSave.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="btnAccept.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="btnSave.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="btnAccept.Location" type="System.Drawing.Point, System.Drawing">
     <value>248, 255</value>
   </data>
-  <data name="btnSave.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="btnAccept.Size" type="System.Drawing.Size, System.Drawing">
     <value>93, 23</value>
   </data>
-  <data name="btnSave.TabIndex" type="System.Int32, mscorlib">
+  <data name="btnAccept.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
   </data>
-  <data name="btnSave.Text" xml:space="preserve">
-    <value>Save</value>
+  <data name="btnAccept.Text" xml:space="preserve">
+    <value>&amp;Accept</value>
   </data>
-  <data name="&gt;&gt;btnSave.Name" xml:space="preserve">
-    <value>btnSave</value>
+  <data name="&gt;&gt;btnAccept.Name" xml:space="preserve">
+    <value>btnAccept</value>
   </data>
-  <data name="&gt;&gt;btnSave.Type" xml:space="preserve">
+  <data name="&gt;&gt;btnAccept.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnSave.Parent" xml:space="preserve">
+  <data name="&gt;&gt;btnAccept.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;btnSave.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;btnAccept.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="btnDiscard.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="btnCancel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="btnDiscard.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="btnCancel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="btnDiscard.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="btnCancel.Location" type="System.Drawing.Point, System.Drawing">
     <value>347, 255</value>
   </data>
-  <data name="btnDiscard.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="btnCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>93, 23</value>
   </data>
-  <data name="btnDiscard.TabIndex" type="System.Int32, mscorlib">
+  <data name="btnCancel.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
-  <data name="btnDiscard.Text" xml:space="preserve">
-    <value>Discard</value>
+  <data name="btnCancel.Text" xml:space="preserve">
+    <value>&amp;Cancel</value>
   </data>
-  <data name="&gt;&gt;btnDiscard.Name" xml:space="preserve">
-    <value>btnDiscard</value>
+  <data name="&gt;&gt;btnCancel.Name" xml:space="preserve">
+    <value>btnCancel</value>
   </data>
-  <data name="&gt;&gt;btnDiscard.Type" xml:space="preserve">
+  <data name="&gt;&gt;btnCancel.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnDiscard.Parent" xml:space="preserve">
+  <data name="&gt;&gt;btnCancel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;btnDiscard.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;btnCancel.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -678,6 +668,9 @@
   </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>420, 250</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Password Rule</value>

@@ -10,22 +10,19 @@ using System.Windows.Forms;
 
 namespace RuleBuilder.Forms {
 	internal partial class EditRule : Form {
-		public static bool ShowRuleDialog(ref Rule.IPasswordGenerator generator, PwEntry entry) {
-			EditRule form = new EditRule(generator, entry);
+		public static bool ShowRuleDialog(ref Rule.IPasswordGenerator generator) {
+			EditRule form = new EditRule(generator);
 			_ = form.ShowDialog();
 			generator = form.SelectedGenerator;
-			return form.SavedChanges;
+			return form.DialogResult == DialogResult.Yes;
 		}
 		private Rule.PasswordRule PasswordRule { get; set; }
 		private List<Rule.PasswordProfile> Profiles { get; } = PwGeneratorUtil.GetAllProfiles(false).ConvertAll((PwProfile profile) => new Rule.PasswordProfile(profile));
 		private Rule.IPasswordGenerator SelectedGenerator { get; set; }
-		private PwEntry Entry { get; }
 		private bool Loaded { get; set; }
-		private bool SavedChanges { get; set; }
-		private EditRule(Rule.IPasswordGenerator generator, PwEntry entry) {
+		private EditRule(Rule.IPasswordGenerator generator) {
 			this.InitializeComponent();
 			this.SelectedGenerator = generator;
-			this.Entry = entry;
 			this.MinColIndex = this.dgvComponents.Columns.Add(new NumberColumn.NumberColumn() {
 				HeaderText = "Minimum",
 				SortMode = DataGridViewColumnSortMode.NotSortable
@@ -223,7 +220,7 @@ namespace RuleBuilder.Forms {
 
 		private void Save(object sender, EventArgs e) {
 			this.SelectedGenerator = this.Generator();
-			this.SavedChanges = true;
+			this.DialogResult = DialogResult.Yes;
 		}
 	}
 }

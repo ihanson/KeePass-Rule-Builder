@@ -41,8 +41,12 @@ namespace RuleBuilder.Rule {
 		public List<Component> Components { get; set; } = new List<Component>();
 		private HashSet<string> AllCharacters() {
 			HashSet<string> chars = new HashSet<string>();
-			foreach (Component component in this.Components) {
-				chars.UnionWith(component.CharacterClass.CharacterSet);
+			if (this.Components.Count > 0) {
+				foreach (Component component in this.Components) {
+					chars.UnionWith(component.CharacterClass.CharacterSet);
+				}
+			} else {
+				chars.UnionWith(Rule.CharacterClass.AllCharacters.CharacterSet);
 			}
 			foreach (string c in this.ExcludeChars) {
 				_ = chars.Remove(c);

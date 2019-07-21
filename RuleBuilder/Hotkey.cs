@@ -17,9 +17,7 @@ namespace RuleBuilder {
 			return ID;
 		}
 		public static void UnregisterHotKey(Form form, int id) {
-			if (!UnregisterHotKey(form.Handle, id)) {
-				throw new HotKeyException("Unable to unregister hotkey.");
-			}
+			_ = UnregisterHotKey(form.Handle, id);
 		}
 		private static uint Modifiers(Keys keys) {
 			uint result = 0;

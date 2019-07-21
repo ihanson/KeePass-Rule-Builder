@@ -18,8 +18,16 @@ namespace RuleBuilder.Forms {
 			this.Generator = Rule.Serialization.Entry.EntryGenerator(entry);
 			this.txtOldPassword.Text = entry.Strings.Get(PwDefs.PasswordField).ReadString();
 			this.txtNewPassword.Text = this.Generator.NewPassword();
-			this.OldPasswordHotKeyID = HotKey.RegisterHotKey(this, Keys.Z | Keys.Control | Keys.Shift);
-			this.NewPasswordHotKeyID = HotKey.RegisterHotKey(this, Keys.X | Keys.Control | Keys.Shift);
+			try {
+				this.OldPasswordHotKeyID = HotKey.RegisterHotKey(this, Keys.Z | Keys.Control | Keys.Shift);
+			} catch {
+				this.lblAutoTypeOld.Visible = false;
+			}
+			try {
+				this.NewPasswordHotKeyID = HotKey.RegisterHotKey(this, Keys.X | Keys.Control | Keys.Shift);
+			} catch {
+				this.lblAutoTypeNew.Visible = false;
+			}
 		}
 		private void SaveNewPassword(object sender, System.EventArgs e) {
 			string oldPassword = this.Entry.Strings.Get(PwDefs.PasswordField).ReadString();
@@ -44,7 +52,7 @@ namespace RuleBuilder.Forms {
 		public Rule.IPasswordGenerator Generator { get; private set; }
 		private void EditRule(object sender, System.EventArgs e) {
 			Rule.IPasswordGenerator generator = this.Generator;
-			if (Forms.EditRule.ShowRuleDialog(ref generator, this.Entry)) {
+			if (Forms.EditRule.ShowRuleDialog(ref generator)) {
 				this.RuleChanged = true;
 				this.Generator = generator;
 				this.txtNewPassword.Text = this.Generator.NewPassword();

@@ -53,6 +53,7 @@ namespace RuleBuilder.Forms {
 		private int RequiredColIndex { get; }
 		public static bool ShowRuleDialog(ref Rule.IPasswordGenerator generator) {
 			EditRule form = new EditRule(generator);
+
 			_ = form.ShowDialog();
 			generator = form.SelectedGenerator;
 			return form.DialogResult == DialogResult.Yes;
@@ -85,6 +86,7 @@ namespace RuleBuilder.Forms {
 			foreach (Rule.Component component in rule.Components) {
 				this.AddComponent(component);
 			}
+			this.dgvComponents.Rows[0].Selected = true;
 		}
 		private void LoadProfile(Rule.PasswordProfile profile) {
 			this.lbProfiles.SelectedIndex = 0;

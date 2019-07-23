@@ -56,14 +56,6 @@
     </Compile>
     <Compile Include="HotKey.cs" />
     <Compile Include="NativeMethods.cs" />
-    <Compile Include="NumberColumn\NumberCell.cs" />
-    <Compile Include="NumberColumn\NumberCellControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="NumberColumn\NumberCellControl.Designer.cs">
-      <DependentUpon>NumberCellControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="NumberColumn\NumberColumn.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

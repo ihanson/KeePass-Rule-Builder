@@ -5,9 +5,9 @@ namespace RuleBuilder.Rule.Tests {
 	public class ComponentTests {
 		[TestMethod]
 		public void ComponentTest() {
-			Component component = new Component(CharacterClass.Letters, 4);
+			Component component = new Component(CharacterClass.Letters, true);
 			Assert.AreEqual(CharacterClassEnum.Letters, component.CharacterClass.Enumeration);
-			Assert.AreEqual(4, component.MinCount);
+			Assert.IsTrue(component.Required);
 		}
 	}
 }

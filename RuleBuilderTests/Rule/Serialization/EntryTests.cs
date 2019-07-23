@@ -45,14 +45,14 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 		}
 		[TestMethod]
 		public void DecodeRuleTest() {
-			PasswordRule rule = (PasswordRule)GeneratorFromJSON("{\"Rule\":{\"Length\":32,\"Components\":[{\"CharacterSet\":{\"CharacterClass\":2},\"MinCount\":5},{\"CharacterSet\":{\"Characters\":\"xyz\"}}],\"Exclude\":\"abc\"}}");
+			PasswordRule rule = (PasswordRule)GeneratorFromJSON("{\"Rule\":{\"Length\":32,\"Components\":[{\"CharacterSet\":{\"CharacterClass\":2},\"Required\":true},{\"CharacterSet\":{\"Characters\":\"xyz\"}}],\"Exclude\":\"abc\"}}");
 			Assert.AreEqual(32, rule.Length);
 			Assert.AreEqual(2, rule.Components.Count);
 			Assert.AreEqual(CharacterClassEnum.Letters, rule.Components[0].CharacterClass.Enumeration);
-			Assert.AreEqual(5, rule.Components[0].MinCount);
+			Assert.IsTrue(rule.Components[0].Required);
 			Assert.AreEqual(CharacterClassEnum.Custom, rule.Components[1].CharacterClass.Enumeration);
 			Assert.AreEqual("xyz", rule.Components[1].CharacterClass.Characters);
-			Assert.AreEqual(0, rule.Components[1].MinCount);
+			Assert.IsFalse(rule.Components[1].Required);
 			Assert.AreEqual("abc", rule.Exclude);
 		}
 		[TestMethod]
@@ -60,18 +60,18 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 			PasswordRule rule = (PasswordRule)EncodeDecodeGenerator(new PasswordRule() {
 				Length = 32,
 				Components = new List<Component>() {
-					new Component(CharacterClass.Letters, 5),
-					new Component(new CharacterClass("xyz"), 0)
+					new Component(CharacterClass.Letters, true),
+					new Component(new CharacterClass("xyz"), false)
 				},
 				Exclude = "abc"
 			});
 			Assert.AreEqual(32, rule.Length);
 			Assert.AreEqual(2, rule.Components.Count);
 			Assert.AreEqual(CharacterClassEnum.Letters, rule.Components[0].CharacterClass.Enumeration);
-			Assert.AreEqual(5, rule.Components[0].MinCount);
+			Assert.IsTrue(rule.Components[0].Required);
 			Assert.AreEqual(CharacterClassEnum.Custom, rule.Components[1].CharacterClass.Enumeration);
 			Assert.AreEqual("xyz", rule.Components[1].CharacterClass.Characters);
-			Assert.AreEqual(0, rule.Components[1].MinCount);
+			Assert.IsFalse(rule.Components[1].Required);
 			Assert.AreEqual("abc", rule.Exclude);
 		}
 		private static string EncodeJSONString(string str) => $"\"{str.Replace("\\", "\\\\").Replace("\"", "\\\"")}\"";

@@ -6,17 +6,15 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 	public class ComponentContractTests {
 		[TestMethod]
 		public void ComponentTest() {
-			ComponentContract component = new ComponentContract(new Component(CharacterClass.Letters, 32));
+			ComponentContract component = new ComponentContract(new Component(CharacterClass.Letters, true));
 			Assert.AreEqual(CharacterClassEnum.Letters, component.CharacterSet.CharacterClass);
-			Assert.AreEqual(32, component.MinCount);
+			Assert.IsTrue(component.Required);
 		}
 		[TestMethod]
 		public void ComponentObjectTest() {
-			Component component = new ComponentContract(new Component(CharacterClass.Letters, 32)).Object();
+			Component component = new ComponentContract(new Component(CharacterClass.Letters, true)).Object();
 			Assert.AreEqual(CharacterClassEnum.Letters, component.CharacterClass.Enumeration);
-			Assert.AreEqual(32, component.MinCount);
+			Assert.IsTrue(component.Required);
 		}
-		[TestMethod]
-		public void NegativeLengthTest() => _ = Assert.ThrowsException<SerializationException>(() => _ = new ComponentContract(new Component(CharacterClass.Letters, -15)).Object());
 	}
 }

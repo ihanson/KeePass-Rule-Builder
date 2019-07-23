@@ -9,14 +9,13 @@ using KeePassLib.Security;
 namespace RuleBuilder.Forms {
 	internal partial class EditRule : Form {
 		private const string CharCol = "Characters";
+		private const string RequiredCol = "Required";
 		private EditRule(Rule.IPasswordGenerator generator) {
 			this.InitializeComponent();
 			this.SelectedGenerator = generator;
-			this.MinColIndex = this.dgvComponents.Columns.Add(new NumberColumn.NumberColumn() {
-				HeaderText = "Minimum",
-				SortMode = DataGridViewColumnSortMode.NotSortable
-			});
 			this.CharColIndex = this.dgvComponents.Columns[CharCol].Index;
+			this.RequiredColIndex = this.dgvComponents.Columns[RequiredCol].Index;
+			this.dgvComponents.Columns[RequiredColIndex].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 			this.AddButton = new DataGridViewButtonCell() {
 				Value = "Add Character Set",
 				ContextMenuStrip = this.mnuComponents
@@ -24,7 +23,10 @@ namespace RuleBuilder.Forms {
 			this.BuildMenu();
 			int rowIndex = this.dgvComponents.Rows.Add();
 			this.dgvComponents[this.CharColIndex, rowIndex] = this.AddButton;
-			this.dgvComponents[this.MinColIndex, rowIndex].ReadOnly = true;
+			this.dgvComponents[this.RequiredColIndex, rowIndex] = new DataGridViewTextBoxCell() {
+				Value = ""
+			};
+			this.dgvComponents[this.RequiredColIndex, rowIndex].ReadOnly = true;
 			this.udPasswordLength.Select(this.udPasswordLength.Text.Length, 0);
 			this.Profiles.Insert(0, Rule.PasswordProfile.DefaultProfile);
 			this.lbProfiles.DataSource = this.Profiles;
@@ -48,7 +50,7 @@ namespace RuleBuilder.Forms {
 		private DataGridViewButtonCell AddButton { get; }
 		private bool Loaded { get; set; }
 		private int CharColIndex { get; }
-		private int MinColIndex { get; }
+		private int RequiredColIndex { get; }
 		public static bool ShowRuleDialog(ref Rule.IPasswordGenerator generator) {
 			EditRule form = new EditRule(generator);
 			_ = form.ShowDialog();
@@ -115,11 +117,11 @@ namespace RuleBuilder.Forms {
 			}
 		}
 		private void AddCharacterClass(Rule.CharacterClass charClass) {
-			this.AddComponent(new Rule.Component(charClass, 0));
+			this.AddComponent(new Rule.Component(charClass, false));
 			this.ShowExample();
 		}
 		private void AddCustom() {
-			this.AddComponent(new Rule.Component(new Rule.CharacterClass(), 0));
+			this.AddComponent(new Rule.Component(new Rule.CharacterClass(), false));
 			this.ShowExample();
 		}
 		private void AddComponent(Rule.Component component) {
@@ -134,13 +136,13 @@ namespace RuleBuilder.Forms {
 				};
 				this.dgvComponents.Rows.Insert(index);
 				this.dgvComponents[this.CharColIndex, index] = cell;
-				this.dgvComponents[this.MinColIndex, index].Value = component.MinCount;
+				this.dgvComponents[this.RequiredColIndex, index].Value = component.Required;
 				cell.ReadOnly = false;
 				this.dgvComponents.CurrentCell = cell;
 			} else {
 				this.dgvComponents.Rows.Insert(index, new object[] { component.CharacterClass.Name });
 				this.dgvComponents[this.CharColIndex, index].ReadOnly = true;
-				this.dgvComponents[this.MinColIndex, index].Value = component.MinCount;
+				this.dgvComponents[this.RequiredColIndex, index].Value = component.Required;
 			}
 		}
 		private void OnLengthUpdate(object sender, EventArgs e) {
@@ -156,7 +158,7 @@ namespace RuleBuilder.Forms {
 			if (e.ColumnIndex < 0 || e.RowIndex < 0) {
 				return;
 			}
-			DataGridView grid = sender as DataGridView;
+			DataGridView grid = (DataGridView)sender;
 			DataGridViewCell cell = grid[e.ColumnIndex, e.RowIndex];
 			if (cell == this.AddButton) {
 				Rectangle rect = grid.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
@@ -168,26 +170,26 @@ namespace RuleBuilder.Forms {
 			if (e.RowIndex < 0) {
 				return;
 			}
-			DataGridView grid = sender as DataGridView;
+			DataGridView grid = (DataGridView)sender;
 			DataGridViewCell cell = grid[e.ColumnIndex, e.RowIndex];
 			if (!cell.IsInEditMode) {
 				return;
 			}
 			if (e.ColumnIndex == this.CharColIndex) {
 				this.PasswordRule.Components[e.RowIndex].CharacterClass.Characters = (string)(cell.Value ?? string.Empty);
-			} else if (e.ColumnIndex == this.MinColIndex) {
-				this.PasswordRule.Components[e.RowIndex].MinCount = (int)cell.Value;
+			} else if (e.ColumnIndex == this.RequiredColIndex) {
+				this.PasswordRule.Components[e.RowIndex].Required = (bool)cell.Value;
 			}
 			this.ShowExample();
 		}
 		private void OnDirtyStateChange(object sender, EventArgs e) {
-			DataGridView grid = sender as DataGridView;
+			DataGridView grid = (DataGridView)sender;
 			if (grid.IsCurrentCellDirty) {
 				_ = grid.CommitEdit(DataGridViewDataErrorContexts.Commit);
 			}
 		}
 		private void OnDeletingRow(object sender, DataGridViewRowCancelEventArgs e) {
-			DataGridView grid = sender as DataGridView;
+			DataGridView grid = (DataGridView)sender;
 			if (e.Row.Index == grid.RowCount - 1) {
 				e.Cancel = true;
 			} else {
@@ -202,18 +204,15 @@ namespace RuleBuilder.Forms {
 			this.ShowExample();
 		}
 		private void OnSelectionChange(object sender, EventArgs e) {
-			DataGridView grid = sender as DataGridView;
+			DataGridView grid = (DataGridView)sender;
 			this.btnDeleteRow.Enabled = grid.SelectedRows.Count > 0 && grid.SelectedRows[0].Index < grid.RowCount - 1;
 		}
-
 		private void RuleTypeSelected(object sender, EventArgs e) => this.ShowPanel();
-
 		private void ShowPanel() {
 			this.pnlRule.Visible = this.rdoRule.Checked;
 			this.pnlProfile.Visible = this.rdoProfile.Checked;
 			this.ShowExample();
 		}
-
 		private void Save(object sender, EventArgs e) {
 			this.SelectedGenerator = this.Generator();
 			this.DialogResult = DialogResult.Yes;

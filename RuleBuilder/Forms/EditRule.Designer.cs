@@ -35,7 +35,6 @@
 			this.mnuComponents = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.udPasswordLength = new System.Windows.Forms.NumericUpDown();
 			this.dgvComponents = new System.Windows.Forms.DataGridView();
-			this.Characters = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.pnlRule = new System.Windows.Forms.Panel();
 			this.txtExclude = new System.Windows.Forms.TextBox();
 			this.rdoRule = new System.Windows.Forms.RadioButton();
@@ -46,6 +45,8 @@
 			this.rdoProfile = new System.Windows.Forms.RadioButton();
 			this.btnAccept = new System.Windows.Forms.Button();
 			this.btnCancel = new System.Windows.Forms.Button();
+			this.Characters = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Required = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			lblLength = new System.Windows.Forms.Label();
 			cmdRefresh = new System.Windows.Forms.Button();
 			lblSample = new System.Windows.Forms.Label();
@@ -135,7 +136,8 @@
 			resources.ApplyResources(this.dgvComponents, "dgvComponents");
 			this.dgvComponents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgvComponents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Characters});
+            this.Characters,
+            this.Required});
 			this.dgvComponents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
 			this.dgvComponents.MultiSelect = false;
 			this.dgvComponents.Name = "dgvComponents";
@@ -146,14 +148,6 @@
 			this.dgvComponents.CurrentCellDirtyStateChanged += new System.EventHandler(this.OnDirtyStateChange);
 			this.dgvComponents.SelectionChanged += new System.EventHandler(this.OnSelectionChange);
 			this.dgvComponents.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.OnDeletingRow);
-			// 
-			// Characters
-			// 
-			this.Characters.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			resources.ApplyResources(this.Characters, "Characters");
-			this.Characters.Name = "Characters";
-			this.Characters.ReadOnly = true;
-			this.Characters.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
 			// 
 			// pnlRule
 			// 
@@ -231,6 +225,20 @@
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
 			// 
+			// Characters
+			// 
+			this.Characters.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			resources.ApplyResources(this.Characters, "Characters");
+			this.Characters.Name = "Characters";
+			this.Characters.ReadOnly = true;
+			this.Characters.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+			// 
+			// Required
+			// 
+			resources.ApplyResources(this.Required, "Required");
+			this.Required.Name = "Required";
+			this.Required.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+			// 
 			// EditRule
 			// 
 			this.AcceptButton = this.btnAccept;
@@ -270,7 +278,6 @@
 		private System.Windows.Forms.ToolStripMenuItem customToolStripMenuItem;
 		private System.Windows.Forms.ContextMenuStrip mnuComponents;
 		private System.Windows.Forms.NumericUpDown udPasswordLength;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Characters;
 		private System.Windows.Forms.DataGridView dgvComponents;
 		private System.Windows.Forms.Panel pnlRule;
 		private System.Windows.Forms.RadioButton rdoRule;
@@ -281,5 +288,7 @@
 		private System.Windows.Forms.Button btnAccept;
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.TextBox txtExclude;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Characters;
+		private System.Windows.Forms.DataGridViewCheckBoxColumn Required;
 	}
 }

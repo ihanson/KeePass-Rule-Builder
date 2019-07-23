@@ -1,10 +1,10 @@
 ﻿namespace RuleBuilder.Rule {
 	public class Component {
-		public Component(CharacterClass characterClass, int minCount) {
+		public Component(CharacterClass characterClass, bool required) {
 			this.CharacterClass = characterClass;
-			this.MinCount = minCount;
+			this.Required = required;
 		}
 		public CharacterClass CharacterClass { get; set; }
-		public int MinCount { get; set; } = 0;
+		public bool Required { get; set; }
 	}
 }

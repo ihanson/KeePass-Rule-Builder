@@ -4,18 +4,13 @@ namespace RuleBuilder.Rule.Serialization {
 	[DataContract]
 	public class ComponentContract {
 		public ComponentContract(Component component) {
-			this.MinCount = component.MinCount;
 			this.CharacterSet = new CharacterClassContract(component.CharacterClass);
+			this.Required = component.Required;
 		}
-		[DataMember(EmitDefaultValue = false)]
-		public int MinCount { get; private set; }
 		[DataMember]
 		public CharacterClassContract CharacterSet { get; private set; }
-		public Component Object() {
-			if (this.MinCount < 0) {
-				throw new SerializationException("Minimum count must be a positive number.");
-			}
-			return new Component(this.CharacterSet.Object(), this.MinCount);
-		}
+		[DataMember(EmitDefaultValue = false)]
+		public bool Required { get; private set; }
+		public Component Object() => new Component(this.CharacterSet.Object(), this.Required);
 	}
 }

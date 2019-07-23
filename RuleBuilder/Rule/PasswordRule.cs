@@ -13,12 +13,12 @@ namespace RuleBuilder.Rule {
 		public string NewPassword() {
 			List<string> password = new List<string>();
 			foreach (Component component in this.Components) {
-				HashSet<string> chars = new HashSet<string>(component.CharacterClass.CharacterSet);
-				foreach (string c in this.ExcludeChars) {
-					_ = chars.Remove(c);
-				}
-				if (chars.Count > 0) {
-					for (int count = 0; count < component.MinCount; count++) {
+				if (component.Required) {
+					HashSet<string> chars = new HashSet<string>(component.CharacterClass.CharacterSet);
+					foreach (string c in this.ExcludeChars) {
+						_ = chars.Remove(c);
+					}
+					if (chars.Count > 0) {
 						password.Add(Random.RandomItem(chars));
 					}
 				}

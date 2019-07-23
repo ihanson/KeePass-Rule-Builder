@@ -10,7 +10,7 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 			RuleContract rule = new RuleContract(new PasswordRule() {
 				Length = 32,
 				Components = new List<Component>() {
-					new Component(CharacterClass.Letters, 0)
+					new Component(CharacterClass.Letters, false)
 				},
 				Exclude = "x"
 			});
@@ -23,7 +23,7 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 			PasswordRule rule = new RuleContract(new PasswordRule() {
 				Length = 32,
 				Components = new List<Component>() {
-					new Component(CharacterClass.Letters, 0)
+					new Component(CharacterClass.Letters, false)
 				},
 				Exclude = "x"
 			}).Object();

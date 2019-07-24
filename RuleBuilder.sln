@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleBuilderTests", "RuleBui
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EB95F864-50D9-491E-A787-E87ED1694325}"
 	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
+		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -19,6 +19,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{9B39E0
 		Images\charsets.png = Images\charsets.png
 		Images\menu.png = Images\menu.png
 		Images\rule.png = Images\rule.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{A8F703CE-B688-45F7-B5D3-BFD2E3B105E5}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
 	EndProjectSection
 EndProject
 Global
@@ -41,6 +48,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9B39E0D1-37E2-488E-B073-54AA16495410} = {EB95F864-50D9-491E-A787-E87ED1694325}
+		{A8F703CE-B688-45F7-B5D3-BFD2E3B105E5} = {EB95F864-50D9-491E-A787-E87ED1694325}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74AB2C26-02C4-43E8-84EC-13CA0B1C150B}

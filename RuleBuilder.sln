@@ -10,6 +10,15 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EB95F864-50D9-491E-A787-E87ED1694325}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{9B39E0D1-37E2-488E-B073-54AA16495410}"
+	ProjectSection(SolutionItems) = preProject
+		Images\change.png = Images\change.png
+		Images\charsets.png = Images\charsets.png
+		Images\menu.png = Images\menu.png
+		Images\rule.png = Images\rule.png
 	EndProjectSection
 EndProject
 Global
@@ -29,6 +38,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9B39E0D1-37E2-488E-B073-54AA16495410} = {EB95F864-50D9-491E-A787-E87ED1694325}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74AB2C26-02C4-43E8-84EC-13CA0B1C150B}

@@ -53,7 +53,6 @@ namespace RuleBuilder.Forms {
 		private int RequiredColIndex { get; }
 		public static bool ShowRuleDialog(ref Rule.IPasswordGenerator generator) {
 			EditRule form = new EditRule(generator);
-
 			_ = form.ShowDialog();
 			generator = form.SelectedGenerator;
 			return form.DialogResult == DialogResult.Yes;

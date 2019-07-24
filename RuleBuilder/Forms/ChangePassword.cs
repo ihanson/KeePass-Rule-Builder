@@ -1,5 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Windows.Input;
+using KeePass.App;
 using KeePassLib;
 using KeePassLib.Security;
 
@@ -14,15 +16,19 @@ namespace RuleBuilder.Forms {
 			this.Generator = Rule.Serialization.Entry.EntryGenerator(entry);
 			this.txtOldPassword.Text = entry.Strings.Get(PwDefs.PasswordField).ReadString();
 			this.txtNewPassword.Text = this.Generator.NewPassword();
-			try {
-				this.OldPasswordHotKeyID = HotKey.RegisterHotKey(this, Keys.Z | Keys.Control | Keys.Shift);
-			} catch {
-				this.lblAutoTypeOld.Visible = false;
-			}
-			try {
-				this.NewPasswordHotKeyID = HotKey.RegisterHotKey(this, Keys.X | Keys.Control | Keys.Shift);
-			} catch {
-				this.lblAutoTypeNew.Visible = false;
+			if (this.Entry.GetAutoTypeEnabled() && AppPolicy.Try(AppPolicyId.AutoTypeWithoutContext)) {
+				try {
+					this.OldPasswordHotKeyID = HotKey.RegisterHotKey(this, Keys.Z | Keys.Control | Keys.Shift);
+					this.lblAutoTypeOld.Visible = true;
+				} catch (HotKeyException e) {
+					_ = e;
+				}
+				try {
+					this.NewPasswordHotKeyID = HotKey.RegisterHotKey(this, Keys.X | Keys.Control | Keys.Shift);
+					this.lblAutoTypeNew.Visible = true;
+				} catch (HotKeyException e) {
+					_ = e;
+				}
 			}
 		}
 		public Rule.IPasswordGenerator Generator { get; private set; }
@@ -39,6 +45,7 @@ namespace RuleBuilder.Forms {
 		}
 		protected override void WndProc(ref Message m) {
 			if (m.Msg == HotKeyMessage) {
+				while (!ControlKeysUp()) { }
 				int hotKeyID = (int)m.WParam;
 				if (hotKeyID == this.OldPasswordHotKeyID) {
 					_ = KeePass.Util.AutoType.PerformIntoCurrentWindow(this.Entry, this.Database, EscapeAutoType(this.txtOldPassword.Text));
@@ -49,6 +56,7 @@ namespace RuleBuilder.Forms {
 			base.WndProc(ref m);
 		}
 		private static string EscapeAutoType(string text) => Regex.Replace(text, @"[+%^~()[\]{}]", (Match match) => $"{{{match.Value}}}");
+		private static bool ControlKeysUp() => Keyboard.IsKeyUp(Key.LeftCtrl) && Keyboard.IsKeyUp(Key.RightCtrl) && Keyboard.IsKeyUp(Key.LeftShift) && Keyboard.IsKeyUp(Key.RightShift);
 		private void SaveNewPassword(object sender, System.EventArgs e) {
 			string oldPassword = this.Entry.Strings.Get(PwDefs.PasswordField).ReadString();
 			string newPassword = this.txtNewPassword.Text;

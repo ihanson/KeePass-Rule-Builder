@@ -22,6 +22,7 @@ namespace RuleBuilder {
 			}
 			return base.Initialize(host);
 		}
+		public override string UpdateUrl => "https://raw.githubusercontent.com/ihanson/KeePass-Rule-Builder/master/RuleBuilder/version.txt";
 		private static ToolStripMenuItem MenuItem(string text, Action action, Image image) {
 			ToolStripMenuItem item = new ToolStripMenuItem(text) {
 				Image = image

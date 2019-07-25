@@ -1,6 +1,5 @@
 ﻿using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Windows.Input;
 using KeePass.App;
 using KeePassLib;
 using KeePassLib.Security;
@@ -8,6 +7,7 @@ using KeePassLib.Security;
 namespace RuleBuilder.Forms {
 	internal partial class ChangePassword : Form {
 		private const int HotKeyMessage = 0x312;
+		private const short ShiftKey = 0x10;
 		private ChangePassword(PwDatabase database, PwEntry entry) {
 			this.InitializeComponent();
 			this.Database = database;
@@ -45,7 +45,7 @@ namespace RuleBuilder.Forms {
 		}
 		protected override void WndProc(ref Message m) {
 			if (m.Msg == HotKeyMessage) {
-				while (!ControlKeysUp()) { }
+				while (ShiftKeyDown()) { }
 				int hotKeyID = (int)m.WParam;
 				if (hotKeyID == this.OldPasswordHotKeyID) {
 					_ = KeePass.Util.AutoType.PerformIntoCurrentWindow(this.Entry, this.Database, EscapeAutoType(this.txtOldPassword.Text));
@@ -56,7 +56,7 @@ namespace RuleBuilder.Forms {
 			base.WndProc(ref m);
 		}
 		private static string EscapeAutoType(string text) => Regex.Replace(text, @"[+%^~()[\]{}]", (Match match) => $"{{{match.Value}}}");
-		private static bool ControlKeysUp() => Keyboard.IsKeyUp(Key.LeftCtrl) && Keyboard.IsKeyUp(Key.RightCtrl) && Keyboard.IsKeyUp(Key.LeftShift) && Keyboard.IsKeyUp(Key.RightShift);
+		private static bool ShiftKeyDown() => (NativeMethods.GetKeyState(ShiftKey) & 0x80) != 0;
 		private void SaveNewPassword(object sender, System.EventArgs e) {
 			string oldPassword = this.Entry.Strings.Get(PwDefs.PasswordField).ReadString();
 			string newPassword = this.txtNewPassword.Text;

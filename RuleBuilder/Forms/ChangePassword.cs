@@ -12,9 +12,9 @@ namespace RuleBuilder.Forms {
 			this.InitializeComponent();
 			this.Database = database;
 			this.Entry = entry;
-			this.Text = $"Change Password: {entry.Strings.Get(PwDefs.TitleField).ReadString()}";
+			this.Text = $"Change Password: {entry.Strings.Get(PwDefs.TitleField)?.ReadString() ?? string.Empty}";
 			this.Generator = Rule.Serialization.Entry.EntryGenerator(entry);
-			this.txtOldPassword.Text = entry.Strings.Get(PwDefs.PasswordField).ReadString();
+			this.txtOldPassword.Text = entry.Strings.Get(PwDefs.PasswordField)?.ReadString() ?? string.Empty;
 			this.txtNewPassword.Text = this.Generator.NewPassword();
 			if (this.Entry.GetAutoTypeEnabled() && AppPolicy.Try(AppPolicyId.AutoTypeWithoutContext)) {
 				try {

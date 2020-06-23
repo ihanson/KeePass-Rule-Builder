@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RuleBuilder.Rule.Tests {
@@ -10,11 +11,12 @@ namespace RuleBuilder.Rule.Tests {
 				Length = 16
 			}.NewPassword().Length);
 		}
+
 		[TestMethod]
 		public void ComponentsTest() {
 			string password = new PasswordRule() {
 				Length = 32,
-				Components = new List<Component>() {
+				Components = new ObservableCollection<Component>() {
 					new Component(new CharacterClass("a"), false),
 					new Component(new CharacterClass("b"), true),
 					new Component(new CharacterClass("cd"), true)
@@ -24,11 +26,12 @@ namespace RuleBuilder.Rule.Tests {
 			Assert.IsTrue(password.Contains("c") || password.Contains("d"));
 			Assert.AreEqual(32, password.Length);
 		}
+
 		[TestMethod]
 		public void ExtraCharactersTest() {
 			string password = new PasswordRule() {
 				Length = 5,
-				Components = new List<Component>() {
+				Components = new ObservableCollection<Component>() {
 					new Component(new CharacterClass("a"), true),
 					new Component(new CharacterClass("bc"), true),
 					new Component(new CharacterClass("d"), true),
@@ -49,25 +52,21 @@ namespace RuleBuilder.Rule.Tests {
 			Assert.IsFalse(password.Contains("i"));
 			Assert.AreEqual(7, password.Length);
 		}
+
 		[TestMethod]
 		public void ExcludeTest() {
 			string password = new PasswordRule() {
 				Length = 32,
-				Components = new List<Component>() {
+				Components = new ObservableCollection<Component>() {
 					new Component(new CharacterClass("abc"), false)
 				},
-				Exclude = "ab"
+				ExcludeCharacters = "ab"
 			}.NewPassword();
 			Assert.AreEqual(0, CharCount(password, 'a'));
 			Assert.AreEqual(0, CharCount(password, 'b'));
 			Assert.AreEqual(32, CharCount(password, 'c'));
 		}
-		[TestMethod]
-		public void ExcludeCharsTest() {
-			Assert.IsTrue(new HashSet<string> { "a", "b", "c" }.SetEquals(new PasswordRule() {
-				Exclude = "abca"
-			}.ExcludeChars));
-		}
+
 		private static int CharCount(string str, char character) {
 			int count = 0;
 			foreach (char strChar in str) {

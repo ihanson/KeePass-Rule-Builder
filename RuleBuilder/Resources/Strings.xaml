@@ -1,0 +1,25 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:System="clr-namespace:System;assembly=mscorlib"
+>
+	<System:String x:Key="EditRule">Edit Rule</System:String>
+	<System:String x:Key="Rule">_Rule</System:String>
+	<System:String x:Key="Profile">_Profile</System:String>
+	<System:String x:Key="Length">Length</System:String>
+	<System:String x:Key="DeleteRow">_Delete Row</System:String>
+	<System:String x:Key="Characters">Characters</System:String>
+	<System:String x:Key="Required">Required</System:String>
+	<System:String x:Key="Exclude">Exclude</System:String>
+	<System:String x:Key="Example">Example</System:String>
+	<System:String x:Key="GenerateAnother">Generate another password</System:String>
+	<System:String x:Key="Accept">_Accept</System:String>
+	<System:String x:Key="Cancel">_Cancel</System:String>
+	<System:String x:Key="AddCharacterSet">Add Character _Set</System:String>
+	<System:String x:Key="ChangePassword">Change Password</System:String>
+	<System:String x:Key="OldPassword">Old password</System:String>
+	<System:String x:Key="NewPassword">New password</System:String>
+	<System:String x:Key="EditRuleButton">_Edit Rule</System:String>
+	<System:String x:Key="OldPasswordAutoType">Ctrl+Shift+Z</System:String>
+	<System:String x:Key="NewPasswordAutoType">Ctrl+Shift+X</System:String>
+</ResourceDictionary>

@@ -1,0 +1,143 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:util="clr-namespace:RuleBuilder.Util"
+	mc:Ignorable="d"
+	x:Class="RuleBuilder.Forms.EditRule"
+	x:Name="Root"
+	Title="{DynamicResource EditRule}" WindowStartupLocation="CenterOwner"
+	Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+	Width="400" Height="400"
+	Closing="FormClosing"
+>
+	<Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="../Resources/Styles.xaml"/>
+				<ResourceDictionary Source="../Resources/Strings.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Window.Resources>
+	<Grid Margin="5">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<WrapPanel Grid.Row="0" Margin="0,0,0,5">
+			<RadioButton GroupName="RuleType" Name="rdoRule" Content="{DynamicResource Rule}" Margin="0,0,10,0" VerticalContentAlignment="Center" Checked="RuleOrProfileChecked">
+			</RadioButton>
+			<RadioButton GroupName="RuleType" Name="rdoProfile" Content="{DynamicResource Profile}" Margin="10,0,0,0" VerticalContentAlignment="Center" Checked="RuleOrProfileChecked" />
+		</WrapPanel>
+		<ListBox Grid.Row="1" Margin="0,5,0,5" Name="lbProfiles" SelectedIndex="{Binding SelectedProfileIndex}" ItemsSource="{Binding Profiles}" DisplayMemberPath="Name"/>
+		<Grid Grid.Row="1" Margin="0,5,0,5" Name="gridRule">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<Grid Grid.Row="0" Margin="0,0,0,5">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<WrapPanel Grid.Column="0">
+					<TextBlock Text="{DynamicResource Length}"/>
+					<TextBlock Text=": "/>
+					<TextBox Width="50" MaxLength="3">
+						<TextBox.Text>
+							<Binding Path="PasswordRule.Length" UpdateSourceTrigger="PropertyChanged">
+								<Binding.ValidationRules>
+									<util:IntegerRangeRule Min="1" Max="100"/>
+								</Binding.ValidationRules>
+							</Binding>
+						</TextBox.Text>
+					</TextBox>
+				</WrapPanel>
+				<Button Grid.Column="1" Name="btnDeleteRow" Content="{DynamicResource DeleteRow}" Click="DeleteRowClicked" IsEnabled="False"/>
+			</Grid>
+			<DataGrid Grid.Row="1" Margin="0,5,0,5" ItemsSource="{Binding PasswordRule.Components}" HeadersVisibility="Column" AutoGenerateColumns="False" Name="dgComponents" SelectionMode="Single" SelectedCellsChanged="SelectedCellsChanged" CanUserAddRows="False" CanUserDeleteRows="False" MinRowHeight="25">
+				<DataGrid.Resources>
+					<util:ComponentTemplateSelector x:Key="CharacterTemplateSelector">
+						<util:ComponentTemplateSelector.CharacterClassCell>
+							<DataTemplate>
+								<TextBlock Text="{Binding CharacterClass.Name}" VerticalAlignment="Center"/>
+							</DataTemplate>
+						</util:ComponentTemplateSelector.CharacterClassCell>
+						<util:ComponentTemplateSelector.CustomCharacterCell>
+							<DataTemplate>
+								<TextBox Style="{DynamicResource PasswordEntry}" Text="{Binding CharacterClass.Characters, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" VerticalContentAlignment="Center" Loaded="TextBoxLoaded"/>
+							</DataTemplate>
+						</util:ComponentTemplateSelector.CustomCharacterCell>
+						<util:ComponentTemplateSelector.BlankCell>
+							<DataTemplate>
+								<Button Content="{DynamicResource AddCharacterSet}" Click="AddRowClicked"/>
+							</DataTemplate>
+						</util:ComponentTemplateSelector.BlankCell>
+					</util:ComponentTemplateSelector>
+					<util:ComponentTemplateSelector x:Key="RequiredTemplateSelector">
+						<util:ComponentTemplateSelector.CharacterClassCell>
+							<DataTemplate>
+								<CheckBox IsChecked="{Binding Required, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							</DataTemplate>
+						</util:ComponentTemplateSelector.CharacterClassCell>
+						<util:ComponentTemplateSelector.BlankCell>
+							<DataTemplate/>
+						</util:ComponentTemplateSelector.BlankCell>
+					</util:ComponentTemplateSelector>
+				</DataGrid.Resources>
+				<DataGrid.Columns>
+					<DataGridTemplateColumn CellTemplateSelector="{StaticResource CharacterTemplateSelector}" Width="*">
+						<DataGridTemplateColumn.Header>
+							<TextBlock Text="{DynamicResource Characters}"/>
+						</DataGridTemplateColumn.Header>
+					</DataGridTemplateColumn>
+					<DataGridTemplateColumn CellTemplateSelector="{StaticResource RequiredTemplateSelector}" MinWidth="75">
+						<DataGridTemplateColumn.Header>
+							<TextBlock Text="{DynamicResource Required}"/>
+						</DataGridTemplateColumn.Header>
+					</DataGridTemplateColumn>
+				</DataGrid.Columns>
+			</DataGrid>
+			<Grid Grid.Row="2" Margin="0,5,0,0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<WrapPanel Grid.Column="0">
+					<TextBlock Text="{DynamicResource Exclude}"/>
+					<TextBlock Text=": "/>
+				</WrapPanel>
+				<TextBox Grid.Column="1" Style="{DynamicResource PasswordEntry}" Text="{Binding PasswordRule.ExcludeCharacters, UpdateSourceTrigger=PropertyChanged}"/>
+			</Grid>
+		</Grid>
+		<Grid Grid.Row="2" Margin="0,5,0,5">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto"/>
+				<ColumnDefinition/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			<WrapPanel Grid.Column="0">
+				<TextBlock Text="{DynamicResource Example}"/>
+				<TextBlock Text=": "/>
+			</WrapPanel>
+			<TextBox Grid.Column="1" Name="txtExample" Style="{DynamicResource PasswordEntry}"  IsReadOnly="True" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+			<Button Grid.Column="2" Grid.Row="2" Style="{DynamicResource GeneratePassword}" ToolTip="{DynamicResource GenerateAnother}" Click="GeneratePasswordClicked">
+				<Image Source="../Resources/Refresh.png"/>
+			</Button>
+		</Grid>
+		<Grid Grid.Row="3" Margin="0,5,0,0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition Width="Auto"/>
+			</Grid.ColumnDefinitions>
+			<WrapPanel Grid.Column="1">
+				<Button Content="{DynamicResource Accept}" Margin="0,0,5,0" IsDefault="True" Click="AcceptClicked"/>
+				<Button Content="{DynamicResource Cancel}" Margin="5,0,0,0" IsCancel="True"/>
+			</WrapPanel>
+		</Grid>
+	</Grid>
+</Window>

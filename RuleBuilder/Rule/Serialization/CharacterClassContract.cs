@@ -13,6 +13,8 @@ namespace RuleBuilder.Rule.Serialization {
 		public string Characters { get; private set; }
 		[DataMember]
 		public CharacterClassEnum CharacterClass { get; private set; }
-		public CharacterClass Object() => this.CharacterClass == CharacterClassEnum.Custom ? new CharacterClass(this.Characters) : Rule.CharacterClass.EnumeratedCharacterClass(this.CharacterClass);
+		public CharacterClass Object() => this.CharacterClass == CharacterClassEnum.Custom ?
+			new CharacterClass(this.Characters)
+			: Rule.CharacterClass.EnumeratedCharacterClass(this.CharacterClass);
 	}
 }

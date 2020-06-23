@@ -55,3 +55,6 @@ At the bottom of the Password Rule dialog, the **Example** line shows a sample p
 Once you have finished entering the password requirements, click **Accept**. If you were editing the rule from the Change Password window, a new password will automatically be generated using your new rule. Follow the steps above to save this password.
 
 Any time you need to generate another password, just use the Generate New Password menu item. It will automatically use the rule that you have set for that entry.
+
+---
+<span style="font-size: 80%">Icons made by [Freepik](https://www.flaticon.com/authors/freepik "Freepik") from [www.flaticon.com](https://www.flaticon.com/ "Flaticon")</span>

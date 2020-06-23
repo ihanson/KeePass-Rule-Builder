@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace RuleBuilder {
+namespace RuleBuilder.Util {
 	internal class NativeMethods {
 		[DllImport("user32")]
 		public static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
@@ -11,3 +11,4 @@ namespace RuleBuilder {
 		public static extern short GetKeyState(int nVertKey);
 	}
 }
+ 

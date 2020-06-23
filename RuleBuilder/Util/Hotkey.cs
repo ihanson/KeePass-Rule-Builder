@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Interop;
+using RuleBuilder.Properties;
 
-namespace RuleBuilder {
+namespace RuleBuilder.Util {
 	internal static class HotKey {
 		private enum Modifier {
 			Alt = 0x0001,
@@ -11,13 +14,15 @@ namespace RuleBuilder {
 			NoRepeat = 0x4000
 		}
 		private static int ID { get; set; } = 0;
-		public static int RegisterHotKey(Form form, Keys keys) {
-			if (!NativeMethods.RegisterHotKey(form.Handle, ++ID, Modifiers(keys), (uint)(keys & Keys.KeyCode))) {
-				throw new HotKeyException("Unable to register hotkey.");
+		public static int RegisterHotKey(Window window, Keys keys) {
+			if (!NativeMethods.RegisterHotKey(new WindowInteropHelper(window).Handle, ++ID, Modifiers(keys), (uint)(keys & Keys.KeyCode))) {
+				throw new HotKeyException(Resources.UnableToRegisterHotkey);
 			}
 			return ID;
 		}
-		public static void UnregisterHotKey(Form form, int id) => _ = NativeMethods.UnregisterHotKey(form.Handle, id);
+		public static void UnregisterHotKey(Window window, int id) {
+			NativeMethods.UnregisterHotKey(new WindowInteropHelper(window).Handle, id);
+		}
 		private static uint Modifiers(Keys keys) {
 			uint result = 0;
 			if ((keys & Keys.Alt) != Keys.None) {

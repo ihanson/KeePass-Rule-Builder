@@ -33,9 +33,6 @@ namespace RuleBuilder.Rule.Tests {
 		}
 
 		[TestMethod]
-		public void SortedStringTest() => Assert.AreEqual("123abc", CharacterClass.SortedString(new List<string>() { "a", "c", "3", "2", "b", "1" }));
-
-		[TestMethod]
-		public void SplitStringTest() => Assert.IsTrue(new HashSet<string> { "a", "b", "c", "🧸", "🐱", "\x200d", "👤" }.SetEquals(CharacterClass.SplitString("abc🧸", "🐱‍👤")));
+		public void SplitStringTest() => Assert.IsTrue(new HashSet<string> { "a", "b", "c", "🧸", "🐱", "\x200d", "👤" }.SetEquals(CharacterClass.SplitString("abc🧸🐱‍👤")));
 	}
 }

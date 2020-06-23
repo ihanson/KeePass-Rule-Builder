@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using KeePass.Resources;
 using KeePassLib;
 using KeePassLib.Security;
@@ -53,17 +54,17 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 			Assert.AreEqual(CharacterClassEnum.Custom, rule.Components[1].CharacterClass.Enumeration);
 			Assert.AreEqual("xyz", rule.Components[1].CharacterClass.Characters);
 			Assert.IsFalse(rule.Components[1].Required);
-			Assert.AreEqual("abc", rule.Exclude);
+			Assert.AreEqual("abc", rule.ExcludeCharacters);
 		}
 		[TestMethod]
 		public void EncodeRuleTest() {
 			PasswordRule rule = (PasswordRule)EncodeDecodeGenerator(new PasswordRule() {
 				Length = 32,
-				Components = new List<Component>() {
+				Components = new ObservableCollection<Component>() {
 					new Component(CharacterClass.Letters, true),
 					new Component(new CharacterClass("xyz"), false)
 				},
-				Exclude = "abc"
+				ExcludeCharacters = "abc"
 			});
 			Assert.AreEqual(32, rule.Length);
 			Assert.AreEqual(2, rule.Components.Count);
@@ -72,7 +73,7 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 			Assert.AreEqual(CharacterClassEnum.Custom, rule.Components[1].CharacterClass.Enumeration);
 			Assert.AreEqual("xyz", rule.Components[1].CharacterClass.Characters);
 			Assert.IsFalse(rule.Components[1].Required);
-			Assert.AreEqual("abc", rule.Exclude);
+			Assert.AreEqual("abc", rule.ExcludeCharacters);
 		}
 		private static string EncodeJSONString(string str) => $"\"{str.Replace("\\", "\\\\").Replace("\"", "\\\"")}\"";
 		private static IPasswordGenerator GeneratorFromJSON(string json) {

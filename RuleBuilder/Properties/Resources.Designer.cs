@@ -61,6 +61,96 @@ namespace RuleBuilder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All characters.
+        /// </summary>
+        internal static string AllCharacters {
+            get {
+                return ResourceManager.GetString("AllCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto-type: {0}.
+        /// </summary>
+        internal static string AutoType {
+            get {
+                return ResourceManager.GetString("AutoType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change Password.
+        /// </summary>
+        internal static string ChangePassword {
+            get {
+                return ResourceManager.GetString("ChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom.
+        /// </summary>
+        internal static string Custom {
+            get {
+                return ResourceManager.GetString("Custom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Digits (0–9).
+        /// </summary>
+        internal static string Digits {
+            get {
+                return ResourceManager.GetString("Digits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Password Rule....
+        /// </summary>
+        internal static string EditPasswordRule {
+            get {
+                return ResourceManager.GetString("EditPasswordRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate New Password....
+        /// </summary>
+        internal static string GenerateNewPassword {
+            get {
+                return ResourceManager.GetString("GenerateNewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid character set enumeration.
+        /// </summary>
+        internal static string InvalidCharacterSet {
+            get {
+                return ResourceManager.GetString("InvalidCharacterSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Letters (A–Z, a–z).
+        /// </summary>
+        internal static string Letters {
+            get {
+                return ResourceManager.GetString("Letters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lowercase letters (a–z).
+        /// </summary>
+        internal static string LowercaseLetters {
+            get {
+                return ResourceManager.GetString("LowercaseLetters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap NewPassword {
@@ -71,12 +161,38 @@ namespace RuleBuilder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to Password length must not be negative..
         /// </summary>
-        internal static System.Drawing.Bitmap Refresh {
+        internal static string PasswordLengthMustNotBeNegative {
             get {
-                object obj = ResourceManager.GetObject("Refresh", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("PasswordLengthMustNotBeNegative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Punctuation.
+        /// </summary>
+        internal static string Punctuation {
+            get {
+                return ResourceManager.GetString("Punctuation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to register hotkey..
+        /// </summary>
+        internal static string UnableToRegisterHotkey {
+            get {
+                return ResourceManager.GetString("UnableToRegisterHotkey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uppercase letters (A–Z).
+        /// </summary>
+        internal static string UppercaseLetters {
+            get {
+                return ResourceManager.GetString("UppercaseLetters", resourceCulture);
             }
         }
     }

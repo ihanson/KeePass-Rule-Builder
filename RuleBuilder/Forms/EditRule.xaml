@@ -9,7 +9,7 @@
 	x:Name="Root"
 	Title="{DynamicResource EditRule}" WindowStartupLocation="CenterOwner"
 	Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-	Width="400" Height="400"
+	Width="400" Height="400" MinWidth="250" MinHeight="300"
 	Closing="FormClosing"
 >
 	<Window.Resources>

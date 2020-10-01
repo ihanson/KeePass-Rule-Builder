@@ -14,6 +14,6 @@ namespace RuleBuilder.Rule.Serialization {
 		public RuleContract Rule { get; private set; }
 		[DataMember(EmitDefaultValue = false)]
 		public ProfileContract Profile { get; private set; }
-		public IPasswordGenerator Object() => (IPasswordGenerator)this.Rule?.Object() ?? this.Profile.Object();
+		public IPasswordGenerator DeserializedObject() => (IPasswordGenerator)this.Rule?.DeserializedObject() ?? this.Profile.DeserializedObject();
 	}
 }

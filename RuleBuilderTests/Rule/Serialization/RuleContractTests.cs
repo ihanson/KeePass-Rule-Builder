@@ -27,7 +27,7 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 					new Component(CharacterClass.Letters, false)
 				},
 				ExcludeCharacters = "x"
-			}).Object();
+			}).DeserializedObject();
 			Assert.AreEqual(32, rule.Length);
 			Assert.AreEqual(1, rule.Components.Count);
 			Assert.AreEqual("x", rule.ExcludeCharacters);
@@ -37,7 +37,7 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 			_ = Assert.ThrowsException<SerializationException>(() => {
 				_ = new RuleContract(new PasswordRule() {
 					Length = -1
-				}).Object();
+				}).DeserializedObject();
 			});
 		}
 	}

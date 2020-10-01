@@ -11,7 +11,7 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 		}
 		[TestMethod]
 		public void BuiltInCharacterSetObjectTest() {
-			CharacterClass charClass = new CharacterClassContract(CharacterClass.LowercaseLetters).Object();
+			CharacterClass charClass = new CharacterClassContract(CharacterClass.LowercaseLetters).DeserializedObject();
 			Assert.AreEqual(CharacterClassEnum.LowercaseLetters, charClass.Enumeration);
 			Assert.AreEqual(CharacterClass.LowercaseLetters.Characters, charClass.Characters);
 		}
@@ -23,7 +23,7 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 		}
 		[TestMethod]
 		public void CustomCharacterSetObjectTest() {
-			CharacterClass charClass = new CharacterClassContract(new CharacterClass("abc")).Object();
+			CharacterClass charClass = new CharacterClassContract(new CharacterClass("abc")).DeserializedObject();
 			Assert.AreEqual(CharacterClassEnum.Custom, charClass.Enumeration);
 			Assert.AreEqual("abc", charClass.Characters);
 		}

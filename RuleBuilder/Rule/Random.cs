@@ -9,6 +9,9 @@ namespace RuleBuilder.Rule {
 			return list[RandomNumber(list.Count)];
 		}
 		public static void Shuffle<T>(List<T> list) {
+			if (list == null) {
+				throw new ArgumentNullException(nameof(list));
+			}
 			for (int i = 0; i < list.Count; i++) {
 				int swapIndex = RandomNumber(list.Count - i) + i;
 				T temp = list[i];

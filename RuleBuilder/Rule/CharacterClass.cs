@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using RuleBuilder.Properties;
 
@@ -19,44 +20,56 @@ namespace RuleBuilder.Rule {
 			UppercaseLettersChars + LowercaseLettersChars + DigitsChars + PunctuationChars,
 			CharacterClassEnum.AllCharacters
 		);
+
 		public static readonly CharacterClass Letters = new CharacterClass(
 			Resources.Letters,
 			UppercaseLettersChars + LowercaseLettersChars,
 			CharacterClassEnum.Letters
 		);
+
 		public static readonly CharacterClass Digits = new CharacterClass(
 			Resources.Digits,
 			DigitsChars,
 			CharacterClassEnum.Digits
 		);
+
 		public static readonly CharacterClass Punctuation = new CharacterClass(
 			Resources.Punctuation,
 			PunctuationChars,
 			CharacterClassEnum.Punctuation
 		);
+
 		public static readonly CharacterClass UppercaseLetters = new CharacterClass(
 			Resources.UppercaseLetters,
 			UppercaseLettersChars,
 			CharacterClassEnum.UppercaseLetters
 		);
+
 		public static readonly CharacterClass LowercaseLetters = new CharacterClass(
 			Resources.LowercaseLetters,
 			LowercaseLettersChars,
 			CharacterClassEnum.LowercaseLetters
 		);
+
 		private const string UppercaseLettersChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		private const string LowercaseLettersChars = "abcdefghijklmnopqrstuvwxyz";
 		private const string DigitsChars = "0123456789";
 		private const string PunctuationChars = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~ ";
+
 		public CharacterClass() : this(string.Empty) { }
-		public CharacterClass(CharacterClass other) : this(other.Name, other.Characters, other.Enumeration) { }
+
+		private CharacterClass(CharacterClass other) : this(other.Name, other.Characters, other.Enumeration) { }
+
 		public CharacterClass(string characters) : this(Resources.Custom, characters, CharacterClassEnum.Custom) { }
+
 		private CharacterClass(string name, string characters, CharacterClassEnum enumeration) {
 			this.Name = name;
 			this.Characters = characters;
 			this.Enumeration = enumeration;
 		}
+
 		public string Name { get; }
+
 		private string _characters = string.Empty;
 		public string Characters {
 			get => this._characters;
@@ -67,7 +80,9 @@ namespace RuleBuilder.Rule {
 				}
 			}
 		}
+
 		public CharacterClassEnum Enumeration { get; }
+
 		public static CharacterClass EnumeratedCharacterClass(CharacterClassEnum enumeration) {
 			switch (enumeration) {
 				case CharacterClassEnum.AllCharacters:
@@ -86,6 +101,7 @@ namespace RuleBuilder.Rule {
 					throw new ArgumentException(Resources.InvalidCharacterSet, nameof(enumeration));
 			}
 		}
+
 		public static HashSet<string> SplitString(string str) {
 			HashSet<string> result = new HashSet<string>();
 			TextElementEnumerator enumerator = StringInfo.GetTextElementEnumerator(str);
@@ -94,5 +110,7 @@ namespace RuleBuilder.Rule {
 			}
 			return result;
 		}
+
+		public CharacterClass Clone() => new CharacterClass(this.Name, this.Characters, this.Enumeration);
 	}
 }

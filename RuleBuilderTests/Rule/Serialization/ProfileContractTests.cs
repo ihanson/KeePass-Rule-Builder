@@ -13,7 +13,7 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 		}
 		[TestMethod]
 		public void DefaultProfileObjectTest() {
-			PasswordProfile profile = new ProfileContract(PasswordProfile.DefaultProfile).Object();
+			PasswordProfile profile = new ProfileContract(PasswordProfile.DefaultProfile).DeserializedObject();
 			Assert.IsTrue(profile.IsDefaultProfile);
 		}
 		[TestMethod]
@@ -24,7 +24,7 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 		}
 		[TestMethod]
 		public void NamedProfileObjectTest() {
-			PasswordProfile profile = new ProfileContract(new PasswordProfile(PasswordProfile.NamedProfile(ProfileName).Profile)).Object();
+			PasswordProfile profile = new ProfileContract(new PasswordProfile(PasswordProfile.NamedProfile(ProfileName).Profile)).DeserializedObject();
 			Assert.IsFalse(profile.IsDefaultProfile);
 			Assert.AreEqual(ProfileName, profile.Name);
 		}

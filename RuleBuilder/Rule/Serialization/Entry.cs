@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using KeePassLib;
@@ -8,6 +9,9 @@ namespace RuleBuilder.Rule.Serialization {
 	public static class Entry {
 		private const string PasswordRuleKey = "Password Rule";
 		public static IPasswordGenerator EntryGenerator(PwEntry entry) {
+			if (entry == null) {
+				throw new ArgumentNullException(nameof(entry));
+			}
 			try {
 				ProtectedString generatorStr = entry.Strings.Get(PasswordRuleKey);
 				return generatorStr != null ? DeserializedGenerator(generatorStr.ReadString()) : PasswordProfile.DefaultProfile;
@@ -16,6 +20,9 @@ namespace RuleBuilder.Rule.Serialization {
 			}
 		}
 		public static void SetEntryGenerator(PwEntry entry, IPasswordGenerator generator) {
+			if (entry == null) {
+				throw new ArgumentNullException(nameof(entry));
+			}
 			if (generator is PasswordProfile && ((PasswordProfile)generator).IsDefaultProfile) {
 				entry.Strings.Remove(PasswordRuleKey);
 			} else {
@@ -35,7 +42,7 @@ namespace RuleBuilder.Rule.Serialization {
 			}) {
 				writer.Write(generatorStr);
 				writer.BaseStream.Position = 0;
-				return ((ConfigurationContract)new DataContractJsonSerializer(typeof(ConfigurationContract)).ReadObject(writer.BaseStream)).Object();
+				return ((ConfigurationContract)new DataContractJsonSerializer(typeof(ConfigurationContract)).ReadObject(writer.BaseStream)).DeserializedObject();
 			}
 		}
 	}

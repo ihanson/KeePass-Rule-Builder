@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
@@ -47,13 +48,16 @@ namespace RuleBuilder.Forms {
 			item.Click += (_, __) => {
 				IList<Rule.Component> components = this.Data.PasswordRule.Components;
 				int index = components.Count - 1;
-				components.Insert(index, new Rule.Component(new Rule.CharacterClass(characterClass), false));
+				components.Insert(index, new Rule.Component(characterClass.Clone(), false));
 				this.dgComponents.SelectedIndex = index;
 			};
 			return item;
 		}
 
 		public static bool ShowRuleDialog(KeePass.Forms.MainForm mainForm, ref Rule.IPasswordGenerator generator) {
+			if (mainForm == null) {
+				throw new ArgumentNullException(nameof(mainForm));
+			}
 			EditRule window = new EditRule(mainForm, generator);
 			_ = window.ShowDialog();
 			generator = window.Data.SelectedGenerator;

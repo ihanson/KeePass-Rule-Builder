@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
@@ -13,7 +14,7 @@ namespace RuleBuilder.Util {
 			Windows = 0x0005,
 			NoRepeat = 0x4000
 		}
-		private static int ID { get; set; } = 0;
+		private static int ID { get; set; }
 		public static int RegisterHotKey(Window window, Keys keys) {
 			if (!NativeMethods.RegisterHotKey(new WindowInteropHelper(window).Handle, ++ID, Modifiers(keys), (uint)(keys & Keys.KeyCode))) {
 				throw new HotKeyException(Resources.UnableToRegisterHotkey);
@@ -38,9 +39,11 @@ namespace RuleBuilder.Util {
 		}
 	}
 	[Serializable]
-	internal class HotKeyException : Exception {
+	public class HotKeyException : Exception {
 		public HotKeyException() : base() { }
+
 		public HotKeyException(string message) : base(message) { }
+
 		public HotKeyException(string message, Exception innerException) : base(message, innerException) { }
 	}
 }

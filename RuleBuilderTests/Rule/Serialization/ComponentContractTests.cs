@@ -12,7 +12,7 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 		}
 		[TestMethod]
 		public void ComponentObjectTest() {
-			Component component = new ComponentContract(new Component(CharacterClass.Letters, true)).Object();
+			Component component = new ComponentContract(new Component(CharacterClass.Letters, true)).DeserializedObject();
 			Assert.AreEqual(CharacterClassEnum.Letters, component.CharacterClass.Enumeration);
 			Assert.IsTrue(component.Required);
 		}

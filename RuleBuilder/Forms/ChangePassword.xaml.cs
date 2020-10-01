@@ -35,7 +35,7 @@ namespace RuleBuilder.Forms {
 
 		private int NewPasswordHotKeyID { get; set; }
 
-		private bool EntryChanged { get; set; } = false;
+		private bool EntryChanged { get; set; }
 
 		private Rule.IPasswordGenerator Generator { get; set; }
 
@@ -44,6 +44,12 @@ namespace RuleBuilder.Forms {
 		private HwndSource Source { get; set; }
 
 		public static bool ShowChangePasswordDialog(KeePass.Forms.MainForm mainForm, PwEntry entry) {
+			if (mainForm == null) {
+				throw new ArgumentNullException(nameof(mainForm));
+			}
+			if (entry == null) {
+				throw new ArgumentNullException(nameof(entry));
+			}
 			ChangePassword window = new ChangePassword(mainForm, mainForm.ActiveDatabase, entry);
 			_ = window.ShowDialog();
 			return window.EntryChanged;

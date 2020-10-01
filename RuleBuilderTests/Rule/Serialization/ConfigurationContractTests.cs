@@ -13,7 +13,7 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 
 		[TestMethod]
 		public void RuleObjectTest() {
-			IPasswordGenerator generator = new ConfigurationContract(new PasswordRule()).Object();
+			IPasswordGenerator generator = new ConfigurationContract(new PasswordRule()).DeserializedObject();
 			Assert.IsInstanceOfType(generator, typeof(PasswordRule));
 		}
 		[TestMethod]
@@ -25,7 +25,7 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 
 		[TestMethod]
 		public void ProfileObjectTest() {
-			IPasswordGenerator generator = new ConfigurationContract(new PasswordProfile(new PwProfile())).Object();
+			IPasswordGenerator generator = new ConfigurationContract(new PasswordProfile(new PwProfile())).DeserializedObject();
 			Assert.IsInstanceOfType(generator, typeof(PasswordProfile));
 		}
 	}

@@ -7,8 +7,10 @@ namespace RuleBuilder.Rule {
 			this.CharacterClass = characterClass;
 			this.Required = required;
 		}
-		public Component(Component other) : this(new CharacterClass(other.CharacterClass), other.Required) { }
+		private Component(Component other) : this(other.CharacterClass.Clone(), other.Required) { }
+
 		private RuleChangedDelegate ChangeDelegate { get; }
+
 		private CharacterClass _characterClass;
 		public CharacterClass CharacterClass {
 			get => this._characterClass;
@@ -25,6 +27,7 @@ namespace RuleBuilder.Rule {
 				}
 			}
 		}
+
 		private bool _required;
 		public bool Required {
 			get => this._required;
@@ -35,5 +38,7 @@ namespace RuleBuilder.Rule {
 				}
 			}
 		}
+
+		public Component Clone() => new Component(this.CharacterClass, this.Required);
 	}
 }

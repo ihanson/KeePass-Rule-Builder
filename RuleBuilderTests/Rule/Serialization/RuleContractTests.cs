@@ -8,26 +8,26 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 	public class RuleContractTests {
 		[TestMethod]
 		public void RuleContractTest() {
-			RuleContract rule = new RuleContract(new PasswordRule() {
-				Length = 32,
-				Components = new ObservableCollection<Component>() {
+			RuleContract rule = new RuleContract(new PasswordRule(
+				32,
+				new ObservableCollection<Component>() {
 					new Component(CharacterClass.Letters, false)
 				},
-				ExcludeCharacters = "x"
-			});
+				"x"
+			));
 			Assert.AreEqual(32, rule.Length);
 			Assert.AreEqual(1, rule.Components.Count);
 			Assert.AreEqual("x", rule.Exclude);
 		}
 		[TestMethod]
 		public void RuleContractObjectTest() {
-			PasswordRule rule = new RuleContract(new PasswordRule() {
-				Length = 32,
-				Components = new ObservableCollection<Component>() {
+			PasswordRule rule = new RuleContract(new PasswordRule(
+				32,
+				new ObservableCollection<Component>() {
 					new Component(CharacterClass.Letters, false)
 				},
-				ExcludeCharacters = "x"
-			}).DeserializedObject();
+				"x"
+			)).DeserializedObject();
 			Assert.AreEqual(32, rule.Length);
 			Assert.AreEqual(1, rule.Components.Count);
 			Assert.AreEqual("x", rule.ExcludeCharacters);

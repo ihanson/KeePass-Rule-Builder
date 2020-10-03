@@ -7,7 +7,6 @@ namespace RuleBuilder.Rule {
 			this.CharacterClass = characterClass;
 			this.Required = required;
 		}
-		private Component(Component other) : this(other.CharacterClass.Clone(), other.Required) { }
 
 		private RuleChangedDelegate ChangeDelegate { get; }
 

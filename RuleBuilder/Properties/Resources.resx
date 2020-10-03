@@ -121,7 +121,7 @@
     <value>All characters</value>
   </data>
   <data name="AutoType" xml:space="preserve">
-    <value>Auto-type: {0}</value>
+    <value>Auto-type</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Change Password</value>

@@ -70,7 +70,7 @@ namespace RuleBuilder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Auto-type: {0}.
+        ///   Looks up a localized string similar to Auto-type.
         /// </summary>
         internal static string AutoType {
             get {

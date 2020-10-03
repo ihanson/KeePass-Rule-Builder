@@ -14,14 +14,15 @@ namespace RuleBuilder.Rule.Tests {
 
 		[TestMethod]
 		public void ComponentsTest() {
-			string password = new PasswordRule() {
-				Length = 32,
-				Components = new ObservableCollection<Component>() {
+			string password = new PasswordRule(
+				32,
+				new ObservableCollection<Component>() {
 					new Component(new CharacterClass("a"), false),
 					new Component(new CharacterClass("b"), true),
 					new Component(new CharacterClass("cd"), true)
-				}
-			}.NewPassword();
+				},
+				""
+			).NewPassword();
 			Assert.IsTrue(password.Contains("b"));
 			Assert.IsTrue(password.Contains("c") || password.Contains("d"));
 			Assert.AreEqual(32, password.Length);
@@ -29,9 +30,9 @@ namespace RuleBuilder.Rule.Tests {
 
 		[TestMethod]
 		public void ExtraCharactersTest() {
-			string password = new PasswordRule() {
-				Length = 5,
-				Components = new ObservableCollection<Component>() {
+			string password = new PasswordRule(
+				5,
+				new ObservableCollection<Component>() {
 					new Component(new CharacterClass("a"), true),
 					new Component(new CharacterClass("bc"), true),
 					new Component(new CharacterClass("d"), true),
@@ -40,8 +41,9 @@ namespace RuleBuilder.Rule.Tests {
 					new Component(new CharacterClass("g"), true),
 					new Component(new CharacterClass("h"), true),
 					new Component(new CharacterClass("i"), false)
-				}
-			}.NewPassword();
+				},
+				""
+			).NewPassword();
 			Assert.IsTrue(password.Contains("a"));
 			Assert.IsTrue(password.Contains("b") || password.Contains("c"));
 			Assert.IsTrue(password.Contains("d"));
@@ -55,13 +57,13 @@ namespace RuleBuilder.Rule.Tests {
 
 		[TestMethod]
 		public void ExcludeTest() {
-			string password = new PasswordRule() {
-				Length = 32,
-				Components = new ObservableCollection<Component>() {
+			string password = new PasswordRule(
+				32,
+				new ObservableCollection<Component>() {
 					new Component(new CharacterClass("abc"), false)
 				},
-				ExcludeCharacters = "ab"
-			}.NewPassword();
+				"ab"
+			).NewPassword();
 			Assert.AreEqual(0, CharCount(password, 'a'));
 			Assert.AreEqual(0, CharCount(password, 'b'));
 			Assert.AreEqual(32, CharCount(password, 'c'));

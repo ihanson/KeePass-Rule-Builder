@@ -118,13 +118,13 @@ namespace RuleBuilder.Forms {
 			if (this.Entry.GetAutoTypeEnabled() && AppPolicy.Try(AppPolicyId.AutoTypeWithoutContext)) {
 				try {
 					this.OldPasswordHotKeyID = HotKey.RegisterHotKey(this, Keys.Z | Keys.Control | Keys.Shift);
-					this.lblAutoTypeOld.Text = string.Format(Properties.Resources.AutoType, "Ctrl+Shift+Z");
+					this.lblAutoTypeOld.Text = $"{Properties.Resources.AutoType}: Ctrl+Shift+Z";
 				} catch (HotKeyException ex) {
 					_ = ex;
 				}
 				try {
 					this.NewPasswordHotKeyID = HotKey.RegisterHotKey(this, Keys.X | Keys.Control | Keys.Shift);
-					this.lblAutoTypeNew.Text = string.Format(Properties.Resources.AutoType, "Ctrl+Shift+X");
+					this.lblAutoTypeNew.Text = $"{Properties.Resources.AutoType}: Ctrl+Shift+X";
 				} catch (HotKeyException ex) {
 					_ = ex;
 				}

@@ -45,5 +45,7 @@ namespace RuleBuilder.Util {
 		public HotKeyException(string message) : base(message) { }
 
 		public HotKeyException(string message, Exception innerException) : base(message, innerException) { }
+
+		protected HotKeyException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 	}
 }

@@ -58,14 +58,14 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 		}
 		[TestMethod]
 		public void EncodeRuleTest() {
-			PasswordRule rule = (PasswordRule)EncodeDecodeGenerator(new PasswordRule() {
-				Length = 32,
-				Components = new ObservableCollection<Component>() {
+			PasswordRule rule = (PasswordRule)EncodeDecodeGenerator(new PasswordRule(
+				32,
+				new ObservableCollection<Component>() {
 					new Component(CharacterClass.Letters, true),
 					new Component(new CharacterClass("xyz"), false)
 				},
-				ExcludeCharacters = "abc"
-			});
+				"abc"
+			));
 			Assert.AreEqual(32, rule.Length);
 			Assert.AreEqual(2, rule.Components.Count);
 			Assert.AreEqual(CharacterClassEnum.Letters, rule.Components[0].CharacterClass.Enumeration);

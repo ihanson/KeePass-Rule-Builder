@@ -29,11 +29,13 @@ namespace RuleBuilder.Rule.Serialization {
 			if (this.Length < 0) {
 				throw new SerializationException(Resources.PasswordLengthMustNotBeNegative);
 			}
-			return new PasswordRule() {
-				Length = this.Length,
-				Components = new ObservableCollection<Component>(this.Components.ConvertAll((ComponentContract component) => component.DeserializedObject())),
-				ExcludeCharacters = this.Exclude
-			};
+			return new PasswordRule(
+				this.Length,
+				new ObservableCollection<Component>(
+					this.Components.ConvertAll((ComponentContract component) => component.DeserializedObject())
+				),
+				this.Exclude
+			);
 		}
 	}
 }

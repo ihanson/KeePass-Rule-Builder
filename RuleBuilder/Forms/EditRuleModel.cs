@@ -9,14 +9,8 @@ namespace RuleBuilder.Forms {
 		public EditRuleModel(Rule.IPasswordGenerator generator) {
 			this.SelectedGenerator = generator;
 			this.RuleType = generator is Rule.PasswordRule ? RuleType.Rule : RuleType.Profile;
-			this.PasswordRule = this.RuleType == RuleType.Rule
-				? new Rule.PasswordRule((Rule.PasswordRule)generator)
-				: new Rule.PasswordRule();
-			this.SelectedProfileIndex = this.ProfileIndex(
-				this.RuleType == RuleType.Profile
-					? new Rule.PasswordProfile((Rule.PasswordProfile)generator)
-					: Rule.PasswordProfile.DefaultProfile
-			);
+			this.PasswordRule = (generator as Rule.PasswordRule)?.Clone() ?? new Rule.PasswordRule();
+			this.SelectedProfileIndex = this.ProfileIndex((generator as Rule.PasswordProfile)?.Clone() ?? Rule.PasswordProfile.DefaultProfile);
 			this.PasswordRule.RuleChanged += () => this.NotifyRuleChanged();
 		}
 

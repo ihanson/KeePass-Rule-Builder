@@ -8,7 +8,7 @@ namespace RuleBuilder.Util {
 		public int? Max { get; set; }
 		public override ValidationResult Validate(object value, CultureInfo cultureInfo) {
 			try {
-				int valInt = int.Parse((string)value);
+				int valInt = int.Parse((string)value, NumberFormatInfo.GetInstance(CultureInfo.CurrentCulture));
 				if (!this.ValueInRange(valInt)) {
 					return new ValidationResult(false, null);
 				}

@@ -58,8 +58,6 @@ namespace RuleBuilder.Rule {
 
 		public CharacterClass() : this(string.Empty) { }
 
-		private CharacterClass(CharacterClass other) : this(other.Name, other.Characters, other.Enumeration) { }
-
 		public CharacterClass(string characters) : this(Resources.Custom, characters, CharacterClassEnum.Custom) { }
 
 		private CharacterClass(string name, string characters, CharacterClassEnum enumeration) {

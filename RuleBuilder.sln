@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28315.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleBuilder", "RuleBuilder\RuleBuilder.csproj", "{6991459B-221F-4CB1-AD70-9EB1B3088A08}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleBuilder", "RuleBuilder\RuleBuilder.csproj", "{6A61D4EB-BA26-4E32-906E-DEF1280163AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RuleBuilderTests", "RuleBuilderTests\RuleBuilderTests.csproj", "{9A7EE14B-4E48-40A2-898E-1139329BFA03}"
 EndProject
@@ -26,6 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{A8F703
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
 	EndProjectSection
 EndProject
 Global
@@ -34,18 +35,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6991459B-221F-4CB1-AD70-9EB1B3088A08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6991459B-221F-4CB1-AD70-9EB1B3088A08}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6991459B-221F-4CB1-AD70-9EB1B3088A08}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6991459B-221F-4CB1-AD70-9EB1B3088A08}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9A7EE14B-4E48-40A2-898E-1139329BFA03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A7EE14B-4E48-40A2-898E-1139329BFA03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A7EE14B-4E48-40A2-898E-1139329BFA03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A7EE14B-4E48-40A2-898E-1139329BFA03}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6A61D4EB-BA26-4E32-906E-DEF1280163AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6A61D4EB-BA26-4E32-906E-DEF1280163AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A61D4EB-BA26-4E32-906E-DEF1280163AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A61D4EB-BA26-4E32-906E-DEF1280163AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A7EE14B-4E48-40A2-898E-1139329BFA03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A7EE14B-4E48-40A2-898E-1139329BFA03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A7EE14B-4E48-40A2-898E-1139329BFA03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A7EE14B-4E48-40A2-898E-1139329BFA03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

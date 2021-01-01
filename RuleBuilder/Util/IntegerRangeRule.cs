@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Controls;
 
 namespace RuleBuilder.Util {
-	class IntegerRangeRule : ValidationRule {
+	public class IntegerRangeRule : ValidationRule {
 		public int? Min { get; set; }
 		public int? Max { get; set; }
 		public override ValidationResult Validate(object value, CultureInfo cultureInfo) {

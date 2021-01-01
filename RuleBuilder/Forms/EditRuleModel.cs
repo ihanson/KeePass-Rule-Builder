@@ -20,23 +20,23 @@ namespace RuleBuilder.Forms {
 			PwGeneratorUtil.GetAllProfiles(false).Select((PwProfile profile) => new Rule.PasswordProfile(profile))
 		).ToList();
 
-		private int __selectedProfileIndex;
+		private int _selectedProfileIndex;
 		public int SelectedProfileIndex {
-			get => this.__selectedProfileIndex;
+			get => this._selectedProfileIndex;
 			set {
-				if (this.__selectedProfileIndex != value) {
-					this.__selectedProfileIndex = value;
+				if (this._selectedProfileIndex != value) {
+					this._selectedProfileIndex = value;
 					this.NotifyPropertyChanged(nameof(this.SelectedProfileIndex));
 				}
 			}
 		}
 
-		private RuleType __ruleType;
+		private RuleType _ruleType;
 		public RuleType RuleType {
-			get => this.__ruleType;
+			get => this._ruleType;
 			set {
-				if (this.__ruleType != value) {
-					this.__ruleType = value;
+				if (this._ruleType != value) {
+					this._ruleType = value;
 					this.NotifyPropertyChanged(nameof(this.RuleType));
 				}
 			}

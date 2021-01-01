@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 
 namespace RuleBuilder.Util {
-	class ComponentTemplateSelector : DataTemplateSelector {
+	public class ComponentTemplateSelector : DataTemplateSelector {
 		public override DataTemplate SelectTemplate(object item, DependencyObject container) {
 			Rule.Component component = item as Rule.Component;
 			if (component == null) {

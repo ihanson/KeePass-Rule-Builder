@@ -45,7 +45,7 @@ namespace RuleBuilder.Forms {
 			MenuItem item = new MenuItem() {
 				Header = caption
 			};
-			item.Click += (_, __) => {
+			item.Click += (_1, _2) => {
 				IList<Rule.Component> components = this.Data.PasswordRule.Components;
 				int index = components.Count - 1;
 				components.Insert(index, new Rule.Component(characterClass.Clone(), false));

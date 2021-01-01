@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
@@ -76,6 +77,11 @@ namespace RuleBuilder.Forms {
 		}
 
 		private void GenerateExamplePassword() {
+			try {
+				this.txtEntropy.Text = (this.Data.Generator() as Rule.PasswordRule)?.EntropyBits().ToString("N0", CultureInfo.CurrentCulture.NumberFormat) ?? string.Empty;
+			} catch (ArgumentOutOfRangeException) {
+				this.txtEntropy.Text = "Unknown";
+			}
 			this.txtExample.Text = this.Data.Generator().NewPassword();
 		}
 

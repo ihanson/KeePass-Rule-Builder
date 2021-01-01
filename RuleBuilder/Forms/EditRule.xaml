@@ -134,6 +134,10 @@
 				<ColumnDefinition/>
 				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
+			<WrapPanel Grid.Column="0">
+				<TextBlock Text="Entropy: "/>
+				<TextBlock Name="txtEntropy"/>
+			</WrapPanel>
 			<WrapPanel Grid.Column="1">
 				<Button Content="{DynamicResource Accept}" Margin="0,0,5,0" IsDefault="True" Click="AcceptClicked"/>
 				<Button Content="{DynamicResource Cancel}" Margin="5,0,0,0" IsCancel="True"/>

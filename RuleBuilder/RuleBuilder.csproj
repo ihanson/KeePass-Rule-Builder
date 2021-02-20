@@ -46,7 +46,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="KeePass, Version=2.46.0.19428, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\KeePass.2.46.0.19428\lib\net45\KeePass.exe</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\KeePass\KeePass.exe</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -77,7 +78,6 @@
     <Compile Include="Forms\EditRuleModel.cs" />
     <Compile Include="Util\IntegerRangeRule.cs" />
     <Compile Include="Util\Hotkey.cs" />
-    <Compile Include="Util\LogNumber.cs" />
     <Compile Include="Util\NativeMethods.cs" />
     <Compile Include="RuleBuilderExt.cs" />
     <Compile Include="Rule\CharacterClass.cs" />
@@ -161,8 +161,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>copy $(TargetPath) "C:\Users\hanso\source\repos\KeePass\Plugins"</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

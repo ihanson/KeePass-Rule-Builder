@@ -4,13 +4,14 @@ using System.Linq;
 using RuleBuilder.Rule;
 
 namespace RuleBuilder.Util {
-	static class Entropy {
+	public static class Entropy {
+		private const int MaxRequired = 5;
 
 		public static double EntropyBits(PasswordRule rule) {
 			HashSet<string> allCharacters = rule.AllCharacters();
 			double numTotalPasswords = Math.Pow(allCharacters.Count, rule.Length);
 			List<CharacterSetCount> requiredSets = RequiredCharacterSets(rule);
-			if (requiredSets.Count > 5) {
+			if (requiredSets.Count > MaxRequired) {
 				throw new ArgumentOutOfRangeException(nameof(rule), "Too many required character sets to calculate the entropy");
 			}
 			double numInvalidPasswords = 0.0;
@@ -36,7 +37,9 @@ namespace RuleBuilder.Util {
 			foreach (Component component in rule.Components.Where((Component component) => component.Required)) {
 				HashSet<string> chars = CharacterClass.SplitString(component.CharacterClass?.Characters ?? string.Empty);
 				chars.IntersectWith(allCharacters);
-				AppendOrUpdate(sets, chars);
+				if (chars.Count > 0) {
+					AppendOrUpdate(sets, chars);
+				}
 			}
 			return sets;
 		}

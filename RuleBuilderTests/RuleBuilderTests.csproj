@@ -72,6 +72,7 @@
     <Compile Include="Rule\Serialization\EntryTests.cs" />
     <Compile Include="Rule\Serialization\ProfileContractTests.cs" />
     <Compile Include="Rule\Serialization\RuleContractTests.cs" />
+    <Compile Include="Util\EntropyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RuleBuilder\RuleBuilder.csproj">

@@ -9,7 +9,7 @@
 	x:Name="Root"
 	Title="{DynamicResource EditRule}" WindowStartupLocation="CenterOwner"
 	Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-	Width="400" Height="400" MinWidth="250" MinHeight="300"
+	Width="400" Height="400" MinWidth="300" MinHeight="300"
 	Closing="FormClosing"
 >
 	<Window.Resources>
@@ -134,9 +134,10 @@
 				<ColumnDefinition/>
 				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
-			<WrapPanel Grid.Column="0">
-				<TextBlock Text="Entropy: "/>
-				<TextBlock Name="txtEntropy"/>
+			<WrapPanel Grid.Column="0" Name="panelQuality" Visibility="Hidden">
+				<TextBlock Text="{DynamicResource Quality}"/>
+				<TextBlock Text=": "/>
+				<TextBlock Name="txtQuality"/>
 			</WrapPanel>
 			<WrapPanel Grid.Column="1">
 				<Button Content="{DynamicResource Accept}" Margin="0,0,5,0" IsDefault="True" Click="AcceptClicked"/>

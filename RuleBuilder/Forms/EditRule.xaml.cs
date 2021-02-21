@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
+using RuleBuilder.Util;
 
 namespace RuleBuilder.Forms {
 	public partial class EditRule : Window {
@@ -77,12 +78,25 @@ namespace RuleBuilder.Forms {
 		}
 
 		private void GenerateExamplePassword() {
-			try {
-				this.txtEntropy.Text = (this.Data.Generator() as Rule.PasswordRule)?.EntropyBits().ToString("N0", CultureInfo.CurrentCulture.NumberFormat) ?? string.Empty;
-			} catch (ArgumentOutOfRangeException) {
-				this.txtEntropy.Text = "Unknown";
+			double? quality = this.Quality();
+			if (quality == null) {
+				this.panelQuality.Visibility = Visibility.Hidden;
+			} else {
+				this.panelQuality.Visibility = Visibility.Visible;
+				this.txtQuality.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.Bits, quality);
 			}
 			this.txtExample.Text = this.Data.Generator().NewPassword();
+		}
+
+		private double? Quality() {
+			if (this.Data.Generator() is Rule.PasswordRule rule) {
+				try {
+					return Entropy.EntropyBits(rule);
+				} catch (ArgumentOutOfRangeException) {
+					return null;
+				}
+			}
+			return null;
 		}
 
 		private void AcceptClicked(object sender, RoutedEventArgs e) {

@@ -123,6 +123,9 @@
   <data name="AutoType" xml:space="preserve">
     <value>Auto-type</value>
   </data>
+  <data name="Bits" xml:space="preserve">
+    <value>{0:0} bits</value>
+  </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Change Password</value>
   </data>

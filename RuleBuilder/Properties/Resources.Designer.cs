@@ -79,6 +79,15 @@ namespace RuleBuilder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0:0} bits.
+        /// </summary>
+        internal static string Bits {
+            get {
+                return ResourceManager.GetString("Bits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change Password.
         /// </summary>
         internal static string ChangePassword {

@@ -12,6 +12,7 @@
 	<System:String x:Key="Required">Required</System:String>
 	<System:String x:Key="Exclude">Exclude</System:String>
 	<System:String x:Key="Example">Example</System:String>
+	<System:String x:Key="Quality">Quality</System:String>
 	<System:String x:Key="GenerateAnother">Generate another password</System:String>
 	<System:String x:Key="Accept">_Accept</System:String>
 	<System:String x:Key="Cancel">_Cancel</System:String>

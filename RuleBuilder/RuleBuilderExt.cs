@@ -16,11 +16,14 @@ namespace RuleBuilder {
 				MenuItem(Resources.GenerateNewPassword, this.ShowChangePassword, Resources.NewPassword),
 				MenuItem(Resources.EditPasswordRule, this.ShowChangeRule, null)
 			}) {
-				this.host.MainWindow.EntryContextMenu.Items.Add(item);
+				_ = this.host.MainWindow.EntryContextMenu.Items.Add(item);
 				this.host.MainWindow.EntryContextMenu.Opening += (object sender, CancelEventArgs args) => {
 					item.Visible = this.host.MainWindow.GetSelectedEntriesCount() == 1;
 				};
 			}
+			_ = this.host.MainWindow.GroupContextMenu.Items.Add(
+				MenuItem(Resources.EditPasswordRule, this.ShowGroupChangeRule, null)
+			);
 			return base.Initialize(host);
 		}
 		public override string UpdateUrl => "https://raw.githubusercontent.com/ihanson/KeePass-Rule-Builder/master/RuleBuilder/version.txt";
@@ -46,6 +49,18 @@ namespace RuleBuilder {
 				if (Forms.EditRule.ShowRuleDialog(this.host.MainWindow, ref generator)) {
 					Rule.Serialization.Entry.SetEntryGenerator(entry, generator);
 					entry.Touch(true);
+					this.host.MainWindow.UpdateUI(false, null, false, null, false, null, true);
+				}
+			}
+		}
+
+		private void ShowGroupChangeRule() {
+			PwGroup group = this.host.MainWindow.GetSelectedGroup();
+			if (group != null) {
+				Rule.IPasswordGenerator generator = Rule.Serialization.Entry.GroupGenerator(group);
+				if (Forms.EditRule.ShowRuleDialog(this.host.MainWindow, ref generator)) {
+					Rule.Serialization.Entry.SetGroupGenerator(group, generator);
+					group.Touch(true);
 					this.host.MainWindow.UpdateUI(false, null, false, null, false, null, true);
 				}
 			}

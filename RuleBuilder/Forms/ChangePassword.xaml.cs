@@ -20,7 +20,7 @@ namespace RuleBuilder.Forms {
 			this.Entry = entry;
 			new WindowInteropHelper(this).Owner = mainForm.Handle;
 			this.Title = $"{Properties.Resources.ChangePassword}: {entry.Strings.Get(PwDefs.TitleField)?.ReadString() ?? string.Empty}";
-			this.Generator = Rule.Serialization.Entry.EntryGenerator(entry);
+			this.Generator = Rule.Serialization.Entry.EntryDefaultGenerator(entry);
 			this.txtOldPassword.Text = entry.Strings.Get(PwDefs.PasswordField)?.ReadString() ?? string.Empty;
 			this.txtNewPassword.Text = this.Generator.NewPassword();
 		}
@@ -92,7 +92,9 @@ namespace RuleBuilder.Forms {
 					this.Entry.CreateBackup(this.Database);
 				}
 				this.Entry.Strings.Set(PwDefs.PasswordField, new ProtectedString(true, newPassword));
-				Rule.Serialization.Entry.SetEntryGenerator(this.Entry, this.Generator);
+				if (this.RuleChanged) {
+					Rule.Serialization.Entry.SetEntryGenerator(this.Entry, this.Generator);
+				}
 				this.Entry.Touch(true);
 				this.EntryChanged = true;
 			}

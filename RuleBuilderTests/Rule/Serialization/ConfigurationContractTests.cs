@@ -6,27 +6,27 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 	public class ConfigurationContractTests {
 		[TestMethod]
 		public void RuleTest() {
-			ConfigurationContract configuration = new ConfigurationContract(new PasswordRule());
+			ConfigurationContract configuration = new ConfigurationContract(new Configuration(new PasswordRule()));
 			Assert.IsNotNull(configuration.Rule);
 			Assert.IsNull(configuration.Profile);
 		}
 
 		[TestMethod]
 		public void RuleObjectTest() {
-			IPasswordGenerator generator = new ConfigurationContract(new PasswordRule()).DeserializedObject();
-			Assert.IsInstanceOfType(generator, typeof(PasswordRule));
+			Configuration config = new ConfigurationContract(new Configuration(new PasswordRule())).DeserializedObject();
+			Assert.IsInstanceOfType(config.Generator, typeof(PasswordRule));
 		}
 		[TestMethod]
 		public void ProfileTest() {
-			ConfigurationContract configuration = new ConfigurationContract(new PasswordProfile(new PwProfile()));
+			ConfigurationContract configuration = new ConfigurationContract(new Configuration(new PasswordProfile(new PwProfile())));
 			Assert.IsNull(configuration.Rule);
 			Assert.IsNotNull(configuration.Profile);
 		}
 
 		[TestMethod]
 		public void ProfileObjectTest() {
-			IPasswordGenerator generator = new ConfigurationContract(new PasswordProfile(new PwProfile())).DeserializedObject();
-			Assert.IsInstanceOfType(generator, typeof(PasswordProfile));
+			Configuration config = new ConfigurationContract(new Configuration(new PasswordProfile(new PwProfile()))).DeserializedObject();
+			Assert.IsInstanceOfType(config.Generator, typeof(PasswordProfile));
 		}
 	}
 }

@@ -13,31 +13,31 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 
 		[TestMethod]
 		public void DecodeDefaultGeneratorTest() {
-			PasswordProfile profile = (PasswordProfile)GeneratorFromJSON(null);
+			PasswordProfile profile = (PasswordProfile)ConfigurationFromJSON(null).Generator;
 			Assert.IsTrue(profile.IsDefaultProfile);
 		}
 
 		[TestMethod]
 		public void DecodeInvalidJSONTest() {
-			PasswordProfile profile = (PasswordProfile)GeneratorFromJSON("{");
+			PasswordProfile profile = (PasswordProfile)ConfigurationFromJSON("{").Generator;
 			Assert.IsTrue(profile.IsDefaultProfile);
 		}
 
 		[TestMethod]
 		public void DecodeDefaultProfileTest() {
-			PasswordProfile profile = (PasswordProfile)GeneratorFromJSON("{Profile:{IsDefault:true}");
+			PasswordProfile profile = (PasswordProfile)ConfigurationFromJSON("{Profile:{IsDefault:true}").Generator;
 			Assert.IsTrue(profile.IsDefaultProfile);
 		}
 
 		[TestMethod]
 		public void EncodeDefaultProfileTest() {
-			PasswordProfile profile = (PasswordProfile)EncodeDecodeGenerator(PasswordProfile.DefaultProfile);
+			PasswordProfile profile = (PasswordProfile)EncodeDecodeConfiguration(new Configuration()).Generator;
 			Assert.IsTrue(profile.IsDefaultProfile);
 		}
 
 		[TestMethod]
 		public void DecodeNamedProfileTest() {
-			PasswordProfile profile = (PasswordProfile)GeneratorFromJSON($"{{\"Profile\":{{\"Name\":{EncodeJSONString(ProfileName)}}}}}");
+			PasswordProfile profile = (PasswordProfile)ConfigurationFromJSON($"{{\"Profile\":{{\"Name\":{EncodeJSONString(ProfileName)}}}}}").Generator;
 			Assert.IsFalse(profile.IsDefaultProfile);
 			Assert.AreEqual(ProfileName, profile.Name);
 			Assert.AreEqual(ProfileName, profile.Profile.Name);
@@ -45,7 +45,10 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 
 		[TestMethod]
 		public void EncodeNamedProfileTest() {
-			PasswordProfile profile = (PasswordProfile)EncodeDecodeGenerator(new PasswordProfile(PasswordProfile.NamedProfile(ProfileName).Profile));
+			PasswordProfile profile = (PasswordProfile)EncodeDecodeConfiguration(new Configuration(
+				new PasswordProfile(PasswordProfile.NamedProfile(ProfileName).Profile),
+				new Expiration(ExpirationUnit.Months, 3)
+			)).Generator;
 			Assert.IsFalse(profile.IsDefaultProfile);
 			Assert.AreEqual(ProfileName, profile.Name);
 			Assert.AreEqual(ProfileName, profile.Profile.Name);
@@ -53,7 +56,10 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 
 		[TestMethod]
 		public void DecodeRuleTest() {
-			PasswordRule rule = (PasswordRule)GeneratorFromJSON("{\"Rule\":{\"Length\":32,\"Components\":[{\"CharacterSet\":{\"CharacterClass\":2},\"Required\":true},{\"CharacterSet\":{\"Characters\":\"xyz\"}}],\"Exclude\":\"abc\"}}");
+			Configuration config = ConfigurationFromJSON(
+				"{\"Rule\":{\"Length\":32,\"Components\":[{\"CharacterSet\":{\"CharacterClass\":2},\"Required\":true},{\"CharacterSet\":{\"Characters\":\"xyz\"}}],\"Exclude\":\"abc\"},\"Expiration\":{\"Unit\":2,\"Length\":3}"
+			);
+			PasswordRule rule = (PasswordRule)config.Generator;
 			Assert.AreEqual(32, rule.Length);
 			Assert.AreEqual(2, rule.Components.Count);
 			Assert.AreEqual(CharacterClassEnum.Letters, rule.Components[0].CharacterClass.Enumeration);
@@ -62,18 +68,24 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 			Assert.AreEqual("xyz", rule.Components[1].CharacterClass.Characters);
 			Assert.IsFalse(rule.Components[1].Required);
 			Assert.AreEqual("abc", rule.ExcludeCharacters);
+			Assert.AreEqual(ExpirationUnit.Months, config.Expiration.Unit);
+			Assert.AreEqual(3, config.Expiration.Length);
 		}
 
 		[TestMethod]
 		public void EncodeRuleTest() {
-			PasswordRule rule = (PasswordRule)EncodeDecodeGenerator(new PasswordRule(
-				32,
-				new ObservableCollection<Component>() {
-					new Component(CharacterClass.Letters, true),
-					new Component(new CharacterClass("xyz"), false)
-				},
-				"abc"
+			Configuration config = EncodeDecodeConfiguration(new Configuration(
+				new PasswordRule(
+					32,
+					new ObservableCollection<Component>() {
+						new Component(CharacterClass.Letters, true),
+						new Component(new CharacterClass("xyz"), false)
+					},
+					"abc"
+				),
+				new Expiration(ExpirationUnit.Months, 3)
 			));
+			PasswordRule rule = (PasswordRule)config.Generator;
 			Assert.AreEqual(32, rule.Length);
 			Assert.AreEqual(2, rule.Components.Count);
 			Assert.AreEqual(CharacterClassEnum.Letters, rule.Components[0].CharacterClass.Enumeration);
@@ -82,6 +94,8 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 			Assert.AreEqual("xyz", rule.Components[1].CharacterClass.Characters);
 			Assert.IsFalse(rule.Components[1].Required);
 			Assert.AreEqual("abc", rule.ExcludeCharacters);
+			Assert.AreEqual(ExpirationUnit.Months, config.Expiration.Unit);
+			Assert.AreEqual(3, config.Expiration.Length);
 		}
 
 		[TestMethod]
@@ -94,11 +108,18 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 			group1.AddGroup(group2, true);
 			group2.AddGroup(group3, true);
 			group3.AddEntry(entry, true);
-			Entry.SetGroupGenerator(group1, new PasswordRule(4, new Component[] {
-				new Component(new CharacterClass("a"), false)
-			}, string.Empty));
+			Entry.SetGroupConfiguration(
+				group1,
+				new Configuration(
+					new PasswordRule(
+						4,
+						new Component[] {new Component(new CharacterClass("a"), false)},
+						string.Empty
+					)
+				)
+			);
 
-			PasswordRule rule = (PasswordRule)Entry.EntryDefaultGenerator(entry);
+			PasswordRule rule = (PasswordRule)Entry.EntryDefaultConfiguration(entry).Generator;
 			Assert.AreEqual("a", rule.Components[0].CharacterClass.Characters);
 		}
 
@@ -112,14 +133,28 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 			group1.AddGroup(group2, true);
 			group2.AddGroup(group3, true);
 			group3.AddEntry(entry, true);
-			Entry.SetGroupGenerator(group1, new PasswordRule(4, new Component[] {
-				new Component(new CharacterClass("a"), false)
-			}, string.Empty));
-			Entry.SetEntryGenerator(entry, new PasswordRule(4, new Component[] {
-				new Component(new CharacterClass("b"), false)
-			}, string.Empty));
+			Entry.SetGroupConfiguration(
+				group1,
+				new Configuration(
+					new PasswordRule(
+						4,
+						new Component[] { new Component(new CharacterClass("a"), false) },
+						string.Empty
+					)
+				)
+			);
+			Entry.SetEntryConfiguration(
+				entry,
+				new Configuration(
+					new PasswordRule(
+						4,
+						new Component[] { new Component(new CharacterClass("b"), false) },
+						string.Empty
+					)
+				)
+			);
 
-			PasswordRule rule = (PasswordRule)Entry.EntryDefaultGenerator(entry);
+			PasswordRule rule = (PasswordRule)Entry.EntryDefaultConfiguration(entry).Generator;
 			Assert.AreEqual("b", rule.Components[0].CharacterClass.Characters);
 		}
 
@@ -134,24 +169,24 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 			group2.AddGroup(group3, true);
 			group3.AddEntry(entry, true);
 
-			PasswordProfile profile = (PasswordProfile)Entry.EntryDefaultGenerator(entry);
+			PasswordProfile profile = (PasswordProfile)Entry.EntryDefaultConfiguration(entry).Generator;
 			Assert.IsTrue(profile.IsDefaultProfile);
 		}
 
 		private static string EncodeJSONString(string str) => $"\"{str.Replace("\\", "\\\\").Replace("\"", "\\\"")}\"";
 
-		private static IPasswordGenerator GeneratorFromJSON(string json) {
+		private static Configuration ConfigurationFromJSON(string json) {
 			PwEntry entry = new PwEntry(true, true);
 			if (json != null) {
 				entry.Strings.Set(PasswordRuleKey, new ProtectedString(false, json));
 			}
-			return Entry.EntryDefaultGenerator(entry);
+			return Entry.EntryDefaultConfiguration(entry);
 		}
 
-		private static IPasswordGenerator EncodeDecodeGenerator(IPasswordGenerator generator) {
+		private static Configuration EncodeDecodeConfiguration(Configuration config) {
 			PwEntry entry = new PwEntry(true, true);
-			Entry.SetEntryGenerator(entry, generator);
-			return Entry.EntryDefaultGenerator(entry);
+			Entry.SetEntryConfiguration(entry, config);
+			return Entry.EntryDefaultConfiguration(entry);
 		}
 	}
 }

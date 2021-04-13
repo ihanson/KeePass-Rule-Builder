@@ -8,6 +8,9 @@ namespace RuleBuilder.Util {
 		private const int MaxRequired = 5;
 
 		public static double EntropyBits(PasswordRule rule) {
+			if (rule == null) {
+				throw new ArgumentNullException(nameof(rule));
+			}
 			HashSet<string> allCharacters = rule.AllCharacters();
 			double numTotalPasswords = Math.Pow(allCharacters.Count, rule.Length);
 			List<CharacterSetCount> requiredSets = RequiredCharacterSets(rule);

@@ -26,6 +26,7 @@
 			<RowDefinition/>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<WrapPanel Grid.Row="0" Margin="0,0,0,5">
 			<RadioButton GroupName="RuleType" Name="rdoRule" Content="{DynamicResource Rule}" Margin="0,0,10,0" VerticalContentAlignment="Center" Checked="RuleOrProfileChecked">
@@ -69,7 +70,7 @@
 						</util:ComponentTemplateSelector.CharacterClassCell>
 						<util:ComponentTemplateSelector.CustomCharacterCell>
 							<DataTemplate>
-								<TextBox Style="{DynamicResource PasswordEntry}" Text="{Binding CharacterClass.Characters, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" VerticalContentAlignment="Center" Loaded="TextBoxLoaded"/>
+								<TextBox Style="{DynamicResource PasswordEntry}" Text="{Binding CharacterClass.Characters, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" VerticalContentAlignment="Center" Loaded="TextBoxLoaded" TextChanged="CustomCharacterSetChanged"/>
 							</DataTemplate>
 						</util:ComponentTemplateSelector.CustomCharacterCell>
 						<util:ComponentTemplateSelector.BlankCell>
@@ -81,7 +82,7 @@
 					<util:ComponentTemplateSelector x:Key="RequiredTemplateSelector">
 						<util:ComponentTemplateSelector.CharacterClassCell>
 							<DataTemplate>
-								<CheckBox IsChecked="{Binding Required, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+								<CheckBox IsChecked="{Binding Required, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Click="GeneratePasswordClicked"/>
 							</DataTemplate>
 						</util:ComponentTemplateSelector.CharacterClassCell>
 						<util:ComponentTemplateSelector.BlankCell>
@@ -129,7 +130,31 @@
 				<Image Source="../Resources/Refresh.png"/>
 			</Button>
 		</Grid>
-		<Grid Grid.Row="3" Margin="0,5,0,0">
+		<WrapPanel Grid.Row="3" Margin="0,5,0,5">
+			<CheckBox IsChecked="{Binding PasswordExpires}" VerticalContentAlignment="Center">
+				<WrapPanel>
+					<TextBlock Text="{DynamicResource Expiration}"/>
+					<TextBlock Text=" "/>
+					<TextBox Width="50" MaxLength="3">
+						<TextBox.Text>
+							<Binding Path="ExpirationLength">
+								<Binding.ValidationRules>
+									<util:IntegerRangeRule Min="1" Max="999"/>
+								</Binding.ValidationRules>
+							</Binding>
+						</TextBox.Text>
+					</TextBox>
+					<TextBlock Text=" "/>
+					<ComboBox SelectedIndex="{Binding ExpirationUnit}">
+						<ComboBoxItem Content="{DynamicResource Days}"/>
+						<ComboBoxItem Content="{DynamicResource Weeks}"/>
+						<ComboBoxItem Content="{DynamicResource Months}"/>
+						<ComboBoxItem Content="{DynamicResource Years}"/>
+					</ComboBox>
+				</WrapPanel>
+			</CheckBox>
+		</WrapPanel>
+		<Grid Grid.Row="4" Margin="0,5,0,0">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition/>
 				<ColumnDefinition Width="Auto"/>

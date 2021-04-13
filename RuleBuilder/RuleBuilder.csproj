@@ -71,6 +71,9 @@
     <Compile Include="Forms\ChangePassword.xaml.cs">
       <DependentUpon>ChangePassword.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Rule\Configuration.cs" />
+    <Compile Include="Rule\Expiration.cs" />
+    <Compile Include="Rule\Serialization\ExpirationContract.cs" />
     <Compile Include="Util\ComponentTemplateSelector.cs" />
     <Compile Include="Forms\EditRule.xaml.cs">
       <DependentUpon>EditRule.xaml</DependentUpon>

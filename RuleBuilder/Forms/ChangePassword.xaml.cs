@@ -1,6 +1,7 @@
 ﻿using KeePass.App;
 using KeePassLib;
 using KeePassLib.Security;
+using RuleBuilder.Rule;
 using RuleBuilder.Util;
 using System;
 using System.Text.RegularExpressions;
@@ -20,9 +21,9 @@ namespace RuleBuilder.Forms {
 			this.Entry = entry;
 			new WindowInteropHelper(this).Owner = mainForm.Handle;
 			this.Title = $"{Properties.Resources.ChangePassword}: {entry.Strings.Get(PwDefs.TitleField)?.ReadString() ?? string.Empty}";
-			this.Generator = Rule.Serialization.Entry.EntryDefaultGenerator(entry);
+			this.Configuration = Rule.Serialization.Entry.EntryDefaultConfiguration(entry);
 			this.txtOldPassword.Text = entry.Strings.Get(PwDefs.PasswordField)?.ReadString() ?? string.Empty;
-			this.txtNewPassword.Text = this.Generator.NewPassword();
+			this.txtNewPassword.Text = this.Configuration.Generator.NewPassword();
 		}
 
 		private KeePass.Forms.MainForm MainForm { get; }
@@ -37,7 +38,7 @@ namespace RuleBuilder.Forms {
 
 		private bool EntryChanged { get; set; }
 
-		private Rule.IPasswordGenerator Generator { get; set; }
+		private Configuration Configuration { get; set; }
 
 		private bool RuleChanged { get; set; }
 
@@ -93,7 +94,7 @@ namespace RuleBuilder.Forms {
 				}
 				this.Entry.Strings.Set(PwDefs.PasswordField, new ProtectedString(true, newPassword));
 				if (this.RuleChanged) {
-					Rule.Serialization.Entry.SetEntryGenerator(this.Entry, this.Generator);
+					Rule.Serialization.Entry.SetEntryConfiguration(this.Entry, this.Configuration);
 				}
 				this.Entry.Touch(true);
 				this.EntryChanged = true;
@@ -102,16 +103,16 @@ namespace RuleBuilder.Forms {
 		}
 
 		private void EditRuleClicked(object sender, RoutedEventArgs e) {
-			Rule.IPasswordGenerator generator = this.Generator;
-			if (EditRule.ShowRuleDialog(this.MainForm, ref generator)) {
+			Configuration config = this.Configuration;
+			if (EditRule.ShowRuleDialog(this.MainForm, ref config)) {
 				this.RuleChanged = true;
-				this.Generator = generator;
-				this.txtNewPassword.Text = this.Generator.NewPassword();
+				this.Configuration = config;
+				this.txtNewPassword.Text = this.Configuration.Generator.NewPassword();
 			}
 		}
 
 		private void RefreshClicked(object sender, RoutedEventArgs e) {
-			this.txtNewPassword.Text = this.Generator.NewPassword();
+			this.txtNewPassword.Text = this.Configuration.Generator.NewPassword();
 		}
 
 		private void WindowLoaded(object sender, RoutedEventArgs e) {

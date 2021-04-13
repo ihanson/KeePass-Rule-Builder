@@ -9,32 +9,32 @@ namespace RuleBuilder.Rule.Serialization {
 	public static class Entry {
 		private const string PasswordRuleKey = "Password Rule";
 
-		public static IPasswordGenerator EntryDefaultGenerator(PwEntry entry) {
+		public static Configuration EntryDefaultConfiguration(PwEntry entry) {
 			if (entry == null) {
 				throw new ArgumentNullException(nameof(entry));
 			}
-			IPasswordGenerator generator = EntryGenerator(entry);
-			if (generator != null) {
-				return generator;
+			Configuration config = EntryConfiguration(entry);
+			if (config != null) {
+				return config;
 			}
 			PwGroup group = entry.ParentGroup;
 			while (group != null) {
-				generator = GroupGenerator(group);
-				if (generator != null) {
-					return generator;
+				config = GroupConfiguration(group);
+				if (config != null) {
+					return config;
 				}
 				group = group.ParentGroup;
 			}
-			return PasswordProfile.DefaultProfile;
+			return new Configuration();
 		}
 
-		public static IPasswordGenerator EntryGenerator(PwEntry entry) {
+		public static Configuration EntryConfiguration(PwEntry entry) {
 			if (entry == null) {
 				throw new ArgumentNullException(nameof(entry));
 			}
 			try {
-				ProtectedString generatorStr = entry.Strings.Get(PasswordRuleKey);
-				return generatorStr != null ? DeserializedGenerator(generatorStr.ReadString()) : null;
+				ProtectedString configStr = entry.Strings.Get(PasswordRuleKey);
+				return configStr != null ? DeserializedConfiguration(configStr.ReadString()) : null;
 #pragma warning disable CA1031 // Do not catch general exception types
 			} catch {
 #pragma warning restore CA1031 // Do not catch general exception types
@@ -42,24 +42,27 @@ namespace RuleBuilder.Rule.Serialization {
 			}
 		}
 
-		public static void SetEntryGenerator(PwEntry entry, IPasswordGenerator generator) {
+		public static void SetEntryConfiguration(PwEntry entry, Configuration config) {
 			if (entry == null) {
 				throw new ArgumentNullException(nameof(entry));
 			}
-			if (generator is PasswordProfile && ((PasswordProfile)generator).IsDefaultProfile) {
+			if (config == null) {
+				throw new ArgumentNullException(nameof(config));
+			}
+			if (config.Generator is PasswordProfile && ((PasswordProfile)config.Generator).IsDefaultProfile) {
 				entry.Strings.Remove(PasswordRuleKey);
 			} else {
-				entry.Strings.Set(PasswordRuleKey, new ProtectedString(false, SerializedGenerator(generator)));
+				entry.Strings.Set(PasswordRuleKey, new ProtectedString(false, SerializedConfiguration(config)));
 			}
 		}
 
-		public static IPasswordGenerator GroupGenerator(PwGroup group) {
+		public static Configuration GroupConfiguration(PwGroup group) {
 			if (group == null) {
 				throw new ArgumentNullException(nameof(group));
 			}
 			try {
-				string generatorStr = group.CustomData.Get(PasswordRuleKey);
-				return generatorStr != null ? DeserializedGenerator(generatorStr) : null;
+				string configStr = group.CustomData.Get(PasswordRuleKey);
+				return configStr != null ? DeserializedConfiguration(configStr) : null;
 #pragma warning disable CA1031 // Do not catch general exception types
 			} catch {
 #pragma warning restore CA1031 // Do not catch general exception types
@@ -67,25 +70,29 @@ namespace RuleBuilder.Rule.Serialization {
 			}
 		}
 
-		public static void SetGroupGenerator(PwGroup group, IPasswordGenerator generator) {
+		public static void SetGroupConfiguration(PwGroup group, Configuration config) {
 			if (group == null) {
 				throw new ArgumentNullException(nameof(group));
 			}
-			if (generator is PasswordProfile && ((PasswordProfile)generator).IsDefaultProfile) {
+			if (config == null) {
+				throw new ArgumentNullException(nameof(config));
+			}
+			if (config.Generator is PasswordProfile && ((PasswordProfile)config.Generator).IsDefaultProfile) {
 				group.CustomData.Remove(PasswordRuleKey);
 			} else {
-				group.CustomData.Set(PasswordRuleKey, SerializedGenerator(generator));
+				group.CustomData.Set(PasswordRuleKey, SerializedConfiguration(config));
 			}
 		}
 
-		private static string SerializedGenerator(IPasswordGenerator generator) {
+		private static string SerializedConfiguration(Configuration config) {
 			using (StreamReader reader = new StreamReader(new MemoryStream(), Encoding.UTF8)) {
-				new DataContractJsonSerializer(typeof(ConfigurationContract)).WriteObject(reader.BaseStream, new ConfigurationContract(generator));
+				new DataContractJsonSerializer(typeof(ConfigurationContract)).WriteObject(reader.BaseStream, new ConfigurationContract(config));
 				reader.BaseStream.Position = 0;
 				return reader.ReadToEnd();
 			}
 		}
-		private static IPasswordGenerator DeserializedGenerator(string generatorStr) {
+
+		private static Configuration DeserializedConfiguration(string generatorStr) {
 			using (StreamWriter writer = new StreamWriter(new MemoryStream(), new UTF8Encoding(false)) {
 				AutoFlush = true
 			}) {

@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using KeePass.Plugins;
 using KeePassLib;
 using RuleBuilder.Properties;
+using RuleBuilder.Rule;
 
 namespace RuleBuilder {
 	public class RuleBuilderExt : Plugin {
@@ -45,9 +46,9 @@ namespace RuleBuilder {
 		private void ShowChangeRule() {
 			PwEntry entry = this.host.MainWindow.GetSelectedEntry(true);
 			if (entry != null) {
-				Rule.IPasswordGenerator generator = Rule.Serialization.Entry.EntryGenerator(entry);
-				if (Forms.EditRule.ShowRuleDialog(this.host.MainWindow, ref generator)) {
-					Rule.Serialization.Entry.SetEntryGenerator(entry, generator);
+				Configuration config = Rule.Serialization.Entry.EntryConfiguration(entry);
+				if (Forms.EditRule.ShowRuleDialog(this.host.MainWindow, ref config)) {
+					Rule.Serialization.Entry.SetEntryConfiguration(entry, config);
 					entry.Touch(true);
 					this.host.MainWindow.UpdateUI(false, null, false, null, false, null, true);
 				}
@@ -57,9 +58,9 @@ namespace RuleBuilder {
 		private void ShowGroupChangeRule() {
 			PwGroup group = this.host.MainWindow.GetSelectedGroup();
 			if (group != null) {
-				Rule.IPasswordGenerator generator = Rule.Serialization.Entry.GroupGenerator(group);
-				if (Forms.EditRule.ShowRuleDialog(this.host.MainWindow, ref generator)) {
-					Rule.Serialization.Entry.SetGroupGenerator(group, generator);
+				Configuration config = Rule.Serialization.Entry.GroupConfiguration(group);
+				if (Forms.EditRule.ShowRuleDialog(this.host.MainWindow, ref config)) {
+					Rule.Serialization.Entry.SetGroupConfiguration(group, config);
 					group.Touch(true);
 					this.host.MainWindow.UpdateUI(false, null, false, null, false, null, true);
 				}

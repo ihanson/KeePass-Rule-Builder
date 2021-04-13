@@ -4,17 +4,21 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
+using RuleBuilder.Rule;
 using RuleBuilder.Util;
 
 namespace RuleBuilder.Forms {
 	public partial class EditRule : Window {
-		private EditRule(KeePass.Forms.MainForm mainForm, Rule.IPasswordGenerator generator) {
-			this.Data = new EditRuleModel(generator);
+		private EditRule(KeePass.Forms.MainForm mainForm, Configuration config) {
+			this.Data = new EditRuleModel(config);
 			this.Data.PasswordRule.Components.Add(new Rule.Component(null, false));
 			this.DataContext = this.Data;
 			new WindowInteropHelper(this).Owner = mainForm.Handle;
 			InitializeComponent();
 			(this.Data.RuleType == RuleType.Rule ? this.rdoRule : this.rdoProfile).IsChecked = true;
+			this.Data.PasswordExpires = config.Expiration != null;
+			this.Data.ExpirationLength = config.Expiration?.Length ?? 1;
+			this.Data.ExpirationUnit = (int)(config.Expiration?.Unit ?? ExpirationUnit.Years);
 			this.GenerateExamplePassword();
 			this.Data.RuleChanged += () => this.GenerateExamplePassword();
 			this.dgComponents.SelectedIndex = 0;
@@ -52,17 +56,21 @@ namespace RuleBuilder.Forms {
 				int index = components.Count - 1;
 				components.Insert(index, new Rule.Component(characterClass.Clone(), false));
 				this.dgComponents.SelectedIndex = index;
+				this.GenerateExamplePassword();
 			};
 			return item;
 		}
 
-		public static bool ShowRuleDialog(KeePass.Forms.MainForm mainForm, ref Rule.IPasswordGenerator generator) {
+		public static bool ShowRuleDialog(KeePass.Forms.MainForm mainForm, ref Configuration config) {
 			if (mainForm == null) {
 				throw new ArgumentNullException(nameof(mainForm));
 			}
-			EditRule window = new EditRule(mainForm, generator);
+			if (config == null) {
+				throw new ArgumentNullException(nameof(config));
+			}
+			EditRule window = new EditRule(mainForm, config);
 			_ = window.ShowDialog();
-			generator = window.Data.SelectedGenerator;
+			config = window.Data.Configuration;
 			return window.DialogResult ?? false;
 		}
 
@@ -85,22 +93,18 @@ namespace RuleBuilder.Forms {
 				this.panelQuality.Visibility = Visibility.Visible;
 				this.txtQuality.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.Bits, quality);
 			}
-			this.txtExample.Text = this.Data.Generator().NewPassword();
+			this.txtExample.Text = this.Data.Configuration.Generator.NewPassword();
 		}
 
 		private double? Quality() {
-			if (this.Data.Generator() is Rule.PasswordRule rule) {
-				try {
-					return Entropy.EntropyBits(rule);
-				} catch (ArgumentOutOfRangeException) {
-					return null;
-				}
+			try {
+				return Entropy.EntropyBits(this.Data.PasswordRule);
+			} catch (ArgumentOutOfRangeException) {
+				return null;
 			}
-			return null;
 		}
 
 		private void AcceptClicked(object sender, RoutedEventArgs e) {
-			this.Data.SelectedGenerator = this.Data.Generator();
 			this.DialogResult = true;
 		}
 
@@ -117,6 +121,7 @@ namespace RuleBuilder.Forms {
 			int oldIndex = this.dgComponents.SelectedIndex;
 			this.Data.PasswordRule.Components.Remove(dgComponents.SelectedItem as Rule.Component);
 			this.dgComponents.SelectedIndex = oldIndex;
+			this.GenerateExamplePassword();
 		}
 
 		private void SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e) {
@@ -133,5 +138,7 @@ namespace RuleBuilder.Forms {
 		private void FormClosing(object sender, System.ComponentModel.CancelEventArgs e) {
 			this.Data.PasswordRule.Components.RemoveAt(this.Data.PasswordRule.Components.Count - 1);
 		}
+
+		private void CustomCharacterSetChanged(object sender, TextChangedEventArgs e) => this.GenerateExamplePassword();
 	}
 }

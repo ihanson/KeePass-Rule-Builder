@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using KeePass.Util;
 using KeePassLib.Cryptography.PasswordGenerator;
@@ -6,11 +8,11 @@ using RuleBuilder.Rule;
 
 namespace RuleBuilder.Forms {
 	public class EditRuleModel : RuleProperty {
-		public EditRuleModel(Rule.IPasswordGenerator generator) {
-			this.SelectedGenerator = generator;
-			this.RuleType = generator is Rule.PasswordRule ? RuleType.Rule : RuleType.Profile;
-			this.PasswordRule = (generator as Rule.PasswordRule)?.Clone() ?? new Rule.PasswordRule();
-			this.SelectedProfileIndex = this.ProfileIndex((generator as Rule.PasswordProfile)?.Clone() ?? Rule.PasswordProfile.DefaultProfile);
+		public EditRuleModel(Configuration config) {
+			this.Configuration = config ?? throw new ArgumentNullException(nameof(config));
+			this.RuleType = config.Generator is Rule.PasswordRule ? RuleType.Rule : RuleType.Profile;
+			this.PasswordRule = (config.Generator as Rule.PasswordRule)?.Clone() ?? new Rule.PasswordRule();
+			this.SelectedProfileIndex = this.ProfileIndex((config.Generator as Rule.PasswordProfile)?.Clone() ?? Rule.PasswordProfile.DefaultProfile);
 			this.PasswordRule.RuleChanged += () => this.NotifyRuleChanged();
 		}
 
@@ -44,13 +46,53 @@ namespace RuleBuilder.Forms {
 
 		public Rule.PasswordRule PasswordRule { get; }
 
-		public Rule.IPasswordGenerator SelectedGenerator { get; set; }
+		private bool _passwordExpires;
+		public bool PasswordExpires {
+			get => this._passwordExpires;
+			set {
+				if (this._passwordExpires != value) {
+					this._passwordExpires = value;
+					this.NotifyPropertyChanged(nameof(this.PasswordExpires), false);
+				}
+			}
+		}
 
-		public Rule.IPasswordGenerator Generator() {
-			if (this.RuleType == RuleType.Rule) {
-				return this.PasswordRule;
-			} else {
-				return this.Profiles[this.SelectedProfileIndex];
+		private int _expirationLength;
+		public int ExpirationLength {
+			get => this._expirationLength;
+			set {
+				if (this._expirationLength != value) {
+					this._expirationLength = value;
+					this.NotifyPropertyChanged(nameof(this.ExpirationLength), false);
+				}
+			}
+		}
+
+		private ExpirationUnit _expirationUnit;
+		public int ExpirationUnit {
+			get => (int)this._expirationUnit;
+			set {
+				ExpirationUnit unit = (ExpirationUnit)value;
+				if (this._expirationUnit != unit) {
+					this._expirationUnit = unit;
+					this.NotifyPropertyChanged(nameof(this.ExpirationUnit), false);
+				}
+			}
+		}
+
+		private Configuration _configuration;
+		public Configuration Configuration {
+			get {
+				this._configuration.Generator = this.RuleType == RuleType.Rule
+					? (IPasswordGenerator)this.PasswordRule
+					: this.Profiles[this.SelectedProfileIndex];
+				this._configuration.Expiration = this.PasswordExpires
+					? new Expiration((ExpirationUnit)this.ExpirationUnit, this.ExpirationLength)
+					: null;
+				return this._configuration;
+			}
+			set {
+				this._configuration = value;
 			}
 		}
 

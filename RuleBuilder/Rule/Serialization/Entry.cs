@@ -49,7 +49,7 @@ namespace RuleBuilder.Rule.Serialization {
 			if (config == null) {
 				throw new ArgumentNullException(nameof(config));
 			}
-			if (config.Generator is PasswordProfile && ((PasswordProfile)config.Generator).IsDefaultProfile) {
+			if (config.Expiration == null && config.Generator is PasswordProfile && ((PasswordProfile)config.Generator).IsDefaultProfile) {
 				entry.Strings.Remove(PasswordRuleKey);
 			} else {
 				entry.Strings.Set(PasswordRuleKey, new ProtectedString(false, SerializedConfiguration(config)));
@@ -77,7 +77,7 @@ namespace RuleBuilder.Rule.Serialization {
 			if (config == null) {
 				throw new ArgumentNullException(nameof(config));
 			}
-			if (config.Generator is PasswordProfile && ((PasswordProfile)config.Generator).IsDefaultProfile) {
+			if (config.Expiration == null && config.Generator is PasswordProfile && ((PasswordProfile)config.Generator).IsDefaultProfile) {
 				group.CustomData.Remove(PasswordRuleKey);
 			} else {
 				group.CustomData.Set(PasswordRuleKey, SerializedConfiguration(config));

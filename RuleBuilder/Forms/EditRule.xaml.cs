@@ -66,7 +66,7 @@ namespace RuleBuilder.Forms {
 				throw new ArgumentNullException(nameof(mainForm));
 			}
 			if (config == null) {
-				throw new ArgumentNullException(nameof(config));
+				config = new Configuration();
 			}
 			EditRule window = new EditRule(mainForm, config);
 			_ = window.ShowDialog();

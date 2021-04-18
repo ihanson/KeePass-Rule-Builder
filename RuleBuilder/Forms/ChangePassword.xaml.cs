@@ -24,15 +24,7 @@ namespace RuleBuilder.Forms {
 			this.Configuration = Rule.Serialization.Entry.EntryDefaultConfiguration(entry);
 			this.txtOldPassword.Text = entry.Strings.Get(PwDefs.PasswordField)?.ReadString() ?? string.Empty;
 			this.txtNewPassword.Text = this.Configuration.Generator.NewPassword();
-			if (this.Configuration.Expiration != null) {
-				this.chkExpiration.IsChecked = true;
-				this.dateExpiration.IsEnabled = true;
-				this.dateExpiration.SelectedDate = this.Configuration.Expiration.DateFrom(DateTime.Today);
-			} else {
-				this.chkExpiration.IsChecked = false;
-				this.dateExpiration.IsEnabled = false;
-				this.dateExpiration.SelectedDate = DateTime.Today;
-			}
+			this.SetExpiration();
 		}
 
 		private KeePass.Forms.MainForm MainForm { get; }
@@ -123,6 +115,7 @@ namespace RuleBuilder.Forms {
 				this.RuleChanged = true;
 				this.Configuration = config;
 				this.txtNewPassword.Text = this.Configuration.Generator.NewPassword();
+				this.SetExpiration();
 			}
 		}
 
@@ -154,6 +147,18 @@ namespace RuleBuilder.Forms {
 		private void WindowClosed(object sender, EventArgs e) {
 			HotKey.UnregisterHotKey(this, this.OldPasswordHotKeyID);
 			HotKey.UnregisterHotKey(this, this.NewPasswordHotKeyID);
+		}
+
+		private void SetExpiration() {
+			if (this.Configuration.Expiration != null) {
+				this.chkExpiration.IsChecked = true;
+				this.dateExpiration.IsEnabled = true;
+				this.dateExpiration.SelectedDate = this.Configuration.Expiration.DateFrom(DateTime.Today);
+			} else {
+				this.chkExpiration.IsChecked = false;
+				this.dateExpiration.IsEnabled = false;
+				this.dateExpiration.SelectedDate = DateTime.Today;
+			}
 		}
 
 		private void ExpirationClicked(object sender, RoutedEventArgs e) {

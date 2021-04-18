@@ -132,7 +132,7 @@
 		</Grid>
 		<WrapPanel Grid.Row="3" Margin="0,5,0,5">
 			<CheckBox IsChecked="{Binding PasswordExpires}" VerticalContentAlignment="Center">
-				<WrapPanel>
+				<WrapPanel IsEnabled="{Binding PasswordExpires}">
 					<TextBlock Text="{DynamicResource Expiration}"/>
 					<TextBlock Text=" "/>
 					<TextBox Width="50" MaxLength="3">

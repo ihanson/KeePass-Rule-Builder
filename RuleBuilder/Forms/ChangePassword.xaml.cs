@@ -24,6 +24,15 @@ namespace RuleBuilder.Forms {
 			this.Configuration = Rule.Serialization.Entry.EntryDefaultConfiguration(entry);
 			this.txtOldPassword.Text = entry.Strings.Get(PwDefs.PasswordField)?.ReadString() ?? string.Empty;
 			this.txtNewPassword.Text = this.Configuration.Generator.NewPassword();
+			if (this.Configuration.Expiration != null) {
+				this.chkExpiration.IsChecked = true;
+				this.dateExpiration.IsEnabled = true;
+				this.dateExpiration.SelectedDate = this.Configuration.Expiration.DateFromToday();
+			} else {
+				this.chkExpiration.IsChecked = false;
+				this.dateExpiration.IsEnabled = false;
+				this.dateExpiration.SelectedDate = DateTime.Today;
+			}
 		}
 
 		private KeePass.Forms.MainForm MainForm { get; }
@@ -91,8 +100,14 @@ namespace RuleBuilder.Forms {
 			if (passwordChanged || this.RuleChanged) {
 				if (passwordChanged) {
 					this.Entry.CreateBackup(this.Database);
+					this.Entry.Strings.Set(PwDefs.PasswordField, new ProtectedString(true, newPassword));
+					if (this.chkExpiration.IsChecked == true && this.dateExpiration.SelectedDate != null) {
+						this.Entry.Expires = true;
+						this.Entry.ExpiryTime = this.dateExpiration.SelectedDate.Value;
+					} else {
+						this.Entry.Expires = false;
+					}
 				}
-				this.Entry.Strings.Set(PwDefs.PasswordField, new ProtectedString(true, newPassword));
 				if (this.RuleChanged) {
 					Rule.Serialization.Entry.SetEntryConfiguration(this.Entry, this.Configuration);
 				}
@@ -139,6 +154,16 @@ namespace RuleBuilder.Forms {
 		private void WindowClosed(object sender, EventArgs e) {
 			HotKey.UnregisterHotKey(this, this.OldPasswordHotKeyID);
 			HotKey.UnregisterHotKey(this, this.NewPasswordHotKeyID);
+		}
+
+		private void ExpirationClicked(object sender, RoutedEventArgs e) {
+			this.dateExpiration.IsEnabled = this.chkExpiration.IsChecked ?? false;
+		}
+
+		private void ExpirationDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) {
+			if (this.dateExpiration.SelectedDate == null) {
+				this.dateExpiration.SelectedDate = DateTime.Today;
+			}
 		}
 	}
 }

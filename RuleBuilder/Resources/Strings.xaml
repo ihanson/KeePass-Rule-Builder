@@ -28,4 +28,5 @@
 	<System:String x:Key="EditRuleButton">_Edit Rule</System:String>
 	<System:String x:Key="OldPasswordAutoType">Ctrl+Shift+Z</System:String>
 	<System:String x:Key="NewPasswordAutoType">Ctrl+Shift+X</System:String>
+	<System:String x:Key="PasswordExpires">Password expires</System:String>
 </ResourceDictionary>

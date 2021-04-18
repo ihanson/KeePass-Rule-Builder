@@ -7,7 +7,7 @@ using KeePassLib.Security;
 
 namespace RuleBuilder.Rule.Serialization {
 	public static class Entry {
-		private const string PasswordRuleKey = "Password Rule";
+		public const string PasswordRuleKey = "Password Rule";
 
 		public static Configuration EntryDefaultConfiguration(PwEntry entry) {
 			if (entry == null) {
@@ -27,7 +27,7 @@ namespace RuleBuilder.Rule.Serialization {
 			}
 			return new Configuration();
 		}
-
+		
 		public static Configuration EntryConfiguration(PwEntry entry) {
 			if (entry == null) {
 				throw new ArgumentNullException(nameof(entry));
@@ -47,7 +47,7 @@ namespace RuleBuilder.Rule.Serialization {
 			if (config == null) {
 				throw new ArgumentNullException(nameof(config));
 			}
-			if (config.Expiration == null && config.Generator is PasswordProfile && ((PasswordProfile)config.Generator).IsDefaultProfile) {
+			if (config.IsDefaultConfiguration()) {
 				entry.Strings.Remove(PasswordRuleKey);
 			} else {
 				entry.Strings.Set(PasswordRuleKey, new ProtectedString(false, SerializedConfiguration(config)));
@@ -80,7 +80,7 @@ namespace RuleBuilder.Rule.Serialization {
 			}
 		}
 
-		private static string SerializedConfiguration(Configuration config) {
+		public static string SerializedConfiguration(Configuration config) {
 			using (StreamReader reader = new StreamReader(new MemoryStream(), Encoding.UTF8)) {
 				new DataContractJsonSerializer(typeof(ConfigurationContract)).WriteObject(reader.BaseStream, new ConfigurationContract(config));
 				reader.BaseStream.Position = 0;
@@ -88,7 +88,7 @@ namespace RuleBuilder.Rule.Serialization {
 			}
 		}
 
-		private static Configuration DeserializedConfiguration(string generatorStr) {
+		public static Configuration DeserializedConfiguration(string generatorStr) {
 			using (StreamWriter writer = new StreamWriter(new MemoryStream(), new UTF8Encoding(false)) {
 				AutoFlush = true
 			}) {

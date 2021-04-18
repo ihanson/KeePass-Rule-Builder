@@ -138,6 +138,9 @@
   <data name="EditPasswordRule" xml:space="preserve">
     <value>Edit Password Rule...</value>
   </data>
+  <data name="GenerateFromRule" xml:space="preserve">
+    <value>Generate From Rule...</value>
+  </data>
   <data name="GenerateNewPassword" xml:space="preserve">
     <value>Generate New Password...</value>
   </data>

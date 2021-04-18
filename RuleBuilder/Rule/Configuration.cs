@@ -12,5 +12,7 @@
 		public IPasswordGenerator Generator { get; set; }
 
 		public Expiration Expiration { get; set; }
+
+		public bool IsDefaultConfiguration() => this.Expiration == null && this.Generator is PasswordProfile profile && profile.IsDefaultProfile;
 	}
 }

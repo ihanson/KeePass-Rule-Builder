@@ -14,16 +14,18 @@ namespace RuleBuilder.Forms {
 		private const int HotKeyMessage = 0x312;
 		private const short ShiftKey = 0x10;
 
-		private ChangePassword(KeePass.Forms.MainForm mainForm, PwDatabase database, PwEntry entry) {
+		private ChangePassword(KeePass.Forms.MainForm mainForm, PwDatabase database, PwEntry entry, bool showExpiration) {
 			this.InitializeComponent();
 			this.MainForm = mainForm;
 			this.Database = database;
 			this.Entry = entry;
+			this.ShowExpiration = showExpiration;
 			new WindowInteropHelper(this).Owner = mainForm.Handle;
 			this.Title = $"{Properties.Resources.ChangePassword}: {entry.Strings.Get(PwDefs.TitleField)?.ReadString() ?? string.Empty}";
 			this.Configuration = Rule.Serialization.Entry.EntryDefaultConfiguration(entry);
 			this.txtOldPassword.Text = entry.Strings.Get(PwDefs.PasswordField)?.ReadString() ?? string.Empty;
 			this.txtNewPassword.Text = this.Configuration.Generator.NewPassword();
+			this.pnlExpiration.Visibility = this.ShowExpiration ? Visibility.Visible : Visibility.Collapsed;
 			this.SetExpiration();
 		}
 
@@ -32,6 +34,8 @@ namespace RuleBuilder.Forms {
 		private PwDatabase Database { get; }
 
 		private PwEntry Entry { get; }
+
+		private bool ShowExpiration { get; }
 
 		private int OldPasswordHotKeyID { get; set; }
 
@@ -45,14 +49,14 @@ namespace RuleBuilder.Forms {
 
 		private HwndSource Source { get; set; }
 
-		public static bool ShowChangePasswordDialog(KeePass.Forms.MainForm mainForm, PwEntry entry) {
+		public static bool ShowChangePasswordDialog(KeePass.Forms.MainForm mainForm, PwEntry entry, bool showExpiration) {
 			if (mainForm == null) {
 				throw new ArgumentNullException(nameof(mainForm));
 			}
 			if (entry == null) {
 				throw new ArgumentNullException(nameof(entry));
 			}
-			ChangePassword window = new ChangePassword(mainForm, mainForm.ActiveDatabase, entry);
+			ChangePassword window = new ChangePassword(mainForm, mainForm.ActiveDatabase, entry, showExpiration);
 			_ = window.ShowDialog();
 			return window.EntryChanged;
 		}
@@ -93,11 +97,13 @@ namespace RuleBuilder.Forms {
 				if (passwordChanged) {
 					this.Entry.CreateBackup(this.Database);
 					this.Entry.Strings.Set(PwDefs.PasswordField, new ProtectedString(true, newPassword));
-					if (this.chkExpiration.IsChecked == true && this.dateExpiration.SelectedDate != null) {
-						this.Entry.Expires = true;
-						this.Entry.ExpiryTime = this.dateExpiration.SelectedDate.Value;
-					} else {
-						this.Entry.Expires = false;
+					if (this.ShowExpiration) {
+						if (this.chkExpiration.IsChecked == true && this.dateExpiration.SelectedDate != null) {
+							this.Entry.Expires = true;
+							this.Entry.ExpiryTime = this.dateExpiration.SelectedDate.Value;
+						} else {
+							this.Entry.Expires = false;
+						}
 					}
 				}
 				if (this.RuleChanged) {

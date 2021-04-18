@@ -124,6 +124,15 @@ namespace RuleBuilder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generate From Rule....
+        /// </summary>
+        internal static string GenerateFromRule {
+            get {
+                return ResourceManager.GetString("GenerateFromRule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Generate New Password....
         /// </summary>
         internal static string GenerateNewPassword {

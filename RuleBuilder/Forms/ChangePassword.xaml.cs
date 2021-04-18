@@ -27,7 +27,7 @@ namespace RuleBuilder.Forms {
 			if (this.Configuration.Expiration != null) {
 				this.chkExpiration.IsChecked = true;
 				this.dateExpiration.IsEnabled = true;
-				this.dateExpiration.SelectedDate = this.Configuration.Expiration.DateFromToday();
+				this.dateExpiration.SelectedDate = this.Configuration.Expiration.DateFrom(DateTime.Today);
 			} else {
 				this.chkExpiration.IsChecked = false;
 				this.dateExpiration.IsEnabled = false;

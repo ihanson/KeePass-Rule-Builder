@@ -13,21 +13,21 @@ namespace RuleBuilder.Rule {
 			this.Length = length;
 		}
 
-		public ExpirationUnit Unit { get; set; }
+		public ExpirationUnit Unit { get; }
 
-		public int Length { get; set; }
+		public int Length { get; }
 
-		public DateTime DateFromToday() {
+		public DateTime DateFrom(DateTime origin) {
 			try {
 				switch (this.Unit) {
 					case ExpirationUnit.Days:
-						return DateTime.Today.AddDays(this.Length);
+						return origin.AddDays(this.Length);
 					case ExpirationUnit.Weeks:
-						return DateTime.Today.AddDays(this.Length * 7);
+						return origin.AddDays(this.Length * 7);
 					case ExpirationUnit.Months:
-						return DateTime.Today.AddMonths(this.Length);
+						return origin.AddMonths(this.Length);
 					case ExpirationUnit.Years:
-						return DateTime.Today.AddYears(this.Length);
+						return origin.AddYears(this.Length);
 					default:
 						throw new ArgumentException("Invalid unit");
 				}

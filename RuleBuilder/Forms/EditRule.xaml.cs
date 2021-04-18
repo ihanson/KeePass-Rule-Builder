@@ -97,9 +97,13 @@ namespace RuleBuilder.Forms {
 		}
 
 		private double? Quality() {
-			try {
-				return Entropy.EntropyBits(this.Data.PasswordRule);
-			} catch (ArgumentOutOfRangeException) {
+			if (this.Data.RuleType == RuleType.Rule) {
+				try {
+					return Entropy.EntropyBits(this.Data.PasswordRule);
+				} catch (ArgumentOutOfRangeException) {
+					return null;
+				}
+			} else {
 				return null;
 			}
 		}

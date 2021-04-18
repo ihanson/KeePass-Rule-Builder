@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RuleBuilder.Rule.Tests {
 	[TestClass]
 	public class PasswordRuleTests {
 		[TestMethod]
-		public  void NoComponentsTest() {
+		public void NoComponentsTest() {
 			Assert.AreEqual(16, new PasswordRule() {
 				Length = 16
 			}.NewPassword().Length);

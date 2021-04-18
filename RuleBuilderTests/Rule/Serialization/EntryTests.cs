@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using KeePass.Resources;
 using KeePassLib;
 using KeePassLib.Security;
@@ -113,7 +112,7 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 				new Configuration(
 					new PasswordRule(
 						4,
-						new Component[] {new Component(new CharacterClass("a"), false)},
+						new Component[] { new Component(new CharacterClass("a"), false) },
 						string.Empty
 					)
 				)

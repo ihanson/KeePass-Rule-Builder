@@ -35,9 +35,7 @@ namespace RuleBuilder.Rule.Serialization {
 			try {
 				ProtectedString configStr = entry.Strings.Get(PasswordRuleKey);
 				return configStr != null ? DeserializedConfiguration(configStr.ReadString()) : null;
-#pragma warning disable CA1031 // Do not catch general exception types
 			} catch {
-#pragma warning restore CA1031 // Do not catch general exception types
 				return null;
 			}
 		}
@@ -63,9 +61,7 @@ namespace RuleBuilder.Rule.Serialization {
 			try {
 				string configStr = group.CustomData.Get(PasswordRuleKey);
 				return configStr != null ? DeserializedConfiguration(configStr) : null;
-#pragma warning disable CA1031 // Do not catch general exception types
 			} catch {
-#pragma warning restore CA1031 // Do not catch general exception types
 				return null;
 			}
 		}

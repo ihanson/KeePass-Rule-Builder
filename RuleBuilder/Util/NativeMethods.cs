@@ -11,4 +11,3 @@ namespace RuleBuilder.Util {
 		public static extern short GetKeyState(int nVertKey);
 	}
 }
- 

@@ -1,13 +1,13 @@
-﻿using KeePass.App;
-using KeePassLib;
-using KeePassLib.Security;
-using RuleBuilder.Rule;
-using RuleBuilder.Util;
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
+using KeePass.App;
+using KeePassLib;
+using KeePassLib.Security;
+using RuleBuilder.Rule;
+using RuleBuilder.Util;
 
 namespace RuleBuilder.Forms {
 	public partial class ChangePassword : Window {

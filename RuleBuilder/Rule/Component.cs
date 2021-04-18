@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace RuleBuilder.Rule {
+﻿namespace RuleBuilder.Rule {
 	public class Component : RuleProperty {
 		public Component(CharacterClass characterClass, bool required) {
 			this.ChangeDelegate = () => this.NotifyRuleChanged();

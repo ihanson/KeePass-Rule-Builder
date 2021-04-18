@@ -1,5 +1,4 @@
-﻿using System.Runtime.Serialization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace RuleBuilder.Rule.Serialization.Tests {
 	[TestClass]

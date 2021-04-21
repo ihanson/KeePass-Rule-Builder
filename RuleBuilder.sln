@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{9B39E0
 	ProjectSection(SolutionItems) = preProject
 		Images\change.png = Images\change.png
 		Images\charsets.png = Images\charsets.png
+		Images\entry.png = Images\entry.png
+		Images\group.png = Images\group.png
 		Images\menu.png = Images\menu.png
 		Images\rule.png = Images\rule.png
 	EndProjectSection

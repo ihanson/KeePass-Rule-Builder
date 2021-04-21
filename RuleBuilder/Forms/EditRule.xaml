@@ -159,10 +159,10 @@
 				<ColumnDefinition/>
 				<ColumnDefinition Width="Auto"/>
 			</Grid.ColumnDefinitions>
-			<WrapPanel Grid.Column="0" Name="panelQuality" Visibility="Hidden">
-				<TextBlock Text="{DynamicResource Quality}"/>
+			<WrapPanel Grid.Column="0" Name="panelStrength" Visibility="Hidden">
+				<TextBlock Text="{DynamicResource Strength}"/>
 				<TextBlock Text=": "/>
-				<TextBlock Name="txtQuality"/>
+				<TextBlock Name="txtStrength"/>
 			</WrapPanel>
 			<WrapPanel Grid.Column="1">
 				<Button Content="{DynamicResource Accept}" Margin="0,0,5,0" IsDefault="True" Click="AcceptClicked"/>

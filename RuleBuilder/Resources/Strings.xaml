@@ -17,7 +17,7 @@
 	<System:String x:Key="Weeks">Weeks</System:String>
 	<System:String x:Key="Months">Months</System:String>
 	<System:String x:Key="Years">Years</System:String>
-	<System:String x:Key="Quality">Quality</System:String>
+	<System:String x:Key="Strength">Strength</System:String>
 	<System:String x:Key="GenerateAnother">Generate another password</System:String>
 	<System:String x:Key="Accept">_Accept</System:String>
 	<System:String x:Key="Cancel">_Cancel</System:String>

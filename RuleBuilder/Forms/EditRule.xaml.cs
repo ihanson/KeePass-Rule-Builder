@@ -86,17 +86,17 @@ namespace RuleBuilder.Forms {
 		}
 
 		private void GenerateExamplePassword() {
-			double? quality = this.Quality();
-			if (quality == null) {
-				this.panelQuality.Visibility = Visibility.Hidden;
+			double? strength = this.Strength();
+			if (strength == null) {
+				this.panelStrength.Visibility = Visibility.Hidden;
 			} else {
-				this.panelQuality.Visibility = Visibility.Visible;
-				this.txtQuality.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.Bits, quality);
+				this.panelStrength.Visibility = Visibility.Visible;
+				this.txtStrength.Text = string.Format(CultureInfo.CurrentCulture, Properties.Resources.Bits, strength);
 			}
 			this.txtExample.Text = this.Data.Configuration.Generator.NewPassword();
 		}
 
-		private double? Quality() {
+		private double? Strength() {
 			if (this.Data.RuleType == RuleType.Rule) {
 				try {
 					return Entropy.EntropyBits(this.Data.PasswordRule);

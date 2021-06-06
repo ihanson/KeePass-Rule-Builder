@@ -46,7 +46,7 @@ namespace RuleBuilder {
 			PwEntry entry = this.host.MainWindow.GetSelectedEntry(true);
 			if (entry != null) {
 				if (Forms.ChangePassword.ShowChangePasswordDialog(this.host.MainWindow, entry, true)) {
-					this.host.MainWindow.UpdateUI(false, null, false, null, false, null, true);
+					this.host.MainWindow.UpdateUI(false, null, false, null, true, null, true);
 				}
 			}
 		}
@@ -57,7 +57,7 @@ namespace RuleBuilder {
 				if (Forms.EditRule.ShowRuleDialog(this.host.MainWindow, ref config)) {
 					Entry.SetEntryConfiguration(entry, config);
 					entry.Touch(true);
-					this.host.MainWindow.UpdateUI(false, null, false, null, false, null, true);
+					this.host.MainWindow.UpdateUI(false, null, false, null, true, null, true);
 				}
 			}
 		}
@@ -69,7 +69,7 @@ namespace RuleBuilder {
 				if (Forms.EditRule.ShowRuleDialog(this.host.MainWindow, ref config)) {
 					Entry.SetGroupConfiguration(group, config);
 					group.Touch(true);
-					this.host.MainWindow.UpdateUI(false, null, false, null, false, null, true);
+					this.host.MainWindow.UpdateUI(false, null, false, null, true, null, true);
 				}
 			}
 		}

@@ -160,6 +160,10 @@ namespace RuleBuilder.Forms {
 				this.chkExpiration.IsChecked = true;
 				this.dateExpiration.IsEnabled = true;
 				this.dateExpiration.SelectedDate = this.Configuration.Expiration.DateFrom(DateTime.Today);
+			} else if (this.Entry.Expires) {
+				this.chkExpiration.IsChecked = true;
+				this.dateExpiration.IsEnabled = true;
+				this.dateExpiration.SelectedDate = this.Entry.ExpiryTime;
 			} else {
 				this.chkExpiration.IsChecked = false;
 				this.dateExpiration.IsEnabled = false;

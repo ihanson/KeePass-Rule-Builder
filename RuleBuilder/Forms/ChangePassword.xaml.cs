@@ -100,7 +100,7 @@ namespace RuleBuilder.Forms {
 					if (this.ShowExpiration) {
 						if (this.chkExpiration.IsChecked == true && this.dateExpiration.SelectedDate != null) {
 							this.Entry.Expires = true;
-							this.Entry.ExpiryTime = this.dateExpiration.SelectedDate.Value;
+							this.Entry.ExpiryTime = TimeZoneInfo.ConvertTimeToUtc(this.dateExpiration.SelectedDate.Value);
 						} else {
 							this.Entry.Expires = false;
 						}
@@ -163,7 +163,7 @@ namespace RuleBuilder.Forms {
 			} else if (this.Entry.Expires) {
 				this.chkExpiration.IsChecked = true;
 				this.dateExpiration.IsEnabled = true;
-				this.dateExpiration.SelectedDate = this.Entry.ExpiryTime;
+				this.dateExpiration.SelectedDate = this.Entry.ExpiryTime.ToLocalTime();
 			} else {
 				this.chkExpiration.IsChecked = false;
 				this.dateExpiration.IsEnabled = false;

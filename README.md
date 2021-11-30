@@ -10,6 +10,19 @@ The purpose of this plugin is to make it easy to tell KeePass how to generate a 
 ## Installation
 To install this plugin, download the latest version from the [Releases](https://github.com/ihanson/KeePass-Rule-Builder/releases) page and copy it into your KeePass installation’s Plugins directory. See the [KeePass documentation](https://keepass.info/help/v2/plugins.html) for more help.
 
+#### Chocolatey 📦 
+Or you can [use Chocolatey to install](https://community.chocolatey.org/packages/keepass-plugin-keetraytotp#install) it in a more automated manner:
+
+```
+choco install keepass-plugin-rulebuilder
+```
+
+To [upgrade KeePass Plugin Rule Builder](https://community.chocolatey.org/packages/keepass-plugin-rulebuilder#upgrade) to the [latest release version](https://community.chocolatey.org/packages/keepass-plugin-rulebuilder#versionhistory) for enjoying the newest features, run the following command from the command line or from PowerShell:
+
+```
+choco upgrade keepass-plugin-rulebuilder
+```
+
 ## How to use
 ### Changing a password
 To change a password for an entry in KeePass, right-click the password entry and click **Generate New Password**.

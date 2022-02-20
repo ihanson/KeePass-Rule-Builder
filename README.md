@@ -14,11 +14,11 @@ To install this plugin, download the latest version from the [Releases](https://
 ### Changing a password
 To change a password for an entry in KeePass, right-click the password entry and click **Generate New Password**.
 
-<img src="Images/menu.png" alt="Context menu with “Generate New Password” selected" width="583.6">
+<img src="Images/menu.png" alt="Context menu with “Generate New Password” selected" width="682">
 
 The Change Password window will open. This window shows the current password as well as a new randomly generated password. Copy those passwords into the appropriate fields where you are setting the password. You can also use the hotkeys **Ctrl+Shift+Z** and **Ctrl+Shift+X** to auto-type the old and new passwords, respectively. If you want to set an expiration date, you can do that here.
 
-<img src="Images/change.png" alt="Change Password window" width="488.8">
+<img src="Images/change.png" alt="Change Password window" width="489.6">
 
 Once you have successfully changed the password, click **Save New Password** to store the new password into the KeePass database. Every time you change the password, the old password will be backed up in the entry’s [history](https://keepass.info/help/v2/entry.html#history).
 
@@ -62,7 +62,7 @@ Any time you need to generate another password, just use the Generate New Passwo
 ### Other features
 You can access this plugin’s features from the password generation menu in the standard KeePass editor window. Click **Generate From Rule** to generate a new password based on the entry’s configured rule, or click **Edit Password Rule** to edit the rule. Click **Open Built-in Password Generator** to access the normal KeePass password generator.
 
-<img src="Images/entry.png" alt="The Add Entry dialog with the Generate From Rule and Edit Password Rule menu items visible" width="790.8">
+<img src="Images/entry.png" alt="The Add Entry dialog with the Generate From Rule and Edit Password Rule menu items visible" width="708.8">
 
 A rule can be configured for a group of entries. This option is available in the context menu of the group. If a group has a rule configured, all entries in that group will use that rule when a password is generated, unless the rule is overridden in the entry itself.
 

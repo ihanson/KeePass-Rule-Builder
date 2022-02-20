@@ -33,7 +33,7 @@ namespace RuleBuilder {
 			return base.Initialize(host);
 		}
 
-		public override string UpdateUrl => "https://raw.githubusercontent.com/ihanson/KeePass-Rule-Builder/master/RuleBuilder/version.txt";
+		public override string UpdateUrl => "https://raw.githubusercontent.com/ihanson/KeePass-Rule-Builder/main/RuleBuilder/version.txt";
 
 		internal static ToolStripMenuItem MenuItem(string text, Action action, Image image) => new ToolStripMenuItem(text, image, (object _1, EventArgs _2) => action());
 

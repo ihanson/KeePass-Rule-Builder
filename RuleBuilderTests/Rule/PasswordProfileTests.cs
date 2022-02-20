@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace RuleBuilder.Rule.Tests {
 	[TestClass]
 	public class PasswordProfileTests {
-		private static readonly string ProfileName = $"{KPRes.RandomMacAddress} ({KPRes.BuiltIn})";
+		private static readonly string ProfileName = $"{KPRes.MacAddress} ({KPRes.BuiltIn})";
 		[TestMethod]
 		public void PasswordProfileTest() {
 			PwProfile profile = new PwProfile();

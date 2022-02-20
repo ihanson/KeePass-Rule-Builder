@@ -8,7 +8,7 @@ namespace RuleBuilder.Rule.Serialization.Tests {
 	[TestClass]
 	public class EntryTests {
 		private const string PasswordRuleKey = "Password Rule";
-		private static readonly string ProfileName = $"{KPRes.RandomMacAddress} ({KPRes.BuiltIn})";
+		private static readonly string ProfileName = $"{KPRes.MacAddress} ({KPRes.BuiltIn})";
 
 		[TestMethod]
 		public void DecodeDefaultGeneratorTest() {

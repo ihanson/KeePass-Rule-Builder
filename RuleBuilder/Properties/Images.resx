@@ -117,58 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AllCharacters" xml:space="preserve">
-    <value>All characters</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Dice" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconsLow\Dice.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AutoType" xml:space="preserve">
-    <value>Auto-type</value>
+  <data name="NewPassword" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconsLow\NewPassword.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Bits" xml:space="preserve">
-    <value>{0:0} bits</value>
-  </data>
-  <data name="ChangePassword" xml:space="preserve">
-    <value>Change Password</value>
-  </data>
-  <data name="Custom" xml:space="preserve">
-    <value>Custom</value>
-  </data>
-  <data name="Digits" xml:space="preserve">
-    <value>Digits (0–9)</value>
-  </data>
-  <data name="EditPasswordRule" xml:space="preserve">
-    <value>Edit Password Rule...</value>
-  </data>
-  <data name="GenerateAPassword" xml:space="preserve">
-    <value>Generate a password</value>
-  </data>
-  <data name="GenerateFromRule" xml:space="preserve">
-    <value>Generate From Rule...</value>
-  </data>
-  <data name="GenerateNewPassword" xml:space="preserve">
-    <value>Generate New Password...</value>
-  </data>
-  <data name="InvalidCharacterSet" xml:space="preserve">
-    <value>Invalid character set enumeration</value>
-  </data>
-  <data name="Letters" xml:space="preserve">
-    <value>Letters (A–Z, a–z)</value>
-  </data>
-  <data name="LowercaseLetters" xml:space="preserve">
-    <value>Lowercase letters (a–z)</value>
-  </data>
-  <data name="OpenBuiltInPasswordGenerator" xml:space="preserve">
-    <value>Open Built-in Password Generator...</value>
-  </data>
-  <data name="PasswordLengthMustNotBeNegative" xml:space="preserve">
-    <value>Password length must not be negative.</value>
-  </data>
-  <data name="Punctuation" xml:space="preserve">
-    <value>Punctuation</value>
-  </data>
-  <data name="UnableToRegisterHotkey" xml:space="preserve">
-    <value>Unable to register hotkey.</value>
-  </data>
-  <data name="UppercaseLetters" xml:space="preserve">
-    <value>Uppercase letters (A–Z)</value>
+  <data name="Organizer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\IconsLow\Organizer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

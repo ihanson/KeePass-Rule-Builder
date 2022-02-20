@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace RuleBuilder.Rule.Serialization.Tests {
 	[TestClass]
 	public class ProfileContractTests {
-		private static readonly string ProfileName = $"{KPRes.RandomMacAddress} ({KPRes.BuiltIn})";
+		private static readonly string ProfileName = $"{KPRes.MacAddress} ({KPRes.BuiltIn})";
 		[TestMethod]
 		public void DefaultProfileTest() {
 			ProfileContract profile = new ProfileContract(PasswordProfile.DefaultProfile);

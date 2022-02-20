@@ -43,7 +43,7 @@
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="KeePass, Version=2.46.0.18879, Culture=neutral, PublicKeyToken=fed2ed7716aecf5c, processorArchitecture=MSIL">
+    <Reference Include="KeePass, Version=2.50.0.40589, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\KeePass\KeePass.exe</HintPath>
     </Reference>
@@ -66,8 +66,24 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\EntryFormMod.cs" />
     <Compile Include="Forms\ChangePassword.xaml.cs">
       <DependentUpon>ChangePassword.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Images.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Images.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\ImagesHigh.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ImagesHigh.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Rule\Configuration.cs" />
     <Compile Include="Rule\Expiration.cs" />
@@ -78,6 +94,7 @@
     </Compile>
     <Compile Include="Forms\EditRuleModel.cs" />
     <Compile Include="Util\Entropy.cs" />
+    <Compile Include="Util\ScaledResourceManager.cs" />
     <Compile Include="Util\IntegerRangeRule.cs" />
     <Compile Include="Util\Hotkey.cs" />
     <Compile Include="Util\NativeMethods.cs" />
@@ -100,24 +117,18 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
+    <EmbeddedResource Include="Properties\Images.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Images.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\ImagesHigh.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ImagesHigh.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -141,13 +152,28 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\NewPassword.png" />
+    <Resource Include="version.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconsHigh\Organizer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\IconsLow\NewPassword.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconsLow\Organizer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconsHigh\NewPassword.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconsHigh\Dice.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconsLow\Dice.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Refresh.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="version.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

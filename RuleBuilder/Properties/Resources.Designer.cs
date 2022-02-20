@@ -124,6 +124,15 @@ namespace RuleBuilder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generate a password.
+        /// </summary>
+        internal static string GenerateAPassword {
+            get {
+                return ResourceManager.GetString("GenerateAPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Generate From Rule....
         /// </summary>
         internal static string GenerateFromRule {
@@ -169,12 +178,11 @@ namespace RuleBuilder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to Open Built-in Password Generator....
         /// </summary>
-        internal static System.Drawing.Bitmap NewPassword {
+        internal static string OpenBuiltInPasswordGenerator {
             get {
-                object obj = ResourceManager.GetObject("NewPassword", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("OpenBuiltInPasswordGenerator", resourceCulture);
             }
         }
         

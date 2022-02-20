@@ -88,6 +88,21 @@ namespace RuleBuilder.Rule.Serialization {
 			}
 		}
 
+		public static Configuration DeserializedDefaultConfiguration(string generatorStr, PwGroup parent) {
+			if (generatorStr != null) {
+				return DeserializedConfiguration(generatorStr);
+			}
+			PwGroup group = parent;
+			while (group != null) {
+				Configuration config = GroupConfiguration(group);
+				if (config != null) {
+					return config;
+				}
+				group = group.ParentGroup;
+			}
+			return new Configuration();
+		}
+
 		public static Configuration DeserializedConfiguration(string generatorStr) {
 			using (StreamWriter writer = new StreamWriter(new MemoryStream(), new UTF8Encoding(false)) {
 				AutoFlush = true

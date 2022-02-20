@@ -85,7 +85,7 @@ namespace RuleBuilder.Forms {
 
 		private static bool ShiftKeyDown() => (NativeMethods.GetKeyState(ShiftKey) & 0x80) != 0;
 
-		private void AcceptClicked(object sender, RoutedEventArgs e) {
+		private void SaveClicked(object sender, RoutedEventArgs e) {
 			string oldPassword = this.Entry.Strings.Get(PwDefs.PasswordField).ReadString();
 			string newPassword = this.txtNewPassword.Text;
 			bool passwordChanged = oldPassword != newPassword;

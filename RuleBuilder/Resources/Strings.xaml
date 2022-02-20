@@ -19,6 +19,8 @@
 	<System:String x:Key="Years">Years</System:String>
 	<System:String x:Key="Strength">Strength</System:String>
 	<System:String x:Key="GenerateAnother">Generate another password</System:String>
+	<System:String x:Key="SaveNewPassword">_Save New Password</System:String>
+	<System:String x:Key="Discard">_Discard</System:String>
 	<System:String x:Key="Accept">_Accept</System:String>
 	<System:String x:Key="Cancel">_Cancel</System:String>
 	<System:String x:Key="AddCharacterSet">Add Character _Set</System:String>

@@ -43,9 +43,9 @@
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="KeePass, Version=2.50.0.40589, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="KeePass, Version=2.49.0.17016, Culture=neutral, PublicKeyToken=fed2ed7716aecf5c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\KeePass\KeePass.exe</HintPath>
+      <HintPath>..\..\KeePass-2.40\KeePass.exe</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -177,6 +177,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) "$(SolutionDir)\..\KeePass\Plugins"</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetPath) "$(SolutionDir)\..\KeePass-2.50\Plugins"</PostBuildEvent>
   </PropertyGroup>
 </Project>

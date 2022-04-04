@@ -126,6 +126,7 @@ namespace RuleBuilder.Forms {
 		}
 
 		private static void GenerateFromProfile(PwEntryForm entryForm, PwProfile profile) {
+			entryForm.UpdateEntryStrings(true, false);
 			byte[] entropy = EntropyForm.CollectEntropyIfEnabled(profile);
 			_ = PwGenerator.Generate(out ProtectedString password, profile, entropy, Program.PwGeneratorPool);
 			entryForm.EntryStrings.Set(PwDefs.PasswordField, password);

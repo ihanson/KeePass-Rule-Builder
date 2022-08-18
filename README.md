@@ -8,7 +8,7 @@ The [password generator](https://keepass.info/help/base/pwgenerator.html) in Kee
 The purpose of this plugin is to make it easy to tell KeePass how to generate a password for each service and to streamline the process of changing passwords.
 
 ## Installation
-To install this plugin, download the latest version from the [Releases](https://github.com/ihanson/KeePass-Rule-Builder/releases) page and copy it into your KeePass installation’s Plugins directory. See the [KeePass documentation](https://keepass.info/help/v2/plugins.html) for more help.
+To install this plugin, download the latest version from the [Releases](https://github.com/ihanson/KeePass-Rule-Builder/releases) page and copy it into your KeePass installation’s Plugins directory. Do not rename the DLL file. See the [KeePass documentation](https://keepass.info/help/v2/plugins.html) for more help.
 
 This plugin is also available as a [Chocolatey package](https://community.chocolatey.org/packages/keepass-plugin-rulebuilder). I am not the maintainer of this package.
 

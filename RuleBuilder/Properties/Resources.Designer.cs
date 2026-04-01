@@ -19,7 +19,7 @@ namespace RuleBuilder.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -75,6 +75,24 @@ namespace RuleBuilder.Properties {
         internal static string AutoType {
             get {
                 return ResourceManager.GetString("AutoType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto-type is not enabled for this entry..
+        /// </summary>
+        internal static string AutoTypeDisabledInEntry {
+            get {
+                return ResourceManager.GetString("AutoTypeDisabledInEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto-type is not enabled in KeePass application policy..
+        /// </summary>
+        internal static string AutoTypeDisabledInPolicy {
+            get {
+                return ResourceManager.GetString("AutoTypeDisabledInPolicy", resourceCulture);
             }
         }
         

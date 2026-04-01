@@ -123,6 +123,12 @@
   <data name="AutoType" xml:space="preserve">
     <value>Auto-type</value>
   </data>
+  <data name="AutoTypeDisabledInEntry" xml:space="preserve">
+    <value>Auto-type is not enabled for this entry.</value>
+  </data>
+  <data name="AutoTypeDisabledInPolicy" xml:space="preserve">
+    <value>Auto-type is not enabled in KeePass application policy.</value>
+  </data>
   <data name="Bits" xml:space="preserve">
     <value>{0:0} bits</value>
   </data>

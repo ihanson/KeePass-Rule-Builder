@@ -124,9 +124,17 @@ namespace RuleBuilder.Forms {
 		}
 
 		private void WindowLoaded(object sender, RoutedEventArgs e) {
-			this.Source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
-			this.Source.AddHook(this.HwndHook);
-			if (this.Entry.GetAutoTypeEnabled() && AppPolicy.Try(AppPolicyId.AutoTypeWithoutContext)) {
+			if (!(
+				AppPolicy.Current.AutoType
+				&& AppPolicy.Current.AutoTypeWithoutContext
+			)) {
+				lblAutoTypeDisabled.Text = Properties.Resources.AutoTypeDisabledInPolicy;
+			}
+			else if (!this.Entry.GetAutoTypeEnabled()) {
+				lblAutoTypeDisabled.Text = Properties.Resources.AutoTypeDisabledInEntry;
+			} else {
+				this.Source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
+				this.Source.AddHook(this.HwndHook);
 				try {
 					this.OldPasswordHotKeyID = HotKey.RegisterHotKey(this, Keys.Z | Keys.Control | Keys.Shift);
 					this.lblAutoTypeOld.Text = $"{Properties.Resources.AutoType}: Ctrl+Shift+Z";

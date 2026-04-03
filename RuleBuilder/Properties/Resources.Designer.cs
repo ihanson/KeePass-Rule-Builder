@@ -232,6 +232,15 @@ namespace RuleBuilder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to unregister hotkey..
+        /// </summary>
+        internal static string UnableToUnregisterHotkey {
+            get {
+                return ResourceManager.GetString("UnableToUnregisterHotkey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uppercase letters (A–Z).
         /// </summary>
         internal static string UppercaseLetters {

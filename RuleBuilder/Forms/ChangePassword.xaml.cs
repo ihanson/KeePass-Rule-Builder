@@ -33,9 +33,9 @@ namespace RuleBuilder.Forms {
 
 		private PwEntry Entry { get; }
 
-		private int OldPasswordHotKeyID { get; set; }
+		private Hotkey OldPasswordHotkey { get; set; }
 
-		private int NewPasswordHotKeyID { get; set; }
+		private Hotkey NewPasswordHotkey { get; set; }
 
 		private bool EntryChanged { get; set; }
 
@@ -61,10 +61,10 @@ namespace RuleBuilder.Forms {
 			if (msg == HotKeyMessage) {
 				WaitForKeyRelease();
 				int hotKeyID = wParam.ToInt32();
-				if (hotKeyID == this.OldPasswordHotKeyID) {
+				if (this.OldPasswordHotkey?.MatchesID(hotKeyID) ?? false) {
 					_ = KeePass.Util.AutoType.PerformIntoCurrentWindow(this.Entry, this.Database, EscapeAutoType(this.txtOldPassword.Text));
 					handled = true;
-				} else if (hotKeyID == this.NewPasswordHotKeyID) {
+				} else if (this.NewPasswordHotkey?.MatchesID(hotKeyID) ?? false) {
 					_ = KeePass.Util.AutoType.PerformIntoCurrentWindow(this.Entry, this.Database, EscapeAutoType(this.txtNewPassword.Text));
 					handled = true;
 				}
@@ -136,13 +136,13 @@ namespace RuleBuilder.Forms {
 				this.Source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
 				this.Source.AddHook(this.HwndHook);
 				try {
-					this.OldPasswordHotKeyID = HotKey.RegisterHotKey(this, Keys.Z | Keys.Control | Keys.Shift);
+					this.OldPasswordHotkey = Hotkey.RegisterHotKey(this, Keys.Z | Keys.Control | Keys.Shift);
 					this.lblAutoTypeOld.Text = $"{Properties.Resources.AutoType}: Ctrl+Shift+Z";
 				} catch (HotKeyException ex) {
 					_ = ex;
 				}
 				try {
-					this.NewPasswordHotKeyID = HotKey.RegisterHotKey(this, Keys.X | Keys.Control | Keys.Shift);
+					this.NewPasswordHotkey = Hotkey.RegisterHotKey(this, Keys.X | Keys.Control | Keys.Shift);
 					this.lblAutoTypeNew.Text = $"{Properties.Resources.AutoType}: Ctrl+Shift+X";
 				} catch (HotKeyException ex) {
 					_ = ex;
@@ -152,9 +152,9 @@ namespace RuleBuilder.Forms {
 			this.MaxHeight = this.Height;
 		}
 
-		private void WindowClosed(object sender, EventArgs e) {
-			HotKey.UnregisterHotKey(this, this.OldPasswordHotKeyID);
-			HotKey.UnregisterHotKey(this, this.NewPasswordHotKeyID);
+		private void WindowClosing(object sender, EventArgs e) {
+			this.OldPasswordHotkey?.Unregister();
+			this.NewPasswordHotkey?.Unregister();
 		}
 
 		private void SetExpiration() {

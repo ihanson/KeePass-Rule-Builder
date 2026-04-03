@@ -173,7 +173,10 @@
     <Resource Include="Resources\IconsLow\Dice.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Refresh.png" />
+    <Resource Include="Resources\sources.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Die.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

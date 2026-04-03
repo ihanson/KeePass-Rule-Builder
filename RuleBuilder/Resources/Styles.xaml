@@ -18,7 +18,9 @@
 	<Style x:Key="GeneratePassword" TargetType="Button">
 		<Setter Property="Height" Value="22"/>
 		<Setter Property="Padding" Value="2"/>
-		<Setter Property="Margin" Value="8,0,0,0"/>
+		<Setter Property="Margin" Value="4,0,0,0"/>
 		<Setter Property="VerticalAlignment" Value="Center"/>
+		<Setter Property="Background" Value="{x:Null}"/>
+		<Setter Property="BorderBrush" Value="{x:Null}"/>
 	</Style>
 </ResourceDictionary>

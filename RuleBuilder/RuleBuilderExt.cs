@@ -40,7 +40,7 @@ namespace RuleBuilder {
 		private void ShowChangePassword() {
 			PwEntry entry = this.host.MainWindow.GetSelectedEntry(true);
 			if (entry != null) {
-				if (Forms.ChangePassword.ShowChangePasswordDialog(this.host.MainWindow, entry)) {
+				if (Forms.ChangePassword.ShowChangePasswordDialog(this.host, this.host.MainWindow, entry)) {
 					this.RefreshEntries();
 				}
 			}

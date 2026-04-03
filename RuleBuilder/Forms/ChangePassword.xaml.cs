@@ -1,24 +1,31 @@
 ﻿using System;
+using System.Windows.Media;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Forms;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Interop;
 using KeePass.App;
+using KeePass.Plugins;
 using KeePassLib;
 using KeePassLib.Security;
 using RuleBuilder.Rule;
 using RuleBuilder.Util;
 
 namespace RuleBuilder.Forms {
+	delegate void SetKeyCombination(KeyCombination combo);
 	public partial class ChangePassword : Window {
+		private const string KeyCombinationsConfigKey = "KeePassRuleBuilder.KeyCombinations";
 		private const int HotKeyMessage = 0x312;
 		private const short ShiftKey = 0x10;
 
-		private ChangePassword(KeePass.Forms.MainForm mainForm, PwDatabase database, PwEntry entry) {
+		private ChangePassword(IPluginHost host, KeePass.Forms.MainForm mainForm, PwDatabase database, PwEntry entry) {
 			this.InitializeComponent();
+			this.Host = host;
 			this.MainForm = mainForm;
 			this.Database = database;
 			this.Entry = entry;
+			this.LoadSettings();
 			new WindowInteropHelper(this).Owner = mainForm.Handle;
 			this.Title = $"{Properties.Resources.ChangePassword}: {entry.Strings.Get(PwDefs.TitleField)?.ReadString() ?? string.Empty}";
 			this.Configuration = Rule.Serialization.Entry.EntryDefaultConfiguration(entry);
@@ -26,6 +33,8 @@ namespace RuleBuilder.Forms {
 			this.txtNewPassword.Text = this.Configuration.Generator.NewPassword();
 			this.SetExpiration();
 		}
+
+		private IPluginHost Host { get; }
 
 		private KeePass.Forms.MainForm MainForm { get; }
 
@@ -37,22 +46,31 @@ namespace RuleBuilder.Forms {
 
 		private Hotkey NewPasswordHotkey { get; set; }
 
+		private KeyCombination OldPasswordHotkeyCombo { get; set; }
+
+		private KeyCombination NewPasswordHotkeyCombo { get; set; }
+
 		private bool EntryChanged { get; set; }
 
 		private Configuration Configuration { get; set; }
 
 		private bool RuleChanged { get; set; }
 
+		private bool SettingsChanged { get; set; }
+
 		private HwndSource Source { get; set; }
 
-		public static bool ShowChangePasswordDialog(KeePass.Forms.MainForm mainForm, PwEntry entry) {
+		public static bool ShowChangePasswordDialog(KeePass.Plugins.IPluginHost host, KeePass.Forms.MainForm mainForm, PwEntry entry) {
+			if (host == null) {
+				throw new ArgumentNullException(nameof(host));
+			}
 			if (mainForm == null) {
 				throw new ArgumentNullException(nameof(mainForm));
 			}
 			if (entry == null) {
 				throw new ArgumentNullException(nameof(entry));
 			}
-			ChangePassword window = new ChangePassword(mainForm, mainForm.ActiveDatabase, entry);
+			ChangePassword window = new ChangePassword(host, mainForm, mainForm.ActiveDatabase, entry);
 			_ = window.ShowDialog();
 			return window.EntryChanged;
 		}
@@ -123,38 +141,99 @@ namespace RuleBuilder.Forms {
 			this.txtNewPassword.Text = this.Configuration.Generator.NewPassword();
 		}
 
+		private (KeyCombination, KeyCombination) ReadSettings() {
+			string config = this.Host.CustomConfig.GetString(KeyCombinationsConfigKey);
+			if (config == null) {
+				return (null, null);
+			}
+			string[] pieces = config.Split(',');
+			try {
+				return (
+					new KeyCombination(
+						(ModifierKeys)int.Parse(pieces[0]),
+						(Key)int.Parse(pieces[1])
+					),
+					new KeyCombination(
+						(ModifierKeys)int.Parse(pieces[2]),
+						(Key)int.Parse(pieces[3])
+					)
+				);
+			} catch (Exception) {
+				return (null, null);
+			}
+		}
+
+		private void LoadSettings() {
+			(KeyCombination oldCombo, KeyCombination newCombo) = ReadSettings();
+			this.OldPasswordHotkeyCombo = oldCombo ?? new KeyCombination(
+				ModifierKeys.Control | ModifierKeys.Shift,
+				Key.Z
+			);
+			this.NewPasswordHotkeyCombo = newCombo ?? new KeyCombination(
+				ModifierKeys.Control | ModifierKeys.Shift,
+				Key.X
+			);
+		}
+
+		private void SaveSettings() {
+			if (this.SettingsChanged) {
+				this.Host.CustomConfig.SetString(
+					KeyCombinationsConfigKey,
+					string.Join(",", new[]{
+						(int)this.OldPasswordHotkeyCombo.Modifiers,
+						(int)this.OldPasswordHotkeyCombo.Key,
+						(int)this.NewPasswordHotkeyCombo.Modifiers,
+						(int)this.NewPasswordHotkeyCombo.Key
+					})
+				);
+			}
+		}
+
 		private void WindowLoaded(object sender, RoutedEventArgs e) {
 			if (!(
 				AppPolicy.Current.AutoType
 				&& AppPolicy.Current.AutoTypeWithoutContext
 			)) {
 				lblAutoTypeDisabled.Text = Properties.Resources.AutoTypeDisabledInPolicy;
-			}
-			else if (!this.Entry.GetAutoTypeEnabled()) {
+				pnlAutoTypeOld.Visibility = Visibility.Collapsed;
+				pnlAutoTypeNew.Visibility = Visibility.Collapsed;
+			} else if (!this.Entry.GetAutoTypeEnabled()) {
 				lblAutoTypeDisabled.Text = Properties.Resources.AutoTypeDisabledInEntry;
+				pnlAutoTypeOld.Visibility = Visibility.Collapsed;
+				pnlAutoTypeNew.Visibility = Visibility.Collapsed;
 			} else {
 				this.Source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
 				this.Source.AddHook(this.HwndHook);
-				try {
-					this.OldPasswordHotkey = Hotkey.RegisterHotKey(this, Keys.Z | Keys.Control | Keys.Shift);
-					this.lblAutoTypeOld.Text = $"{Properties.Resources.AutoType}: Ctrl+Shift+Z";
-				} catch (HotKeyException ex) {
-					_ = ex;
-				}
-				try {
-					this.NewPasswordHotkey = Hotkey.RegisterHotKey(this, Keys.X | Keys.Control | Keys.Shift);
-					this.lblAutoTypeNew.Text = $"{Properties.Resources.AutoType}: Ctrl+Shift+X";
-				} catch (HotKeyException ex) {
-					_ = ex;
-				}
+				this.TryRegisterHotkeys();
 			}
 			this.MinHeight = this.Height;
 			this.MaxHeight = this.Height;
 		}
 
-		private void WindowClosing(object sender, EventArgs e) {
+		private void TryRegisterHotkeys() {
+			this.UnregisterHotkeys();
+			try {
+				this.OldPasswordHotkey = Hotkey.RegisterHotKey(this, this.OldPasswordHotkeyCombo.ToKeys());
+			} catch (HotKeyException) { }
+			try {
+				this.NewPasswordHotkey = Hotkey.RegisterHotKey(this, this.NewPasswordHotkeyCombo.ToKeys());
+			} catch (HotKeyException) { }
+			this.lblAutoTypeOld.Text = this.OldPasswordHotkeyCombo.ToString();
+			this.lblAutoTypeNew.Text = this.NewPasswordHotkeyCombo.ToString();
+			SetStrikethrough(this.lblAutoTypeOld, this.OldPasswordHotkey == null);
+			SetStrikethrough(this.lblAutoTypeNew, this.NewPasswordHotkey == null);
+		}
+
+		private void UnregisterHotkeys() {
 			this.OldPasswordHotkey?.Unregister();
 			this.NewPasswordHotkey?.Unregister();
+			this.OldPasswordHotkey = null;
+			this.NewPasswordHotkey = null;
+		}
+
+		private void WindowClosing(object sender, EventArgs e) {
+			this.UnregisterHotkeys();
+			this.SaveSettings();
 		}
 
 		private void SetExpiration() {
@@ -177,9 +256,80 @@ namespace RuleBuilder.Forms {
 			this.dateExpiration.IsEnabled = this.chkExpiration.IsChecked ?? false;
 		}
 
-		private void ExpirationDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) {
+		private void ExpirationDateChanged(object sender, SelectionChangedEventArgs e) {
 			if (this.dateExpiration.SelectedDate == null) {
 				this.dateExpiration.SelectedDate = DateTime.Today;
+			}
+		}
+
+		private void StartHotkeyEdit(TextBlock hotkeyLabel, SetKeyCombination setter) {
+			Brush oldBack = hotkeyLabel.Background;
+			Brush oldFore = hotkeyLabel.Foreground;
+			Brush neutralBack = SystemColors.WindowBrush;
+			Brush neutralFore = SystemColors.WindowTextBrush;
+			Brush errorBack = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
+			Brush errorFore = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0xff));
+			KeyCombination combo = null;
+			void lostFocusHandler(object sender, EventArgs e) {
+				restore(true);
+			}
+			void keyPressHandler(object sender, System.Windows.Input.KeyEventArgs e) {
+				if (e.Key == Key.Tab) {
+					return;
+				}
+				e.Handled = true;
+				if (e.Key == Key.Escape) {
+					restore(false);
+				} else {
+					combo = new KeyCombination(e.KeyboardDevice.Modifiers, e.Key);
+					hotkeyLabel.Text = combo.ToString();
+					(hotkeyLabel.Background, hotkeyLabel.Foreground) = combo.IsValidHotkey()
+						? (neutralBack, neutralFore)
+						: (errorBack, errorFore);
+				}
+			}
+			void restore(bool changeCombo) {
+				if (changeCombo && combo != null && combo.IsValidHotkey()) {
+					setter(combo);
+					this.SettingsChanged = true;
+				}
+				hotkeyLabel.Background = oldBack;
+				hotkeyLabel.Foreground = oldFore;
+				hotkeyLabel.Focusable = false;
+				hotkeyLabel.KeyDown -= keyPressHandler;
+				hotkeyLabel.LostFocus -= lostFocusHandler;
+				this.Deactivated -= lostFocusHandler;
+				this.TryRegisterHotkeys();
+			}
+			this.UnregisterHotkeys();
+			SetStrikethrough(hotkeyLabel, false);
+			hotkeyLabel.Background = SystemColors.WindowBrush;
+			hotkeyLabel.Foreground = SystemColors.WindowTextBrush;
+			hotkeyLabel.Focusable = true;
+			hotkeyLabel.KeyDown += keyPressHandler;
+			this.Deactivated += lostFocusHandler;
+			hotkeyLabel.LostFocus += lostFocusHandler;
+			hotkeyLabel.Focus();
+		}
+
+		private void ConfOldHotkeyClicked(object sender, RoutedEventArgs e) =>
+			this.StartHotkeyEdit(
+				this.lblAutoTypeOld,
+				(combo) => this.OldPasswordHotkeyCombo = combo
+			);
+
+		private void ConfNewHotkeyClicked(object sender, RoutedEventArgs e) =>
+			this.StartHotkeyEdit(
+				this.lblAutoTypeNew,
+				(combo) => this.NewPasswordHotkeyCombo = combo
+			);
+
+		private static void SetStrikethrough(TextBlock text, bool strike) {
+			text.TextDecorations.Clear();
+			if (strike) {
+				text.TextDecorations.Add(new TextDecoration() {
+					Location = TextDecorationLocation.Strikethrough
+				});
 			}
 		}
 	}

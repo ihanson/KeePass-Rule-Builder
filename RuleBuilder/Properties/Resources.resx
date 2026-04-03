@@ -120,9 +120,6 @@
   <data name="AllCharacters" xml:space="preserve">
     <value>All characters</value>
   </data>
-  <data name="AutoType" xml:space="preserve">
-    <value>Auto-type</value>
-  </data>
   <data name="AutoTypeDisabledInEntry" xml:space="preserve">
     <value>Auto-type is not enabled for this entry.</value>
   </data>

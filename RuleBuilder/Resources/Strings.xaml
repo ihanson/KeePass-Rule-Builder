@@ -28,6 +28,8 @@
 	<System:String x:Key="OldPassword">Old password</System:String>
 	<System:String x:Key="NewPassword">New password</System:String>
 	<System:String x:Key="EditRuleButton">_Edit Rule</System:String>
+	<System:String x:Key="AutoType">Auto-type</System:String>
+	<System:String x:Key="ConfigureShortcut">Configure the auto-type keyboard shortcut</System:String>
 	<System:String x:Key="OldPasswordAutoType">Ctrl+Shift+Z</System:String>
 	<System:String x:Key="NewPasswordAutoType">Ctrl+Shift+X</System:String>
 	<System:String x:Key="PasswordExpires">Password expires</System:String>

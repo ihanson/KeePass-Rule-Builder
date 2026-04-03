@@ -94,6 +94,7 @@
     </Compile>
     <Compile Include="Forms\EditRuleModel.cs" />
     <Compile Include="Util\Entropy.cs" />
+    <Compile Include="Util\KeyCombination.cs" />
     <Compile Include="Util\ScaledResourceManager.cs" />
     <Compile Include="Util\IntegerRangeRule.cs" />
     <Compile Include="Util\Hotkey.cs" />
@@ -177,6 +178,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Die.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Gear.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -70,15 +70,6 @@ namespace RuleBuilder.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Auto-type.
-        /// </summary>
-        internal static string AutoType {
-            get {
-                return ResourceManager.GetString("AutoType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Auto-type is not enabled for this entry..
         /// </summary>
         internal static string AutoTypeDisabledInEntry {

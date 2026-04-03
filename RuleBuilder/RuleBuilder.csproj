@@ -177,6 +177,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) "$(SolutionDir)\..\KeePass-2.50\Plugins"</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetPath) "$(SolutionDir)\..\KeePass-2.61\Plugins"</PostBuildEvent>
   </PropertyGroup>
 </Project>

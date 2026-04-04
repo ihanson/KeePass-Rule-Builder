@@ -262,11 +262,11 @@ namespace RuleBuilder.Forms {
 			}
 		}
 
-		private void StartHotkeyEdit(TextBlock hotkeyLabel, SetKeyCombination setter) {
+		private void StartHotkeyEdit(TextBlock hotkeyLabel, Button configButton, SetKeyCombination setter) {
 			Brush oldBack = hotkeyLabel.Background;
 			Brush oldFore = hotkeyLabel.Foreground;
-			Brush neutralBack = SystemColors.WindowBrush;
-			Brush neutralFore = SystemColors.WindowTextBrush;
+			Brush neutralBack = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0x00));
+			Brush neutralFore = new SolidColorBrush(Color.FromRgb(0x00, 0x00, 0x00));
 			Brush errorBack = new SolidColorBrush(Color.FromRgb(0xff, 0x00, 0x00));
 			Brush errorFore = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0xff));
 			KeyCombination combo = null;
@@ -278,7 +278,9 @@ namespace RuleBuilder.Forms {
 					return;
 				}
 				e.Handled = true;
-				if (e.Key == Key.Escape) {
+				if (e.Key == Key.Enter || e.Key == Key.Return) {
+					restore(true);
+				} else if (e.Key == Key.Escape) {
 					restore(false);
 				} else {
 					combo = new KeyCombination(e.KeyboardDevice.Modifiers, e.Key);
@@ -293,18 +295,21 @@ namespace RuleBuilder.Forms {
 					setter(combo);
 					this.SettingsChanged = true;
 				}
+				configButton.Visibility = Visibility.Visible;
 				hotkeyLabel.Background = oldBack;
 				hotkeyLabel.Foreground = oldFore;
 				hotkeyLabel.Focusable = false;
 				hotkeyLabel.KeyDown -= keyPressHandler;
 				hotkeyLabel.LostFocus -= lostFocusHandler;
 				this.Deactivated -= lostFocusHandler;
+				configButton.Focus();
 				this.TryRegisterHotkeys();
 			}
 			this.UnregisterHotkeys();
 			SetStrikethrough(hotkeyLabel, false);
-			hotkeyLabel.Background = SystemColors.WindowBrush;
-			hotkeyLabel.Foreground = SystemColors.WindowTextBrush;
+			configButton.Visibility = Visibility.Collapsed;
+			hotkeyLabel.Background = neutralBack;
+			hotkeyLabel.Foreground = neutralFore;
 			hotkeyLabel.Focusable = true;
 			hotkeyLabel.KeyDown += keyPressHandler;
 			this.Deactivated += lostFocusHandler;
@@ -315,12 +320,14 @@ namespace RuleBuilder.Forms {
 		private void ConfOldHotkeyClicked(object sender, RoutedEventArgs e) =>
 			this.StartHotkeyEdit(
 				this.lblAutoTypeOld,
+				(Button)sender,
 				(combo) => this.OldPasswordHotkeyCombo = combo
 			);
 
 		private void ConfNewHotkeyClicked(object sender, RoutedEventArgs e) =>
 			this.StartHotkeyEdit(
 				this.lblAutoTypeNew,
+				(Button)sender,
 				(combo) => this.NewPasswordHotkeyCombo = combo
 			);
 

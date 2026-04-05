@@ -1,18 +1,19 @@
 ﻿using System;
-using System.Windows.Media;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media;
 using KeePass.App;
 using KeePass.Plugins;
+using KeePass.Util;
 using KeePassLib;
 using KeePassLib.Security;
 using RuleBuilder.Rule;
 using RuleBuilder.Util;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace RuleBuilder.Forms {
 	delegate void SetKeyCombination(KeyCombination combo);
@@ -377,6 +378,14 @@ namespace RuleBuilder.Forms {
 					this.Database
 				));
 			}
+		}
+
+		private void CopyOldPassword(object sender, RoutedEventArgs e) {
+			ClipboardUtil.Copy(txtOldPassword.Text, false, false, null, null, new WindowInteropHelper(this).Handle);
+		}
+
+		private void CopyNewPassword(object sender, RoutedEventArgs e) {
+			ClipboardUtil.Copy(txtNewPassword.Text, false, false, null, null, new WindowInteropHelper(this).Handle);
 		}
 	}
 }

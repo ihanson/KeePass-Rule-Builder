@@ -124,6 +124,24 @@ namespace RuleBuilder.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Discarded Passwords....
+        /// </summary>
+        internal static string DiscardedPasswords {
+            get {
+                return ResourceManager.GetString("DiscardedPasswords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passwords generated but not used can be found under {0} &gt; {1}..
+        /// </summary>
+        internal static string DiscardedPasswordsInMenu {
+            get {
+                return ResourceManager.GetString("DiscardedPasswordsInMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Password Rule....
         /// </summary>
         internal static string EditPasswordRule {

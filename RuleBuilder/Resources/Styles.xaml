@@ -15,7 +15,7 @@
 		<Setter Property="FontFamily" Value="Consolas"/>
 		<Setter Property="Padding" Value="0,2"/>
 	</Style>
-	<Style x:Key="GeneratePassword" TargetType="Button">
+	<Style x:Key="IconButton" TargetType="Button">
 		<Setter Property="Height" Value="22"/>
 		<Setter Property="Padding" Value="2"/>
 		<Setter Property="Margin" Value="4,0,0,0"/>

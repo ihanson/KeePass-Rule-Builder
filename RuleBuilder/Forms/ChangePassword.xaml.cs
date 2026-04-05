@@ -11,6 +11,8 @@ using KeePassLib;
 using KeePassLib.Security;
 using RuleBuilder.Rule;
 using RuleBuilder.Util;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RuleBuilder.Forms {
 	delegate void SetKeyCombination(KeyCombination combo);
@@ -19,7 +21,12 @@ namespace RuleBuilder.Forms {
 		private const int HotKeyMessage = 0x312;
 		private const short ShiftKey = 0x10;
 
-		private ChangePassword(IPluginHost host, KeePass.Forms.MainForm mainForm, PwDatabase database, PwEntry entry) {
+		private ChangePassword(
+			IPluginHost host,
+			KeePass.Forms.MainForm mainForm,
+			PwDatabase database,
+			PwEntry entry
+		) {
 			this.InitializeComponent();
 			this.Host = host;
 			this.MainForm = mainForm;
@@ -57,10 +64,18 @@ namespace RuleBuilder.Forms {
 		private bool RuleChanged { get; set; }
 
 		private bool SettingsChanged { get; set; }
+		private DateTime? LastPasswordChangeInstant { get; set; }
+
+		private List<GeneratedPassword> GeneratedPasswords { get; } = new List<GeneratedPassword>();
 
 		private HwndSource Source { get; set; }
 
-		public static bool ShowChangePasswordDialog(KeePass.Plugins.IPluginHost host, KeePass.Forms.MainForm mainForm, PwEntry entry) {
+		public static bool ShowChangePasswordDialog(
+			IPluginHost host,
+			KeePass.Forms.MainForm mainForm,
+			PwEntry entry,
+			out List<GeneratedPassword> discardedEntries
+		) {
 			if (host == null) {
 				throw new ArgumentNullException(nameof(host));
 			}
@@ -72,6 +87,10 @@ namespace RuleBuilder.Forms {
 			}
 			ChangePassword window = new ChangePassword(host, mainForm, mainForm.ActiveDatabase, entry);
 			_ = window.ShowDialog();
+			string newPassword = entry.Strings.Get(PwDefs.PasswordField)?.ReadString();
+			discardedEntries = window.GeneratedPasswords
+				.Where((password) => password.Password != newPassword)
+				.ToList();
 			return window.EntryChanged;
 		}
 
@@ -337,6 +356,26 @@ namespace RuleBuilder.Forms {
 				text.TextDecorations.Add(new TextDecoration() {
 					Location = TextDecorationLocation.Strikethrough
 				});
+			}
+		}
+
+		private void NewPasswordChanged(object sender, TextChangedEventArgs e) {
+			this.LastPasswordChangeInstant = DateTime.UtcNow;
+		}
+
+		private void WindowDeactivated(object sender, EventArgs e) {
+			string password = this.txtNewPassword.Text;
+			if (
+				!string.IsNullOrEmpty(password)
+				&& this.LastPasswordChangeInstant != null
+				&& !this.GeneratedPasswords.Any((pw) => pw.Password == password)
+			) {
+				this.GeneratedPasswords.Add(new GeneratedPassword(
+					this.Entry.Strings.Get(PwDefs.TitleField).ReadString() ?? string.Empty,
+					password,
+					this.LastPasswordChangeInstant.Value,
+					this.Database
+				));
 			}
 		}
 	}

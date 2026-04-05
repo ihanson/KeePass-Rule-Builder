@@ -138,6 +138,12 @@
   <data name="Digits" xml:space="preserve">
     <value>Digits (0–9)</value>
   </data>
+  <data name="DiscardedPasswords" xml:space="preserve">
+    <value>Discarded Passwords...</value>
+  </data>
+  <data name="DiscardedPasswordsInMenu" xml:space="preserve">
+    <value>Passwords generated but not used can be found under {0} &gt; {1}.</value>
+  </data>
   <data name="EditPasswordRule" xml:space="preserve">
     <value>Edit Password Rule...</value>
   </data>

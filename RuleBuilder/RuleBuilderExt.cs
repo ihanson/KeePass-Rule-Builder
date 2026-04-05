@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using KeePass.Plugins;
 using KeePassLib;
+using RuleBuilder.Forms;
 using RuleBuilder.Properties;
 using RuleBuilder.Rule;
 using RuleBuilder.Rule.Serialization;
@@ -28,7 +31,7 @@ namespace RuleBuilder {
 				MenuItem(Resources.EditPasswordRule, this.ShowGroupChangeRule, null)
 			);
 
-			Forms.EntryFormMod.RegisterEntryForm(host);
+			EntryFormMod.RegisterEntryForm(host);
 
 			return base.Initialize(host);
 		}
@@ -37,11 +40,62 @@ namespace RuleBuilder {
 
 		internal static ToolStripMenuItem MenuItem(string text, Action action, Image image) => new ToolStripMenuItem(text, image, (object _1, EventArgs _2) => action());
 
+		private bool HasAddedDiscardedMenu { get; set; }
+
+		private List<GeneratedPassword> DiscardedEntries { get; set; } = new List<GeneratedPassword>();
+
 		private void ShowChangePassword() {
-			PwEntry entry = this.host.MainWindow.GetSelectedEntry(true);
+			KeePass.Forms.MainForm mainWindow = this.host.MainWindow;
+			PwEntry entry = mainWindow.GetSelectedEntry(true);
 			if (entry != null) {
-				if (Forms.ChangePassword.ShowChangePasswordDialog(this.host, this.host.MainWindow, entry)) {
+				if (Forms.ChangePassword.ShowChangePasswordDialog(this.host, mainWindow, entry, out List<GeneratedPassword> discardedEntries)) {
 					this.RefreshEntries();
+				}
+				this.DiscardedEntries.AddRange(discardedEntries);
+				if (discardedEntries.Count > 0) {
+					mainWindow.SetStatusEx(
+						string.Format(
+							Resources.DiscardedPasswordsInMenu,
+							mainWindow.ToolsMenu.Text,
+							Resources.DiscardedPasswords
+						)
+					);
+				}
+				if (!this.HasAddedDiscardedMenu && this.DiscardedEntries.Count > 0) {
+					ToolStripMenuItem menuItem = new ToolStripMenuItem(
+						Resources.DiscardedPasswords,
+						Images.TrashCan,
+						(_1, _2) => {
+							if (!mainWindow.IsFileLocked(null)) {
+								DiscardedPasswords.ShowDiscardedPasswordDialog(
+									this.DiscardedEntries.Where(
+										(e) => object.ReferenceEquals(e.SourceDatabase, mainWindow.ActiveDatabase)
+									)
+								);
+							}
+						}
+					) {
+						Enabled = !mainWindow.IsFileLocked(null)
+					};
+					mainWindow.ToolsMenu.DropDownItems.AddRange(new ToolStripItem[] {
+						new ToolStripSeparator(),
+						menuItem
+					});
+					mainWindow.DocumentManager.ActiveDocumentSelected += (_1, _2) => {
+						menuItem.Enabled = !mainWindow.IsFileLocked(null);
+					};
+					mainWindow.FileOpened += (_, e) => {
+						menuItem.Enabled = !mainWindow.IsFileLocked(null);
+					};
+					mainWindow.FileClosingPost += (_, e) => {
+						menuItem.Enabled = false;
+						if ((e.Flags & KeePass.Forms.FileEventFlags.Locking) == 0) {
+							this.DiscardedEntries.RemoveAll(
+								(password) => object.ReferenceEquals(password.SourceDatabase, e.Database)
+							);
+						}
+					};
+					this.HasAddedDiscardedMenu = true;
 				}
 			}
 		}
@@ -62,7 +116,7 @@ namespace RuleBuilder {
 			PwGroup group = this.host.MainWindow.GetSelectedGroup();
 			if (group != null) {
 				Configuration config = Entry.GroupConfiguration(group);
-				if (Forms.EditRule.ShowRuleDialog(this.host.MainWindow, ref config)) {
+				if (EditRule.ShowRuleDialog(this.host.MainWindow, ref config)) {
 					Entry.SetGroupConfiguration(group, config);
 					group.Touch(true);
 					this.RefreshEntries();

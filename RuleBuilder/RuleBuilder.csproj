@@ -66,6 +66,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\DiscardedPasswords.xaml.cs">
+      <DependentUpon>DiscardedPasswords.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EntryFormMod.cs" />
     <Compile Include="Forms\ChangePassword.xaml.cs">
       <DependentUpon>ChangePassword.xaml</DependentUpon>
@@ -139,6 +142,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\DiscardedPasswords.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\EditRule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -181,6 +188,13 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Gear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\IconsHigh\TrashCan.png" />
+    <Resource Include="Resources\IconsLow\TrashCan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Copy.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

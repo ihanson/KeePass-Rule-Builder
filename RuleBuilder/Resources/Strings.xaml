@@ -33,4 +33,11 @@
 	<System:String x:Key="OldPasswordAutoType">Ctrl+Shift+Z</System:String>
 	<System:String x:Key="NewPasswordAutoType">Ctrl+Shift+X</System:String>
 	<System:String x:Key="PasswordExpires">Password expires</System:String>
+	<System:String x:Key="DiscardedPasswords">Discarded Passwords</System:String>
+	<System:String x:Key="CopyPassword">Copy this password to the clipboard</System:String>
+	<System:String x:Key="Entry">Entry</System:String>
+	<System:String x:Key="Password">Password</System:String>
+	<System:String x:Key="Time">Time</System:String>
+	<System:String x:Key="ListWillBeCleared">This list will be cleared when the password database is closed.</System:String>
+	<System:String x:Key="Close">_Close</System:String>
 </ResourceDictionary>

@@ -15,6 +15,10 @@
 		<Setter Property="FontFamily" Value="Consolas"/>
 		<Setter Property="Padding" Value="0,2"/>
 	</Style>
+	<Style x:Key="PasswordEntryPwBox" TargetType="PasswordBox">
+		<Setter Property="FontFamily" Value="Consolas"/>
+		<Setter Property="Padding" Value="0,2"/>
+	</Style>
 	<Style x:Key="IconButton" TargetType="Button">
 		<Setter Property="Height" Value="22"/>
 		<Setter Property="Padding" Value="2"/>

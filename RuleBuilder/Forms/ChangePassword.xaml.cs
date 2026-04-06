@@ -29,6 +29,12 @@ namespace RuleBuilder.Forms {
 			PwEntry entry
 		) {
 			this.InitializeComponent();
+
+			this.NewPasswordBox = new PasswordTextBoxProxy(
+				this.txtNewPassword,
+				this.pwNewPassword,
+				AppPolicy.Current.UnhidePasswords
+			);
 			this.Host = host;
 			this.MainForm = mainForm;
 			this.Database = database;
@@ -37,8 +43,11 @@ namespace RuleBuilder.Forms {
 			new WindowInteropHelper(this).Owner = mainForm.Handle;
 			this.Title = $"{Properties.Resources.ChangePassword}: {entry.Strings.Get(PwDefs.TitleField)?.ReadString() ?? string.Empty}";
 			this.Configuration = Rule.Serialization.Entry.EntryDefaultConfiguration(entry);
-			this.txtOldPassword.Text = entry.Strings.Get(PwDefs.PasswordField)?.ReadString() ?? string.Empty;
-			this.txtNewPassword.Text = this.Configuration.Generator.NewPassword();
+			this.OldPassword = entry.Strings.Get(PwDefs.PasswordField)?.ReadString() ?? string.Empty;
+			this.txtOldPassword.Text = AppPolicy.Current.UnhidePasswords
+				? this.OldPassword
+				: new string('\u25CF', this.OldPassword.Length);
+			this.NewPasswordBox.Text = this.Configuration.Generator.NewPassword();
 			this.SetExpiration();
 		}
 
@@ -49,6 +58,12 @@ namespace RuleBuilder.Forms {
 		private PwDatabase Database { get; }
 
 		private PwEntry Entry { get; }
+
+		private PasswordTextBoxProxy OldPasswordBox { get; }
+
+		private string OldPassword { get; }
+
+		private PasswordTextBoxProxy NewPasswordBox { get; }
 
 		private Hotkey OldPasswordHotkey { get; set; }
 
@@ -100,10 +115,10 @@ namespace RuleBuilder.Forms {
 				WaitForKeyRelease();
 				int hotKeyID = wParam.ToInt32();
 				if (this.OldPasswordHotkey?.MatchesID(hotKeyID) ?? false) {
-					_ = KeePass.Util.AutoType.PerformIntoCurrentWindow(this.Entry, this.Database, EscapeAutoType(this.txtOldPassword.Text));
+					_ = KeePass.Util.AutoType.PerformIntoCurrentWindow(this.Entry, this.Database, EscapeAutoType(this.OldPassword));
 					handled = true;
 				} else if (this.NewPasswordHotkey?.MatchesID(hotKeyID) ?? false) {
-					_ = KeePass.Util.AutoType.PerformIntoCurrentWindow(this.Entry, this.Database, EscapeAutoType(this.txtNewPassword.Text));
+					_ = KeePass.Util.AutoType.PerformIntoCurrentWindow(this.Entry, this.Database, EscapeAutoType(this.NewPasswordBox.Text));
 					handled = true;
 				}
 			}
@@ -125,7 +140,7 @@ namespace RuleBuilder.Forms {
 
 		private void SaveClicked(object sender, RoutedEventArgs e) {
 			string oldPassword = this.Entry.Strings.Get(PwDefs.PasswordField).ReadString();
-			string newPassword = this.txtNewPassword.Text;
+			string newPassword = this.NewPasswordBox.Text;
 			bool passwordChanged = oldPassword != newPassword;
 			if (passwordChanged || this.RuleChanged) {
 				if (passwordChanged) {
@@ -152,13 +167,13 @@ namespace RuleBuilder.Forms {
 			if (EditRule.ShowRuleDialog(this.MainForm, ref config)) {
 				this.RuleChanged = true;
 				this.Configuration = config;
-				this.txtNewPassword.Text = this.Configuration.Generator.NewPassword();
+				this.NewPasswordBox.Text = this.Configuration.Generator.NewPassword();
 				this.SetExpiration();
 			}
 		}
 
 		private void RefreshClicked(object sender, RoutedEventArgs e) {
-			this.txtNewPassword.Text = this.Configuration.Generator.NewPassword();
+			this.NewPasswordBox.Text = this.Configuration.Generator.NewPassword();
 		}
 
 		private (KeyCombination, KeyCombination) ReadSettings() {
@@ -364,12 +379,12 @@ namespace RuleBuilder.Forms {
 			}
 		}
 
-		private void NewPasswordChanged(object sender, TextChangedEventArgs e) {
+		private void NewPasswordChanged(object sender, EventArgs e) {
 			this.LastPasswordChangeInstant = DateTime.UtcNow;
 		}
 
 		private void WindowDeactivated(object sender, EventArgs e) {
-			string password = this.txtNewPassword.Text;
+			string password = this.NewPasswordBox.Text;
 			if (
 				!string.IsNullOrEmpty(password)
 				&& this.LastPasswordChangeInstant != null
@@ -385,11 +400,38 @@ namespace RuleBuilder.Forms {
 		}
 
 		private void CopyOldPassword(object sender, RoutedEventArgs e) {
-			ClipboardUtil.Copy(txtOldPassword.Text, false, true, this.Entry, this.Database, new WindowInteropHelper(this).Handle);
+			ClipboardUtil.Copy(this.OldPassword, false, true, this.Entry, this.Database, new WindowInteropHelper(this).Handle);
 		}
 
 		private void CopyNewPassword(object sender, RoutedEventArgs e) {
-			ClipboardUtil.Copy(txtNewPassword.Text, false, true, this.Entry, this.Database, new WindowInteropHelper(this).Handle);
+			ClipboardUtil.Copy(NewPasswordBox.Text, false, true, this.Entry, this.Database, new WindowInteropHelper(this).Handle);
 		}
+	}
+
+	class PasswordTextBoxProxy {
+		public PasswordTextBoxProxy(TextBox textBox, PasswordBox passwordBox, bool showText) {
+			this.TextBox = textBox;
+			this.PasswordBox = passwordBox;
+			this.ShowText = showText;
+			textBox.Visibility = showText ? Visibility.Visible : Visibility.Hidden;
+			passwordBox.Visibility = showText ? Visibility.Hidden : Visibility.Visible;
+		}
+
+		public string Text {
+			get => this.ShowText
+				? this.TextBox.Text
+				: this.PasswordBox.Password;
+			set {
+				if (this.ShowText) {
+					this.TextBox.Text = value;
+				} else {
+					this.PasswordBox.Password = value;
+				}
+			}
+		}
+
+		private readonly TextBox TextBox;
+		private readonly PasswordBox PasswordBox;
+		private readonly bool ShowText;
 	}
 }

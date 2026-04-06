@@ -51,6 +51,17 @@ namespace RuleBuilder.Forms {
 			null;
 	}
 
+	public class PasswordConverter : IValueConverter {
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+			string password = value as string ?? string.Empty;
+			return AppPolicy.Current.UnhidePasswords
+				? password
+				: new string('\u25CF', password.Length);
+		}
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
+			null;
+	}
+
 	class CopyPasswordCommand : ICommand {
 		public CopyPasswordCommand(DiscardedPasswords window) {
 			this.Window = window;

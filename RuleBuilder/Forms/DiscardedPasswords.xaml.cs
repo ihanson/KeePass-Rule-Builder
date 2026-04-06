@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,12 +21,12 @@ namespace RuleBuilder.Forms {
 			new WindowInteropHelper(this).Owner = mainForm.Handle;
 			this.dgPasswords.ItemsSource = passwords;
 			this.CopyPassword = new CopyPasswordCommand(this);
+			DataGridColumn copyColumn = this.dgPasswords.Columns[this.dgPasswords.Columns.Count - 1];
+			Debug.Assert(copyColumn.Header == null);
 			if (!AppPolicy.Current.CopyToClipboard) {
-				DataGridColumn copyColumn = this.dgPasswords.Columns[this.dgPasswords.Columns.Count - 1];
 				copyColumn.Visibility = Visibility.Collapsed;
 			}
 		}
-
 		public static void ShowDiscardedPasswordDialog(KeePass.Forms.MainForm mainForm, IEnumerable<GeneratedPassword> passwords) {
 			new DiscardedPasswords(mainForm, passwords).ShowDialog();
 		}

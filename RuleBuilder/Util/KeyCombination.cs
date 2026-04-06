@@ -5,7 +5,7 @@ using System.Windows.Input;
 using Keys = System.Windows.Forms.Keys;
 
 namespace RuleBuilder.Util {
-	internal class KeyCombination {
+	public class KeyCombination {
 		public readonly ModifierKeys Modifiers;
 		public readonly Key Key;
 

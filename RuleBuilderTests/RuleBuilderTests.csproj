@@ -51,6 +51,8 @@
       <HintPath>..\packages\MSTest.TestFramework.2.2.3\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -75,6 +77,7 @@
     <Compile Include="Rule\Serialization\RuleContractTests.cs" />
     <Compile Include="Rule\ExpirationTests.cs" />
     <Compile Include="Util\EntropyTests.cs" />
+    <Compile Include="Util\KeyCombinationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RuleBuilder\RuleBuilder.csproj">

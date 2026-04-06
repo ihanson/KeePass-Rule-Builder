@@ -13,14 +13,15 @@ namespace RuleBuilder.Forms {
 	/// Interaction logic for DiscardedPasswords.xaml
 	/// </summary>
 	public partial class DiscardedPasswords : Window {
-		private DiscardedPasswords(IEnumerable<GeneratedPassword> passwords) {
+		private DiscardedPasswords(KeePass.Forms.MainForm mainForm, IEnumerable<GeneratedPassword> passwords) {
 			InitializeComponent();
+			new WindowInteropHelper(this).Owner = mainForm.Handle;
 			this.dgPasswords.ItemsSource = passwords;
 			this.CopyPassword = new CopyPasswordCommand(this);
 		}
 
-		public static void ShowDiscardedPasswordDialog(IEnumerable<GeneratedPassword> passwords) {
-			new DiscardedPasswords(passwords).ShowDialog();
+		public static void ShowDiscardedPasswordDialog(KeePass.Forms.MainForm mainForm, IEnumerable<GeneratedPassword> passwords) {
+			new DiscardedPasswords(mainForm, passwords).ShowDialog();
 		}
 
 		public ICommand CopyPassword { get; }

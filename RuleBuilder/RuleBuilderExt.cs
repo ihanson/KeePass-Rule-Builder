@@ -68,6 +68,7 @@ namespace RuleBuilder {
 						(_1, _2) => {
 							if (!mainWindow.IsFileLocked(null)) {
 								DiscardedPasswords.ShowDiscardedPasswordDialog(
+									this.host.MainWindow,
 									this.DiscardedEntries.Where(
 										(e) => object.ReferenceEquals(e.SourceDatabase, mainWindow.ActiveDatabase)
 									)

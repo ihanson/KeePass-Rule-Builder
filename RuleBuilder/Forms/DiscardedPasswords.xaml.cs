@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
+using KeePass.App;
 using KeePass.Util;
 using KeePassLib;
 
@@ -18,6 +20,10 @@ namespace RuleBuilder.Forms {
 			new WindowInteropHelper(this).Owner = mainForm.Handle;
 			this.dgPasswords.ItemsSource = passwords;
 			this.CopyPassword = new CopyPasswordCommand(this);
+			if (!AppPolicy.Current.CopyToClipboard) {
+				DataGridColumn copyColumn = this.dgPasswords.Columns[this.dgPasswords.Columns.Count - 1];
+				copyColumn.Visibility = Visibility.Collapsed;
+			}
 		}
 
 		public static void ShowDiscardedPasswordDialog(KeePass.Forms.MainForm mainForm, IEnumerable<GeneratedPassword> passwords) {
@@ -38,6 +44,13 @@ namespace RuleBuilder.Forms {
 			((DateTime)value).ToUniversalTime();
 	}
 
+	public class EntryConverter : IValueConverter {
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
+			(value as PwEntry)?.Strings.Get(PwDefs.TitleField).ReadString() ?? string.Empty;
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
+			null;
+	}
+
 	class CopyPasswordCommand : ICommand {
 		public CopyPasswordCommand(DiscardedPasswords window) {
 			this.Window = window;
@@ -51,20 +64,20 @@ namespace RuleBuilder.Forms {
 		public void Execute(object parameter) {
 			GeneratedPassword password = parameter as GeneratedPassword;
 			if (!string.IsNullOrEmpty(password?.Password)) {
-				ClipboardUtil.Copy(password.Password, false, false, null, null, new WindowInteropHelper(this.Window).Handle);
+				ClipboardUtil.Copy(password.Password, false, true, password.Entry, null, new WindowInteropHelper(this.Window).Handle);
 			}
 		}
 	}
 
 	public class GeneratedPassword {
-		public GeneratedPassword(string entryName, string password, DateTime generatedTime, PwDatabase sourceDatabase) {
+		public GeneratedPassword(PwEntry entry, string password, DateTime generatedTime, PwDatabase sourceDatabase) {
 			this.Password = password;
-			this.EntryName = entryName;
+			this.Entry = entry;
 			this.GeneratedTime = generatedTime;
 			this.SourceDatabase = sourceDatabase;
 		}
 		public PwDatabase SourceDatabase { get; }
-		public string EntryName { get; }
+		public PwEntry Entry{ get; }
 		public string Password { get; }
 		public DateTime GeneratedTime { get; }
 	}

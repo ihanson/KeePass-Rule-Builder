@@ -226,6 +226,10 @@ namespace RuleBuilder.Forms {
 				this.Source.AddHook(this.HwndHook);
 				this.TryRegisterHotkeys();
 			}
+			if (!AppPolicy.Current.CopyToClipboard) {
+				btnCopyOld.Visibility = Visibility.Collapsed;
+				btnCopyNew.Visibility = Visibility.Collapsed;
+			}
 			this.MinHeight = this.Height;
 			this.MaxHeight = this.Height;
 		}
@@ -372,7 +376,7 @@ namespace RuleBuilder.Forms {
 				&& !this.GeneratedPasswords.Any((pw) => pw.Password == password)
 			) {
 				this.GeneratedPasswords.Add(new GeneratedPassword(
-					this.Entry.Strings.Get(PwDefs.TitleField).ReadString() ?? string.Empty,
+					this.Entry,
 					password,
 					this.LastPasswordChangeInstant.Value,
 					this.Database
@@ -381,11 +385,11 @@ namespace RuleBuilder.Forms {
 		}
 
 		private void CopyOldPassword(object sender, RoutedEventArgs e) {
-			ClipboardUtil.Copy(txtOldPassword.Text, false, false, null, null, new WindowInteropHelper(this).Handle);
+			ClipboardUtil.Copy(txtOldPassword.Text, false, true, this.Entry, this.Database, new WindowInteropHelper(this).Handle);
 		}
 
 		private void CopyNewPassword(object sender, RoutedEventArgs e) {
-			ClipboardUtil.Copy(txtNewPassword.Text, false, false, null, null, new WindowInteropHelper(this).Handle);
+			ClipboardUtil.Copy(txtNewPassword.Text, false, true, this.Entry, this.Database, new WindowInteropHelper(this).Handle);
 		}
 	}
 }
